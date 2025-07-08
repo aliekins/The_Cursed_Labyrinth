@@ -1,5 +1,9 @@
 # The Cursed Labyrinth
 
+>Project will be stored inside a public GitHub repository
+[hyperlink to the repo](https://github.com/aliekins/The_Cursed_Labyrinth.git)
+_(it would probably be a nicer read over there)_
+
 ## Project Overview  
 A 2D, top-down dungeon crawler with light puzzle elements and a (somewhat) dark fantasy narrative. Players embody a lone knight lost in an ever-shifting maze, guided (and tested) by the ghost of the creature he slew.
 
@@ -92,5 +96,4 @@ Each region hides lore fragments that deepen the knight–ghost relationship and
     - xUnit tests
     - doc comments on all public APIs
     - README: setup, run instructions, art attribution list
-    
->Project will be stored inside a public GitHub repository
+
