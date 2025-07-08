@@ -9,7 +9,6 @@ A 2D, top-down dungeon crawler with light puzzle elements and a (somewhat) dark 
 
 - **Procedural Generation**
   - BSP-based rooms + corridor carve
-  - Guarantee full connectivity; seedable for reproducible runs 
 - **Atmosphere & Theme** 
   - Journey, discovery, betrayal, bittersweet resolution 
   - Pixel art (in case I do not have time to create my own, sources will of course be listed)
@@ -43,6 +42,11 @@ Each region hides lore fragments that deepen the knight–ghost relationship and
 4. **Resolution** 
    - Final doors swing open; ghost fades, revealing the gods’ betrayal 
    - Knight returns home, haunted by the curse he helped enact 
+
+5. **Clarification on Procedural Dungeon Generation and Biomes**
+  - BSP-based rooms 
+  - Corridor carve via A* between room centers 
+  - Post-processing the graph: BFS from spawn - assigning biome zones by distance thresholds 
 
 ## Alignment with NPRG035  
 - **Functionality** 
