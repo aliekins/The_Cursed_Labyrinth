@@ -52,7 +52,7 @@ Each region hides lore fragments that deepen the knight–ghost relationship and
 - **Maintainability** 
   - Clear layering: 
     1. **Data** (tiles, map, puzzle definitions) 
-    2. **Generation** (IDungeonGenerator, BSP/Cave modules) 
+    2. **Generation** (IDungeonGenerator, BSP) 
     3. **Visualization** (TilemapVisualizer, SpriteAtlas) 
     4. **Gameplay** (PlayerController, PuzzleManager) 
 - **C# Fundamentals** 
