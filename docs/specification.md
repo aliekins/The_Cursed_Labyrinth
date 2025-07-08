@@ -4,6 +4,8 @@
 [hyperlink to the repo](https://github.com/aliekins/The_Cursed_Labyrinth.git)
 _(it would probably be a nicer read over there)_
 
+>Note: This specification may seem a bit hectic, since I was trying to write down everything I would not like to forget myself (more so than just trying to explain the goal of the project). So the part You might be mainly interested in is just the **Project Overview** section.
+
 ## Project Overview  
 A 2D, top-down dungeon crawler with light puzzle elements and a (somewhat) dark fantasy narrative. Players embody a lone knight lost in an ever-shifting maze, guided (and tested) by the ghost of the creature he slew.
 
