@@ -1,1 +1,1 @@
-# Dungeon
+# The Cursed Labyrinth
