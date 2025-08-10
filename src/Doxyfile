@@ -1,0 +1,7 @@
+PROJECT_NAME           = "The Cursed Labyrinth"
+OUTPUT_DIRECTORY       = docs
+INPUT                  = Assets/Scripts
+FILE_PATTERNS          = *.cs
+RECURSIVE              = YES
+OPTIMIZE_OUTPUT_JAVA   = YES
+EXTRACT_ALL            = YES
