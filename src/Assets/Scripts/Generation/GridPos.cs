@@ -1,16 +1,12 @@
+/// \file GridPos.cs
+/// \brief Simple integer grid coordinate helper.
 using UnityEngine;
 
-public class GridPos : MonoBehaviour
+public readonly struct GridPos
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public readonly int x, y;
+    public GridPos(int x, int y) { this.x = x; this.y = y; }
+    public Vector3 ToWorld(float cellSize = 1f) => new Vector3(x * cellSize, y * cellSize, 0f);
+    public static implicit operator Vector2Int(GridPos p) => new Vector2Int(p.x, p.y);
+    public static implicit operator GridPos(Vector2Int v) => new GridPos(v.x, v.y);
 }

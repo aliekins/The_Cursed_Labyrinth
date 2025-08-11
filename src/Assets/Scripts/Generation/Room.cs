@@ -1,16 +1,15 @@
+/// \file Room.cs
+/// \brief Carved room representation with bounds and center.
 using UnityEngine;
 
-public class Room : MonoBehaviour
+public sealed class Room
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public int Id { get; }
+    public RectInt Bounds { get; }
+    public Vector2Int Center { get; }
+    public Room(int id, RectInt bounds)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Id = id; Bounds = bounds;
+        Center = new Vector2Int(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
     }
 }
