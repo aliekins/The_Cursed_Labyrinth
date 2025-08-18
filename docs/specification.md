@@ -90,7 +90,7 @@ Each region hides lore fragments that deepen the knight–ghost relationship and
     
 ## Non-Functional Requirements
 - Performance
-    - prefab pooling
+    - prefab pooling (avoid GC spikes)
     - IReadOnlyList<T> for query results
     - sprite atlas batching
 
@@ -98,8 +98,6 @@ Each region hides lore fragments that deepen the knight–ghost relationship and
     - auto-register new puzzles via reflection scan
     - biome modules pluggable in generator pipeline
 
-- Testing & Documentation
-    - xUnit tests
+- Documentation
     - doc comments on all public APIs
     - README: setup, run instructions, art attribution list
-
