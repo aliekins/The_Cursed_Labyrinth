@@ -15,6 +15,8 @@ MonoBehaviour:
   entries:
   - kind: wall
     rule: {fileID: 11400000, guid: 3da3db708e15f064c92f3f130dfb1d7b, type: 2}
+  - kind: carpet
+    rule: {fileID: 11400000, guid: ed11623b0d23e774ba79297d74daf4b6, type: 2}
   - kind: floor_entry
     rule: {fileID: 11400000, guid: 66b9fe3fcc4568948b02cf1138fb0e04, type: 2}
   - kind: floor_grove
