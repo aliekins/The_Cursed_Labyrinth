@@ -75,7 +75,7 @@ Each region hides lore fragments that deepen the knight–ghost relationship and
 
 ## Functional Requirements
 - Character
-    - 8-directional, grid-based movement
+    - 4-directional, grid-based movement
     - sprite flipping / orientation animations
 
 - Dungeon Generation
@@ -90,7 +90,7 @@ Each region hides lore fragments that deepen the knight–ghost relationship and
     
 ## Non-Functional Requirements
 - Performance
-    - prefab pooling (avoid GC spikes)
+    - prefab pooling
     - IReadOnlyList<T> for query results
     - sprite atlas batching
 
