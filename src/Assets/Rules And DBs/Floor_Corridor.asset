@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ada557cbf41dcd7498fe0e40d94d84d1, type: 3}
-  m_Name: Floor_Quarry_Rule
+  m_Name: Floor_Corridor
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 1933650392, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+  - {fileID: -825250436, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
   pick: 0
   offset: {x: 0, y: 0}
   rotation: 0

@@ -456,11 +456,20 @@ MonoBehaviour:
   minRoomSize: 8
   maxRoomSize: 16
   corridorThickness: 2
+  biomeBands:
+  - maxDistance: 80
+    kind: floor_entry
+  - maxDistance: 200
+    kind: floor_quarry
+  - maxDistance: 500
+    kind: floor_grove
+  biomeEntryBuffer: 0
+  corridorKind: floor_corridor
+  playerPrefab: {fileID: 5724184534580437276, guid: cff6acc7651494b429105766ce9fc416, type: 3}
   ruleDatabase: {fileID: 11400000, guid: 7e6259b44fb099f45b545aee954df35f, type: 2}
   tmVisualizer: {fileID: 455406373}
   seed: 12345
   randomizeSeedOnStart: 1
-  playerPrefab: {fileID: 5724184534580437276, guid: cff6acc7651494b429105766ce9fc416, type: 3}
 --- !u!114 &455406373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,7 +486,7 @@ MonoBehaviour:
   carpet: {fileID: 1726379550}
   walls: {fileID: 35333456}
   db: {fileID: 11400000, guid: fe4a48258997c70479333b994316ec79, type: 2}
-  coverageRatio: 0.5
+  coverageRatio: 0.3
   minPatchWidth: 4
   minPatchHeight: 4
   maxPatchWidth: 8
@@ -839,7 +848,7 @@ TilemapRenderer:
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
-  m_SortOrder: 0
+  m_SortOrder: 2
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
@@ -862,7 +871,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
   m_Size: {x: 0, y: 0, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1

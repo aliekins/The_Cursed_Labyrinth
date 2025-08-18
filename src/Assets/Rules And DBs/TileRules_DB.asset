@@ -23,3 +23,5 @@ MonoBehaviour:
     rule: {fileID: 11400000, guid: 6bc6e5f633b0c49499b2e330be0bf4c7, type: 2}
   - kind: floor_quarry
     rule: {fileID: 11400000, guid: 704a0feace5eee84cb931c330c823a28, type: 2}
+  - kind: floor_corridor
+    rule: {fileID: 11400000, guid: a56e191008f55c240a97625fe57ba93d, type: 2}

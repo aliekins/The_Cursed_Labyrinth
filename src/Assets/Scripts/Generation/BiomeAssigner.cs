@@ -133,4 +133,45 @@ public static class BiomeAssigner
             }
         }
     }
+
+    /// \brief Compute per-room levels by BFS over the room graph (edges)
+    public static int[] ComputeRoomLevels(IReadOnlyList<Room> rooms, IReadOnlyList<(int a, int b)> edges, int startRoom)
+    {
+        int n = rooms.Count;
+        var adj = new List<int>[n];
+        for (int i = 0; i < n; i++) adj[i] = new List<int>();
+        foreach (var (a, b) in edges) { adj[a].Add(b); adj[b].Add(a); }
+
+        var level = new int[n];
+        for (int i = 0; i < n; i++) level[i] = int.MaxValue;
+
+        var q = new Queue<int>();
+        level[startRoom] = 0;
+        q.Enqueue(startRoom);
+
+        while (q.Count > 0)
+        {
+            int u = q.Dequeue();
+            foreach (int v in adj[u])
+            {
+                if (level[v] != int.MaxValue) continue;
+                level[v] = level[u] + 1;  // next “ring” after a corridor
+                q.Enqueue(v);
+            }
+        }
+        return level;
+    }
+
+    /// \brief Paint whole rooms with biome kinds based on precomputed levels
+    public static void PaintRoomsByLevel(DungeonGrid grid, IReadOnlyList<Room> rooms, IReadOnlyList<int> levels, Func<int, string> kindForLevel, int roundCornerRadius = 0)
+    {
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            int lvl = levels[i];
+            if (lvl == int.MaxValue) continue; // unreachable room
+            string kind = kindForLevel(lvl);
+            grid.CarveRoom(rooms[i].Bounds, kind);
+        }
+    }
+
 }
