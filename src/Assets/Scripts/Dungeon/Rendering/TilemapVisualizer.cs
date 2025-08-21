@@ -22,6 +22,7 @@ public sealed class TilemapVisualizer : MonoBehaviour
     [SerializeField] private int maxPatchAttempts = 500;
     [SerializeField] private int seed = 0;
 
+    public bool[,] CarpetMask { get; private set; }
     private System.Random rng;
 
     private void Awake()
@@ -40,9 +41,9 @@ public sealed class TilemapVisualizer : MonoBehaviour
     {
         if (grid == null) throw new ArgumentNullException(nameof(grid));
 
-        var carpetMask = BuildCarpetMask(grid);
+        CarpetMask = BuildCarpetMask(grid); 
         RenderFloors(grid);
-        RenderCarpets(grid, carpetMask);
+        RenderCarpets(grid, CarpetMask);
         RenderWalls(grid);
     }
 
@@ -123,7 +124,7 @@ public sealed class TilemapVisualizer : MonoBehaviour
             for (int y = 0; y < grid.Height; y++)
             {
                 if (!IsFloor(grid.Kind[x, y])) continue;
-                if (!db.TryGet(grid.Kind[x, y], out var floorTile)) return;
+                if (!db.TryGet(grid.Kind[x, y], out var floorTile)) continue;
 
                 var pos = new Vector3Int(x, y, 0);
                 ground.SetTile(pos, floorTile);

@@ -10,7 +10,7 @@ public class DungeonController : MonoBehaviour
     [Header("Map")]
     [SerializeField] private int width = 64;
     [SerializeField] private int height = 48;
-    [SerializeField, Tooltip("Units per cell")] private float cellSize = 1f;
+    //[SerializeField, Tooltip("Units per cell")] private float cellSize = 1f;
 
     [Header("Map Borders")]
     [SerializeField] private int border = 1;
@@ -48,12 +48,13 @@ public class DungeonController : MonoBehaviour
     [Header("Player")]
     [SerializeField] private GameObject playerPrefab;
 
-    //[Header("Puzzles")]
-    //[SerializeField] private PuzzleRules_SO puzzleRules;  
-    //private Dictionary<int, List<PuzzlePlan>> _puzzlePlans;
+    [Header("Gameplay Systems")]
+    //[SerializeField] private PuzzleManager puzzleManager;
+    [SerializeField] private TrapManager trapManager;
+    [SerializeField] private HealthUI healthUI;
 
-    [Header("Rules / Visuals")]
-    [SerializeField] private TileRuleDatabase ruleDatabase;
+    [Header("Visuals")]
+    //[SerializeField] private TileRuleDatabase ruleDatabase;
     [SerializeField] private TilemapVisualizer tmVisualizer;
 
     [Header("Doors")]
@@ -67,7 +68,7 @@ public class DungeonController : MonoBehaviour
     private List<string> _orderedBiomeKinds;
     private List<Room> _rooms;
 
-    private RuleDrivenVisualizer_SO visualizer;
+    //private RuleDrivenVisualizer_SO visualizer;
     private DungeonGrid grid;
 
     private GameObject playerInstance;
@@ -76,18 +77,11 @@ public class DungeonController : MonoBehaviour
 
     private void Start()
     {
-        if (!ruleDatabase)
-        {
-            Debug.LogError("DungeonController: Assign a TileRuleDatabase in the inspector");
-            return;
-        }
         if (!tmVisualizer)
         {
             Debug.LogError("DungeonController: Assign a TilemapVisualizer in the inspector");
             return;
         }
-
-        visualizer ??= new RuleDrivenVisualizer_SO(transform, ruleDatabase, cellSize);
 
         if (randomizeSeedOnStart)
             seed = Guid.NewGuid().GetHashCode();
@@ -133,19 +127,27 @@ public class DungeonController : MonoBehaviour
 
         RenderDungeon();
 
+        //puzzleManager?.Build(grid, _rooms, ResolveTierFromRoomKind, doorManager);
+        trapManager?.Build(grid, _rooms, ResolveTierFromRoomKind, tmVisualizer.CarpetMask);
+
         PlacePlayer(spawn);
         SetupCamera();
         SetupPlayerLighting();
 
-        var startTier = ResolveTierFromRoomKind(grid.Kind[spawn.x, spawn.y]);
-        currentTier = Math.Max(currentTier, startTier);
-        doorManager?.UnlockUpTo(currentTier);
+        if (healthUI && playerInstance)
+        {
+            var hp = playerInstance.GetComponent<PlayerHealth>();
+            if (!hp) hp = playerInstance.AddComponent<PlayerHealth>();
+            hp.ResetToFull();
+
+            healthUI.Bind(hp);
+        }
     }
 
     #region helpers
     private void ClearVisuals()
     {
-        visualizer?.Clear();
+        //visualizer?.Clear();
         tmVisualizer?.Clear();
     }
     private void OnDestroy()
@@ -259,19 +261,33 @@ public class DungeonController : MonoBehaviour
 
     private void SetupCamera()
     {
-        var camFollow = Camera.main?.GetComponent<CameraFollow>();
-        if (camFollow != null && playerInstance != null)
-            camFollow.SetTarget(playerInstance.transform);
+        if (playerInstance == null) return;
+
+        var cam = Camera.main;
+        if (!cam) return;
+
+        var follow = cam.GetComponent<FollowTarget2D>();
+        if (!follow) follow = cam.gameObject.AddComponent<FollowTarget2D>();
+
+        follow.SetTarget(playerInstance.transform);
+        follow.SetSmooth(0f);
     }
 
     private void SetupPlayerLighting()
     {
-        var playerLight = FindAnyObjectByType<PlayerLight>();
-        if (playerLight != null && playerInstance != null)
-        {
-            playerLight.SetTarget(playerInstance.transform);
-        }
+        if (playerInstance == null) return;
+
+         var lightObj = FindAnyObjectByType<UnityEngine.Rendering.Universal.Light2D>()?.transform;
+
+        if (!lightObj) return;
+
+        var follow = lightObj.GetComponent<FollowTarget2D>();
+        if (!follow) follow = lightObj.gameObject.AddComponent<FollowTarget2D>();
+
+        follow.SetTarget(playerInstance.transform);
+        follow.SetSmooth(0f);
     }
+
     #endregion
     #region MightReorganize 
     private int ResolveTierFromRoomKind(string kind)

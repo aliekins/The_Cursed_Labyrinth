@@ -9,7 +9,32 @@ AssetOrigin:
   uploadId: 693043
 ScriptedImporter:
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Anticipation
+    second: {fileID: 7400000, guid: 458141e3005b36149900fd1a16bf7876, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Attack
+    second: {fileID: 7400000, guid: e710dda36f8f2bb42af9900456e57b94, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Idle
+    second: {fileID: 7400000, guid: 3ccb1a861aec69f4485d511f4623f884, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: PostAttack
+    second: {fileID: 7400000, guid: d2232018a7c18954aae8ab6347ce8c44, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Taken
+    second: {fileID: 7400000, guid: 4ee8c3088ea8de6469a0c640db2ecdfb, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -109,7 +134,7 @@ ScriptedImporter:
     generateIndividualEvents: 1
     generateSpriteAtlas: 1
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638493930716517809
+  platformSettingsDirtyTick: 638912928203296862
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -1437,6 +1462,18 @@ ScriptedImporter:
     overridden: 0
     ignorePlatformSupport: 0
     maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: iPhone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0

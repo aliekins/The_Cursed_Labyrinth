@@ -20,8 +20,8 @@ MonoBehaviour:
   - kind: floor_grove
     tile: {fileID: 11400000, guid: 182ebfcecc3105a4bb80a67f4c29c05c, type: 2}
   - kind: floor_quarry
-    tile: {fileID: 11400000, guid: 1d8a7e3fa9d76e2428cd01c9c6ce8743, type: 2}
-  - kind: floor_entry
     tile: {fileID: 11400000, guid: 97b25e67da5ca124f98d97b9c2fa34c9, type: 2}
+  - kind: floor_entry
+    tile: {fileID: 11400000, guid: 1d8a7e3fa9d76e2428cd01c9c6ce8743, type: 2}
   - kind: floor_corridor
     tile: {fileID: 11400000, guid: 9d3a0dc7903d615428ddab73820c27db, type: 2}

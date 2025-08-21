@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Floor_Entry_Rule
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: -1666500734, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+  - {fileID: 347329323, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
   pick: 0
   offset: {x: 0, y: 0}
   rotation: 0
