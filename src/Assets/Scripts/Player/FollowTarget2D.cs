@@ -9,16 +9,20 @@ public sealed class FollowTarget2D : MonoBehaviour
 
     private Vector3 _velocity;
 
-    private void LateUpdate()
+    private void Update()
     {
         if (!target) return;
 
         var desired = target.position + worldOffset;
         desired.z = transform.position.z;
-        transform.position = Vector3.SmoothDamp(transform.position, desired, ref _velocity, smoothTime);
+        if (smoothTime <= 0f)
+            transform.position = desired;
+        else
+            transform.position = Vector3.SmoothDamp(transform.position, desired, ref _velocity, smoothTime);
     }
 
     public void SetTarget(Transform t) => target = t;
     public void SetOffset(Vector3 offset) => worldOffset = offset;
     public void SetSmooth(float t) => smoothTime = Mathf.Max(0f, t);
+    public Transform Target => target;
 }

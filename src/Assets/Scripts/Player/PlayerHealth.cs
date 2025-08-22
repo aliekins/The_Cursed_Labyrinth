@@ -23,12 +23,10 @@ public sealed class PlayerHealth : MonoBehaviour
     public void Damage(int amount)
     {
         if (amount <= 0 || Current <= 0) return;
-
         Current = Mathf.Max(0, Current - amount);
+        Debug.Log($"[HP] Damage({amount}) -> {Current}/{maxHP}", this);
         Changed?.Invoke(Current, maxHP);
-
-        if (Current == 0) 
-            Died?.Invoke();
+        if (Current == 0) Died?.Invoke();
     }
 
     public void Heal(int amount)

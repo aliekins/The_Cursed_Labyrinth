@@ -1,40 +1,26 @@
-/// \file HealthUI.cs 
 using UnityEngine;
-using UnityEngine.UI;
 
 public sealed class HealthUI : MonoBehaviour
 {
-    [SerializeField] private Image fill;   // UI Image (filled) for health
-    [SerializeField] private TMPro.TextMeshProUGUI label; 
+    [SerializeField] private PlayerHealth health; 
+    [SerializeField] private HeartsBar hearts;   
 
-    private PlayerHealth bound;
-
-    public void Bind(PlayerHealth hp)
+    void Awake()
     {
-        if (bound != null)
-            bound.Changed -= OnChanged;
-
-        bound = hp;
-        if (bound != null)
-        {
-            bound.Changed += OnChanged;
-            OnChanged(bound.Current, bound.Max);
-        }
+        if (!hearts) hearts = GetComponent<HeartsBar>();
     }
 
-    private void OnDestroy()
+    void OnEnable()
     {
-        if (bound != null)
-            bound.Changed -= OnChanged;
+        if (health == null || hearts == null) return;
+        health.Changed += OnChanged;
+        OnChanged(health.Current, health.Max);
     }
 
-    private void OnChanged(int current, int max)
+    void OnDisable()
     {
-        float pct = max <= 0 ? 0f : (float)current / max;
-
-        if (fill) 
-            fill.fillAmount = pct;
-        if (label) 
-            label.text = Mathf.RoundToInt(pct * 100f) + "%";
+        if (health != null) health.Changed -= OnChanged;
     }
+
+    void OnChanged(int current, int max) => hearts.SetHealth(current, max);
 }

@@ -1,0 +1,364 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1270edf20a42a8d4e9a84aadb407e340, type: 3}
+  m_Name: Prop_Rules
+  m_EditorClassIdentifier: 
+  biomes:
+  - biomeKindPrefix: floor_entry
+    roomPickChance: 1
+    rules:
+    - kind: 0
+      sprite: {fileID: 21300000, guid: d3ea3e59de57b4973b90868b06ae16f8, type: 3}
+      chance: 0.8
+      minCount: 3
+      maxCount: 4
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 2
+      sprite: {fileID: 1121968279, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.4
+      minCount: 1
+      maxCount: 2
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 1
+      sprite: {fileID: -484646789, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.4
+      minCount: 2
+      maxCount: 4
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 1
+      sprite: {fileID: 611425386, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.2
+      minCount: 2
+      maxCount: 4
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 1
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 3
+      sprite: {fileID: -1752388792, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.4
+      minCount: 1
+      maxCount: 4
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 3
+      sprite: {fileID: 158396877, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.4
+      minCount: 1
+      maxCount: 4
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 3
+      sprite: {fileID: -816199579, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.4
+      minCount: 1
+      maxCount: 4
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+  - biomeKindPrefix: floor_quarry
+    roomPickChance: 1
+    rules:
+    - kind: 0
+      sprite: {fileID: 21300000, guid: d3ea3e59de57b4973b90868b06ae16f8, type: 3}
+      chance: 0.8
+      minCount: 3
+      maxCount: 6
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 2
+      sprite: {fileID: -1237704566, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.2
+      minCount: 1
+      maxCount: 2
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 3
+      sprite: {fileID: -1506547402, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.2
+      minCount: 1
+      maxCount: 2
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 1
+      sprite: {fileID: 1151381906, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.4
+      minCount: 2
+      maxCount: 4
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 2
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 3
+      sprite: {fileID: 21300000, guid: f9a0b55cacd7940b4be71d6684f6691d, type: 3}
+      chance: 0.8
+      minCount: 4
+      maxCount: 6
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 3
+      sprite: {fileID: 1372235865, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.8
+      minCount: 4
+      maxCount: 6
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 3
+      sprite: {fileID: -99156351, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.8
+      minCount: 4
+      maxCount: 6
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+  - biomeKindPrefix: floor_grove
+    roomPickChance: 1
+    rules:
+    - kind: 0
+      sprite: {fileID: 21300000, guid: d3ea3e59de57b4973b90868b06ae16f8, type: 3}
+      chance: 0.8
+      minCount: 3
+      maxCount: 6
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 2
+      sprite: {fileID: -1331583336, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.2
+      minCount: 1
+      maxCount: 2
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 3
+      sprite: {fileID: -886250686, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.2
+      minCount: 1
+      maxCount: 2
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 1
+      sprite: {fileID: -970533305, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.4
+      minCount: 2
+      maxCount: 4
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 2
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 3
+      sprite: {fileID: -684481851, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.8
+      minCount: 4
+      maxCount: 6
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}
+    - kind: 3
+      sprite: {fileID: -1134052594, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+      chance: 0.8
+      minCount: 4
+      maxCount: 6
+      avoidCarpet: 0
+      avoidCorridor: 1
+      avoidDoorCells: 1
+      separation: 0
+      sortingLayer: 0
+      orderInLayer: 4
+      fitToCell: 1
+      collider: 0
+      colliderIsTrigger: 0
+      colliderSize: {x: 0, y: 0}
+      colliderRadius: 0
+      overrideMaterial: {fileID: 0}

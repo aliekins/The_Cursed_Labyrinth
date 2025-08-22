@@ -8,6 +8,7 @@ public class TopDownController : MonoBehaviour
     [SerializeField]
     [Tooltip("Movement speed in units/second.")]
     private float moveSpeed = 4f;
+    public Vector2 FacingDir { get; private set; } = Vector2.down;
 
     // Cached components (assigned in Awake)
     private Rigidbody2D rb;
@@ -50,6 +51,7 @@ public class TopDownController : MonoBehaviour
 
         // Animator: when idle, keep facing lastDir
         Vector2 animDir = (moveDir.sqrMagnitude > 0f) ? moveDir : lastDir;
+        FacingDir = animDir;
 
         animator.SetBool("IsMoving", moveDir.sqrMagnitude > 0f);
         animator.SetFloat("MoveX", animDir.x);

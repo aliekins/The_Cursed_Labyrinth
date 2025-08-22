@@ -7,9 +7,9 @@ using UnityEngine;
 public sealed class SpikeTrap : MonoBehaviour
 {
     [Header("Damage")]
-    [SerializeField, Min(1)] private int damage = 10;               
+    [SerializeField, Min(1)] private int damage = 15;               
     [SerializeField, Min(0f)] private float damageTickInterval = 0.6f; 
-    [SerializeField, Min(0f)] private float warmupDelay = 1.2f;
+    [SerializeField, Min(0f)] private float warmupDelay = 1f;
 
     [Header("Animator")]
     [SerializeField] private string isPlayerNearParam = "isPlayerNear";

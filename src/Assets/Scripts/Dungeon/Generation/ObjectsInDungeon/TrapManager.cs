@@ -1,80 +1,97 @@
 /// \file TrapManager.cs
-/// \brief Plans & spawns traps in eligible rooms/tiles (Quarry biome)
+/// \brief Spawns traps in eligible rooms (Quarry)
+
 using System.Collections.Generic;
 using UnityEngine;
 
 public sealed class TrapManager : MonoBehaviour
 {
     [Header("Prefabs")]
-    [SerializeField] private GameObject spikeTrapPrefab; 
+    [SerializeField] private GameObject spikeTrapPrefab;
 
-    [Header("Placement")]
-    [SerializeField, Range(0f, 1f)] private float roomTrapChance = 0.65f; 
+    [Header("Rooms / Count")]
+    [SerializeField, Range(0f, 1f)] private float roomTrapChance = 0.65f;
     [SerializeField, Min(1)] private int trapsPerRoomMin = 1;
     [SerializeField, Min(1)] private int trapsPerRoomMax = 3;
 
+    [Header("Filters")]
     [SerializeField] private List<string> forbiddenSurfaceKinds = new() { "floor_carpet" };
-
-    /// \brief If true, never place traps on corridor tiles
     [SerializeField] private bool disallowCorridors = true;
 
-    /// \brief Build traps for current dungeon; only Quarry gets traps
-    /// \param carpetMask Optional mask where true = carpet; if provided, traps won't spawn there.
     public void Build(DungeonGrid grid, List<Room> rooms, System.Func<string, int> resolveTier, bool[,] carpetMask = null)
     {
         if (!spikeTrapPrefab || grid == null || rooms == null) return;
-
         ClearChildren();
 
-        for (int i = 0; i < rooms.Count; i++)
+        foreach (var room in rooms)
         {
-            var center = rooms[i].Center;
-            string kind = grid.Kind[center.x, center.y];
-            int tier = resolveTier(kind);
+            var centerKind = grid.Kind[room.Center.x, room.Center.y] ?? string.Empty;
+            int tier = resolveTier(centerKind);
 
-            if (tier != 1) continue;
-
+            if (tier != 1) continue;                           
             if (Random.value > roomTrapChance) continue;
-            int count = Random.Range(trapsPerRoomMin, trapsPerRoomMax + 1);
 
-            var rect = rooms[i].Bounds;
-            int placed = 0, guard = 0;
+            int target = Random.Range(trapsPerRoomMin, trapsPerRoomMax + 1);
+            var info = room.Info;
 
-            while (placed < count && guard++ < 200)
+            // Prefer edges, then interior; skip entrances; never overlap occupied
+            int placed = 0;
+            int guard = 0;
+
+            // Edge band first
+            while (placed < target && guard++ < 400)
             {
-                var pos = new Vector2Int(
-                    Random.Range(rect.xMin + 1, rect.xMax - 1),
-                    Random.Range(rect.yMin + 1, rect.yMax - 1)
-                );
-                if (!grid.InBounds(pos.x, pos.y)) continue;
+                var cell = PickCandidate(info.EdgeBand, info, grid, carpetMask);
+                if (cell == null)
+                {
+                    cell = PickCandidate(info.Interior, info, grid, carpetMask);
+                    if (cell == null) break;
+                }
 
-                if (carpetMask != null && carpetMask[pos.x, pos.y]) continue;
-
-                var cellKind = grid.Kind[pos.x, pos.y] ?? string.Empty;
-                if (!CanPlaceOn(cellKind)) continue;
-
+                var pos = cell.Value;
                 var go = Instantiate(spikeTrapPrefab, transform);
-                go.transform.position = GridToWorld(pos);
+
+                go.transform.position = new Vector3(pos.x, pos.y, 0f);
+
+                info.Occupied.Add(pos);   
                 placed++;
             }
         }
     }
 
+    private Vector2Int? PickCandidate(List<Vector2Int> pool, RoomInfo info, DungeonGrid grid, bool[,] carpetMask)
+    {
+        if (pool == null || pool.Count == 0) return null;
+
+        for (int tries = 0; tries < 32; tries++)
+        {
+            var p = pool[Random.Range(0, pool.Count)];
+
+            if (info.Occupied.Contains(p)) continue;
+            if (info.Entrances.Contains(p)) continue; 
+            if (!grid.InBounds(p.x, p.y)) continue;
+
+            var k = grid.Kind[p.x, p.y] ?? string.Empty;
+
+            if (!CanPlaceOn(k)) continue;
+            if (carpetMask != null && carpetMask[p.x, p.y]) continue;
+
+            return p;
+        }
+        return null;
+    }
+
     private bool CanPlaceOn(string cellKind)
     {
         if (string.IsNullOrEmpty(cellKind)) return false;
-
-        // Forbid corridors 
         if (disallowCorridors && cellKind.StartsWith("floor_corridor", System.StringComparison.OrdinalIgnoreCase))
             return false;
 
-        // Forbid any explicitly disallowed kind
         foreach (var k in forbiddenSurfaceKinds)
         {
             if (!string.IsNullOrEmpty(k) && cellKind.StartsWith(k, System.StringComparison.OrdinalIgnoreCase))
                 return false;
         }
-
         return true;
     }
 
@@ -83,5 +100,4 @@ public sealed class TrapManager : MonoBehaviour
         for (int i = transform.childCount - 1; i >= 0; i--)
             Destroy(transform.GetChild(i).gameObject);
     }
-    private Vector3 GridToWorld(Vector2Int cell) => new Vector3(cell.x, cell.y, 0);
 }

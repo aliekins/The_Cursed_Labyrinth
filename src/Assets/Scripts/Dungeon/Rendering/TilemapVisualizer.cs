@@ -188,5 +188,13 @@ public sealed class TilemapVisualizer : MonoBehaviour
         }
         return false;
     }
+    public float CellSize
+    {
+        get
+        {
+            var g = GridTransform?.GetComponent<Grid>();
+            return g ? g.cellSize.x : 1f;
+        }
+    }
     #endregion
 }
