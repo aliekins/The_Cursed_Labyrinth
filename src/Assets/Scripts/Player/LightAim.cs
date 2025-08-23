@@ -6,17 +6,9 @@ using UnityEngine.InputSystem.XR;
 
 public sealed class LightAim : MonoBehaviour
 {
-    [SerializeField] private float angleOffset = -90f;
-
     [Header("Optional (auto-wired)")]
     [SerializeField] private TopDownController playerController;   
     [SerializeField] private Transform playerTransform;
-
-    [Header("Cardinal Z-rotations (deg)")]
-    [SerializeField] private float rotDown = -180f;  // forward
-    [SerializeField] private float rotRight = -90f;
-    [SerializeField] private float rotUp = 0f;
-    [SerializeField] private float rotLeft = 90f;
 
     [Header("Smoothing")]
     [SerializeField] private float degreesPerSecond = 0f; 

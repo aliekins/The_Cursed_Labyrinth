@@ -2730,7 +2730,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'But I am the only one left to tell the tale.
+  m_text: 'But I am the only one left, to tell the tale.
 
 '
   m_isRightToLeft: 0

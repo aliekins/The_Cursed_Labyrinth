@@ -9,6 +9,18 @@ public sealed class FollowTarget2D : MonoBehaviour
 
     private Vector3 _velocity;
 
+    private void Start()
+    {
+        if (!target)
+        {
+            Debug.LogError("FollowTarget2D requires a target to follow. Please assign a target in the inspector.");
+            enabled = false; // Disable the script if no target is set
+        }
+        else
+        {
+            transform.position = new Vector3(transform.position.x + worldOffset.x, transform.position.y +worldOffset.y, target.position.z); // Ensure z is zero for 2D
+        }
+    }
     private void Update()
     {
         if (!target) return;

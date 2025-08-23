@@ -48,19 +48,17 @@ public class DungeonController : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
 
     [Header("Gameplay Systems")]
-    //[SerializeField] private PuzzleManager puzzleManager;
     [SerializeField] private TrapManager trapManager;
     [SerializeField] private HeartsBar healthUI;
 
     [Header("Visuals")]
-    //[SerializeField] private TileRuleDatabase ruleDatabase;
     [SerializeField] private TilemapVisualizer tmVisualizer;
 
-    [Header("Doors")]
-    [SerializeField] private DoorManager doorManager;
-
     [Header("Props")]
-    [SerializeField] private PropManager propManager;
+    [SerializeField] private PropPopulator propPopulator;
+
+    [Header("Puzzles")]
+    [SerializeField] private PuzzlePlacer puzzlePlacer;
 
     [Header("Seed")]
     [SerializeField] private int seed = 12345;
@@ -69,13 +67,11 @@ public class DungeonController : MonoBehaviour
     private int currentTier = 0;
     private List<string> _orderedBiomeKinds;
     private List<Room> _rooms;
-
-    //private RuleDrivenVisualizer_SO visualizer;
     private DungeonGrid grid;
-
     private GameObject playerInstance;
-
     private System.Random rng;
+    private List<(int a, int b)> _edges;         
+    private DungeonMapIndex mapIndex;
 
     private void Start()
     {
@@ -110,48 +106,80 @@ public class DungeonController : MonoBehaviour
         ClearVisuals();
         CreateGrid();
 
-        _rooms = GenerateRooms();
-        CarveRooms(_rooms);
-        var edges = ConnectRooms(_rooms);
-        CarveCorridors(_rooms, edges);
-
-        var spawn = ChooseSpawn(_rooms);
-        AssignBiomes(spawn, _rooms, edges);
-
-        // Doors must be planned before RoomInfo reservation 
-        var doorPlans = DoorPlacer.PlanDoors(grid, _rooms, corridorKind, ResolveTierFromRoomKind);
-        doorManager?.Spawn(doorPlans);
-
-        BuildRoomInfosAndReserve();
+        GenerateAndCarve();                // rooms + corridors
+        AssignBiomesAndRoomInfo();         // biome bands + Room.Info
+        BuildIndices();                   
 
         RenderDungeon();
 
-        propManager?.Build(grid, _rooms, ResolveTierFromRoomKind, doorManager?.AllDoorCells, tmVisualizer.CarpetMask);
-        trapManager?.Build(grid, _rooms, ResolveTierFromRoomKind, tmVisualizer.CarpetMask);
+        SpawnPlayerAndCamera();
 
+        WireSystems();                     // props/traps/health UI
+    }
+    #region Main Build Steps
+    private void GenerateAndCarve()
+    {
+        _rooms = GenerateRooms();
+        CarveRooms(_rooms);
+        _edges = ConnectRooms(_rooms);
+        CarveCorridors(_rooms, _edges);
+    }
+
+    private void AssignBiomesAndRoomInfo()
+    {
+        var spawn = ChooseSpawn(_rooms);
+        AssignBiomes(spawn, _rooms, _edges);
+        BuildRoomInfosAndReserve();
+    }
+
+
+    private void BuildIndices()
+    {
+        mapIndex = DungeonMapIndexBuilder.Build(
+            grid,
+            _rooms,
+            new DungeonMapIndexBuilder.Options
+            {
+                CorridorPrefix = corridorKind
+            }
+        );
+    }
+
+    private void SpawnPlayerAndCamera()
+    {
+        var spawn = ChooseSpawn(_rooms);
         PlacePlayer(spawn);
         SetupCamera();
         SetupPlayerLighting();
+    }
+
+    private void WireSystems()
+    {
+        puzzlePlacer.Build(grid, _rooms, mapIndex, seed);
+
+        trapManager?.Build(grid, _rooms, ResolveTierFromRoomKind, tmVisualizer.CarpetMask);
+
+        var trapCells = TrapCellsFromChildren(trapManager, tmVisualizer);
+        propPopulator.Populate(grid, _rooms, mapIndex, tmVisualizer.CarpetMask, seed, trapCells);
 
         if (playerInstance)
         {
             var hp = playerInstance.GetComponent<PlayerHealth>() ?? playerInstance.AddComponent<PlayerHealth>();
             hp.ResetToFull();
-
             if (healthUI)
             {
                 healthUI.SetHealth(hp.Current, hp.Max);
-
                 hp.Changed -= healthUI.SetHealth;
                 hp.Changed += healthUI.SetHealth;
             }
         }
     }
+    #endregion
+
+    #region helpers
     private void BuildRoomInfosAndReserve()
     {
         HashSet<Vector2Int> doorCells = null;
-        if (doorManager?.AllDoorCells != null)
-            doorCells = new HashSet<Vector2Int>(doorManager.AllDoorCells);
 
         foreach (var r in _rooms)
         {
@@ -173,9 +201,8 @@ public class DungeonController : MonoBehaviour
             foreach (var e in r.Info.Entrances)
                 r.Info.Occupied.Add(e);
         }
-    }
 
-    #region generation helpers
+    }
     private void ClearVisuals() => tmVisualizer?.Clear();
     private void OnDestroy() => RoomEntered -= OnRoomEntered;
     private void CreateGrid() => grid = new DungeonGrid(width, height);
@@ -222,14 +249,53 @@ public class DungeonController : MonoBehaviour
 
     private void AssignBiomes(Vector2Int spawn, List<Room> rooms, List<(int a, int b)> edges)
     {
-        if (biomeBands.Count == 0 || rooms.Count == 0) 
-            return;
+        if (rooms == null || rooms.Count == 0) return;
 
+        // Distances by room graph
         float[] rd = GraphUtils.ComputeRoomDistances(rooms, edges, startRoom: 0);
+
+        // Gather finite distances (ignore unreachable rooms)
+        var dlist = new List<float>(rooms.Count);
+        for (int i = 0; i < rd.Length; i++)
+            if (!float.IsInfinity(rd[i]) && !float.IsNaN(rd[i]))
+                dlist.Add(rd[i]);
+
+        if (dlist.Count == 0) return;
+
+        dlist.Sort();
+
+        // Pick percentile cutoffs
+        float cut1 = Percentile(dlist, 0.25f);  // end of Biome 1
+        float cut2 = Percentile(dlist, 0.64f);  // end of Biome 2 (Biome 3 is the rest)
+
+        // Optional: small safety spread to avoid ties on exact cut values
+        cut1 += 0.001f;
+        cut2 += 0.001f;
+
+        // Build protection mask near corridors 
         bool[,] protect = BiomePainter.BuildEntryBufferMask(grid, rooms, corridorKind, biomeEntryBuffer);
 
-        BiomePainter.PaintRoomsByBands(grid, rooms, rd, biomeBands, protect, corridorKind);
-        RoomIndexer.StampRoomIds(grid, rooms);
+        // Build dynamic bands & paint
+        var dynamicBands = new List<BiomeBandDef>
+    {
+        new BiomeBandDef { maxDistance = Mathf.RoundToInt(cut1), kind = "floor_entry"  },
+        new BiomeBandDef { maxDistance = Mathf.RoundToInt(cut2), kind = "floor_quarry" },
+        new BiomeBandDef { maxDistance = int.MaxValue,           kind = "floor_grove"  },
+    };
+
+        BiomePainter.PaintRoomsByBands(grid, rooms, rd, dynamicBands, protect, corridorKind);
+        RoomIndexer.StampRoomIds(grid, rooms); // keep your room id stamps if you rely on them
+
+        static float Percentile(List<float> sorted, float p)
+        {
+            p = Mathf.Clamp01(p);
+            if (sorted.Count == 1) return sorted[0];
+            float idx = p * (sorted.Count - 1);
+            int lo = Mathf.FloorToInt(idx);
+            int hi = Mathf.Min(lo + 1, sorted.Count - 1);
+            float t = idx - lo;
+            return Mathf.Lerp(sorted[lo], sorted[hi], t);
+        }
     }
 
     private void RenderDungeon() => tmVisualizer.Render(grid);
@@ -256,7 +322,6 @@ public class DungeonController : MonoBehaviour
         int rid = grid.InBounds(spawn.x, spawn.y) ? grid.RoomId[spawn.x, spawn.y] : -1;
         NotifyRoomEntered(rid);
     }
-
     private void SetupCamera()
     {
         if (!playerInstance) return;
@@ -269,7 +334,6 @@ public class DungeonController : MonoBehaviour
         follow.SetTarget(playerInstance.transform);
         follow.SetSmooth(0f);
     }
-
     private void SetupPlayerLighting()
     {
         if (!playerInstance) return;
@@ -297,7 +361,6 @@ public class DungeonController : MonoBehaviour
 
         return idx < 0 ? 0 : idx;
     }
-
     private void OnRoomEntered(int roomId)
     {
         if (roomId < 0 || _rooms == null || roomId >= _rooms.Count) return;
@@ -312,7 +375,6 @@ public class DungeonController : MonoBehaviour
         if (tier > currentTier) 
         { 
             currentTier = tier; 
-            doorManager?.UnlockUpTo(currentTier);
         }
     }
 
@@ -321,8 +383,26 @@ public class DungeonController : MonoBehaviour
     #endregion
 
     #region utilities
+    private static HashSet<Vector2Int> TrapCellsFromChildren(TrapManager manager, TilemapVisualizer viz)
+    {
+        var set = new HashSet<Vector2Int>();
+        if (!manager || !viz) return set;
+        var gridTr = viz.GridTransform;
+        var grid = gridTr ? gridTr.GetComponent<Grid>() : null;
+
+        for (int i = 0; i < manager.transform.childCount; i++)
+        {
+            var tr = manager.transform.GetChild(i);
+            var world = tr.position;
+            Vector3Int cell;
+            if (grid) cell = grid.WorldToCell(world);
+            else cell = new Vector3Int(Mathf.RoundToInt(world.x), Mathf.RoundToInt(world.y), 0);
+            set.Add(new Vector2Int(cell.x, cell.y));
+        }
+        return set;
+    }
+
     public DungeonGrid Grid => grid;
-    public Transform GridTransform => tmVisualizer.GridTransform;
     public Vector2Int ToCell(Vector3 world)
     {
         var g = tmVisualizer.GridTransform?.GetComponent<Grid>();
@@ -334,12 +414,12 @@ public class DungeonController : MonoBehaviour
 
         return new Vector2Int(c.x, c.y);
     }
-    public Vector3 CellCenterLocal(Vector2Int c) => tmVisualizer.CellCenterLocal(c.x, c.y);
-    public Transform PlayerTransformOrNull() => playerInstance ? playerInstance.transform : null;
-    public void TilesSetDirtyAt(Vector2Int _)
-    {
-        tmVisualizer.Clear();
-        tmVisualizer.Render(grid);
-    }
+    //public Vector3 CellCenterLocal(Vector2Int c) => tmVisualizer.CellCenterLocal(c.x, c.y);
+    //public Transform PlayerTransformOrNull() => playerInstance ? playerInstance.transform : null;
+    //public void TilesSetDirtyAt(Vector2Int _)
+    //{
+    //    tmVisualizer.Clear();
+    //    tmVisualizer.Render(grid);
+    //}
     #endregion
 }
