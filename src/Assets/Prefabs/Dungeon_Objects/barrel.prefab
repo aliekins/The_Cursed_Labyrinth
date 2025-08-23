@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3833933445127044963}
   - component: {fileID: 8514671974142073599}
   - component: {fileID: 3341810048846835264}
-  - component: {fileID: 242430865902373536}
   m_Layer: 0
   m_Name: barrel
   m_TagString: Untagged
@@ -127,7 +126,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.3333334, y: 1.3333334}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -135,17 +134,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
---- !u!114 &242430865902373536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 452086492199092756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9301e74f4b97418439f10239b90db2e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  containsKey: 1
-  breakVfxPrefab: {fileID: 452086492199092756}
