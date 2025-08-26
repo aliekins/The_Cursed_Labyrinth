@@ -9,17 +9,16 @@ public sealed class InventoryUI : MonoBehaviour
 
     [SerializeField] private Image swordIcon;
     [SerializeField] private TMP_Text swordText;
-    [SerializeField] private Image swordDimOverlay;
 
     [SerializeField] private Image potionIcon;
     [SerializeField] private TMP_Text potionText;
-    [SerializeField] private Image potionDimOverlay;
 
     [SerializeField] private Image[] bookSlots = new Image[5];
+
     [SerializeField] private Color emptyTint = new Color(1, 1, 1, 0.25f);
     [SerializeField] private Color filledTint = Color.white;
 
-    private PlayerInventory inventory; // currently bound inventory
+    private PlayerInventory inventory; 
 
     private void Awake()
     {
@@ -71,18 +70,26 @@ public sealed class InventoryUI : MonoBehaviour
 
     private void OnInvChanged(PlayerInventory.Snapshot s)
     {
-        if (swordText) swordText.text = s.swords.ToString();
-        if (potionText) potionText.text = s.potions.ToString();
+        bool hasSword = s.swords > 0;
+        if (swordText)
+            swordText.text = s.swords.ToString();
+        if (swordIcon)
+            swordIcon.color = hasSword ? filledTint : emptyTint;
 
-        if (bookSlots != null && bookSlots.Length == 5 && s.books != null)
+        bool hasPotion = s.potions > 0;
+        if (potionText)
+            potionText.text = s.potions.ToString();
+        if (potionIcon)
+            potionIcon.color = hasPotion ? filledTint : emptyTint;
+
+        if (bookSlots != null && s.books != null && s.books.Length == 5)
         {
             for (int i = 0; i < 5; i++)
-                if (bookSlots[i]) bookSlots[i].color = s.books[i] ? filledTint : emptyTint;
+            {
+                bool filled = s.books[i];
+                if (bookSlots[i])
+                    bookSlots[i].color = filled ? filledTint : emptyTint;
+            }
         }
-    }
-
-    private void OnUsePotionClicked()
-    {
-        if (inventory) inventory.UsePotion();
     }
 }

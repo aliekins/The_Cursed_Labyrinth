@@ -18,15 +18,7 @@ public partial class DungeonController
         if (list == null || list.Count == 0)
             return new Vector2Int(width / 2, height / 2);
 
-        // Choose largest room by area for a stable spawn
-        Room best = list[0];
-        int bestArea = best.Bounds.width * best.Bounds.height;
-        for (int i = 1; i < list.Count; i++)
-        {
-            int area = list[i].Bounds.width * list[i].Bounds.height;
-            if (area > bestArea) { best = list[i]; bestArea = area; }
-        }
-        return best.Center;
+        return SpawnSelector.ChooseFarthestFrom(entranceInsideGrid, list);
     }
 
     public void PlacePlayer(Vector2Int cell)

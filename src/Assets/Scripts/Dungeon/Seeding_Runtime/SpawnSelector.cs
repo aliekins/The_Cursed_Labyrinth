@@ -4,7 +4,7 @@ using System.Collections.Generic;
 /// \brief Picks the spawn room (or cell) farthest from the special room center
 public class SpawnSelector : MonoBehaviour
 {
-    public static Vector2Int ChooseFarthestFrom(Transform context, Vector2Int specialCenter, List<Room> rooms)
+    public static Vector2Int ChooseFarthestFrom(Vector2Int specialCenter, List<Room> rooms)
     {
         if (rooms == null || rooms.Count == 0) return specialCenter;
 

@@ -807,18 +807,18 @@ MonoBehaviour:
   buildOnStart: 0
   sequentialRoomCount: 30
   randomRoomCountRange: {x: 26, y: 32}
-  maxPlacementTriesPerStep: 32
+  maxPlacementTriesPerStep: 64
   shuffleOpenings: 1
-  openingKeepChance: 0.8
+  openingKeepChance: 0.9
   depthFirstLike: 1
   biasSmallRooms: 0.6
   largeRoomChance: 0.2
   minGrowCorridorLen: 3
   maxGrowCorridorLen: 5
   biasShortCorridors: 0.6
-  doorInsetFromCorner: 1
+  doorInsetFromCorner: 0
   alignDoorToAnchor: 0
-  doorJitterMax: 2
+  doorJitterMax: 0
 --- !u!1 &481029313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,10 +1760,8 @@ MonoBehaviour:
   controller: {fileID: 465940641}
   swordIcon: {fileID: 922419425}
   swordText: {fileID: 234413195}
-  swordDimOverlay: {fileID: 0}
   potionIcon: {fileID: 1144368743}
   potionText: {fileID: 1058047246}
-  potionDimOverlay: {fileID: 0}
   bookSlots:
   - {fileID: 839461611}
   - {fileID: 167816606}
@@ -3195,82 +3193,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visualizer: {fileID: 881971640}
-  doorAisleDepth: 1
-  wallClamp: 0
-  densityPer64: 3
   corridorPrefix: floor_corridor
+  doorAisleDepth: 1
   sortingLayer: Props
   sortingOrder: 2
-  fitToCell: 1
-  entryCorner:
-  - sprite: {fileID: 21300000, guid: d3ea3e59de57b4973b90868b06ae16f8, type: 3}
-    chance: 1
+  fitToCell: 0
+  cornerProps:
+  - sprite: {fileID: -816199579, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    chance: 0.3
+    min: 1
+    max: 1
+    separation: 0
+  - sprite: {fileID: -886250686, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    chance: 0.8
     min: 1
     max: 3
     separation: 0
-    allowCarpet: 1
-    useGrouping: 0
-    groupSizeRange: {x: 2, y: 2}
-    groupRadius: 3
-    minDistanceBetweenGroups: 0
-  entryWall:
-  - sprite: {fileID: -1752388792, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+  - sprite: {fileID: 21300000, guid: d3ea3e59de57b4973b90868b06ae16f8, type: 3}
+    chance: 0.8
+    min: 1
+    max: 1
+    separation: 1
+  - sprite: {fileID: 303788756, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    chance: 0.4
+    min: 1
+    max: 1
+    separation: 1
+  wallProps:
+  - sprite: {fileID: -886250686, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    chance: 0.9
+    min: 1
+    max: 3
+    separation: 0
+  - sprite: {fileID: -1506547402, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    chance: 0.2
+    min: 1
+    max: 2
+    separation: 1
+  - sprite: {fileID: 21300000, guid: d3ea3e59de57b4973b90868b06ae16f8, type: 3}
     chance: 0.8
     min: 1
     max: 2
     separation: 1
-    allowCarpet: 1
-    useGrouping: 0
-    groupSizeRange: {x: 0, y: 0}
-    groupRadius: 0
-    minDistanceBetweenGroups: 0
-  - sprite: {fileID: -1506547402, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-    chance: 0.5
-    min: 1
-    max: 2
-    separation: 0
-    allowCarpet: 0
-    useGrouping: 0
-    groupSizeRange: {x: 0, y: 0}
-    groupRadius: 0
-    minDistanceBetweenGroups: 0
-  entryInterior:
-  - sprite: {fileID: -1607882866, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-    chance: 0.5
+  - sprite: {fileID: -970533305, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    chance: 0.4
     min: 1
     max: 1
-    separation: 0
-    allowCarpet: 1
-    useGrouping: 0
-    groupSizeRange: {x: 0, y: 0}
-    groupRadius: 0
-    minDistanceBetweenGroups: 0
+    separation: 1
+  interiorProps:
   - sprite: {fileID: -886250686, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-    chance: 1
+    chance: 0.9
     min: 1
     max: 4
     separation: 0
-    allowCarpet: 1
-    useGrouping: 0
-    groupSizeRange: {x: 0, y: 0}
-    groupRadius: 0
-    minDistanceBetweenGroups: 0
   - sprite: {fileID: -5572787457919085772, guid: 7301ea6dee3377245b1f865e2ff76d45, type: 3}
     chance: 0.4
     min: 1
     max: 1
     separation: 0
-    allowCarpet: 1
-    useGrouping: 0
-    groupSizeRange: {x: 0, y: 0}
-    groupRadius: 0
-    minDistanceBetweenGroups: 0
-  quarryCorner: []
-  quarryWall: []
-  quarryInterior: []
-  groveCorner: []
-  groveWall: []
-  groveInterior: []
+  - sprite: {fileID: -1607882866, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    chance: 0.5
+    min: 1
+    max: 1
+    separation: 2
+  - sprite: {fileID: -1752388792, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    chance: 0.4
+    min: 1
+    max: 1
+    separation: 1
 --- !u!1 &2095296833
 GameObject:
   m_ObjectHideFlags: 0
