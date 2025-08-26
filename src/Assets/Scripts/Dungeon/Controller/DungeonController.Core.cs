@@ -118,8 +118,8 @@ public partial class DungeonController : MonoBehaviour
         RenderDungeon();
 
         // Spawn and systems wiring
-        SpawnPlayerAndCamera();
         WireSystems();
+        SpawnPlayerAndCamera();
     }
     #region helpers
     private void CreateGrid() => grid = new DungeonGrid(width, height);

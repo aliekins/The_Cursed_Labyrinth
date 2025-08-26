@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
+[DisallowMultipleComponent]
 public sealed class PickupItem : MonoBehaviour
 {
     [Header("Pickup")]
@@ -8,25 +8,25 @@ public sealed class PickupItem : MonoBehaviour
     public int quantity = 1;
 
     [Header("FX")]
-    [SerializeField] private AudioSource pickupSfx;
+    [SerializeField] private AudioClip pickupSfx;
+    [SerializeField, Range(0, 1)] private float volume = 1f;
 
-    private void Reset()
+    private void Awake()
     {
         var col = GetComponent<Collider2D>();
-        if (col) col.isTrigger = true;
+        if (!col) col = gameObject.AddComponent<CircleCollider2D>();
+        col.isTrigger = true;
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (!Input.GetKeyDown(KeyCode.E)) return; 
+        if (!Input.GetKeyDown(KeyCode.E)) return;
 
         var inv = other.GetComponent<PlayerInventory>();
         if (!inv) return;
 
         inv.Add(type, Mathf.Max(1, quantity));
-        if (pickupSfx) pickupSfx.Play();
-
-        // destroy after pickup
+        if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position, volume);
         Destroy(gameObject);
     }
 }

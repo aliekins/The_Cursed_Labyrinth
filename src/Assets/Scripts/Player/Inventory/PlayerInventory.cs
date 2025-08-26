@@ -38,6 +38,7 @@ public sealed class PlayerInventory : MonoBehaviour
         {
             case Item.ItemType.Sword:
                 Swords += amount;
+                Debug.Log($"[Inventory] Added {amount} sword(s), now have {Swords}", this);
                 break;
 
             case Item.ItemType.HealthPotion:

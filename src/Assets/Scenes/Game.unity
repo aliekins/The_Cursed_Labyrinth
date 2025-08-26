@@ -289,6 +289,314 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &144745781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 144745782}
+  - component: {fileID: 144745783}
+  m_Layer: 0
+  m_Name: Wall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &144745782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144745781}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2074109083}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &144745783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144745781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b30e8878a2ddb214498a9a8c6630d7d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rules:
+  - sprite: {fileID: -886250686, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.4
+    min: 1
+    max: 5
+    separation: 0
+    colliderMode: 0
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.9, y: 0.9}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 0
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: -1506547402, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.3
+    min: 2
+    max: 2
+    separation: 0
+    colliderMode: 0
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.1, y: 0.2}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 1
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: -795952930, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.1
+    min: 1
+    max: 1
+    separation: 0
+    colliderMode: 0
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.1, y: 0.1}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 1
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: 21300000, guid: d3ea3e59de57b4973b90868b06ae16f8, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.4
+    min: 1
+    max: 1
+    separation: 1
+    colliderMode: 1
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.4, y: 0.6}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 2
+    breakable: 1
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 1
+    holdsBooks: 0
+    holdsPotions: 1
+  - sprite: {fileID: -970533305, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.2
+    min: 1
+    max: 1
+    separation: 1
+    colliderMode: 2
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.4, y: 0.4}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 2
+    breakable: 1
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 1
+    holdsPotions: 0
+  - sprite: {fileID: -816199579, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.2
+    min: 1
+    max: 1
+    separation: 0
+    colliderMode: 0
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.9, y: 0.9}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 2
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: 0}
+    prefab: {fileID: 4358586276159806117, guid: 968fb8bd1b384a74f9526311471ce23c, type: 3}
+    chance: 0.6
+    min: 1
+    max: 1
+    separation: 0
+    colliderMode: 3
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.1, y: 0.4}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 1
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  hangOnTopWall: 1
+  hangYOffsetWorld: 0.8
+--- !u!1 &166863784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 166863785}
+  - component: {fileID: 166863786}
+  m_Layer: 0
+  m_Name: Corner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &166863785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166863784}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2074109083}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &166863786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166863784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02835653004691f4aa2b644c69629d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rules:
+  - sprite: {fileID: 21300000, guid: d3ea3e59de57b4973b90868b06ae16f8, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.4
+    min: 1
+    max: 3
+    separation: 1
+    colliderMode: 1
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.4, y: 0.6}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 0
+    breakable: 1
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 1
+  - sprite: {fileID: -691281063, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.1
+    min: 1
+    max: 1
+    separation: 1
+    colliderMode: 0
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.5, y: 0.5}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 0
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: -970533305, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.4
+    min: 1
+    max: 3
+    separation: 1
+    colliderMode: 2
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.4, y: 0.4}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 0
+    breakable: 1
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 1
+    holdsPotions: 0
+  - sprite: {fileID: 303788756, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.1
+    min: 1
+    max: 1
+    separation: 0
+    colliderMode: 0
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.9, y: 0.9}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 2
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: -582687167, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.1
+    min: 1
+    max: 1
+    separation: 0
+    colliderMode: 0
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.9, y: 0.9}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 2
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
 --- !u!1 &167816604
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,6 +1021,196 @@ Transform:
   - {fileID: 1156439830}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &437296594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 437296595}
+  - component: {fileID: 437296596}
+  m_Layer: 0
+  m_Name: Interior
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &437296595
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437296594}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2074109083}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &437296596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437296594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc14090bf7f0d1849ad28c308edca14e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rules:
+  - sprite: {fileID: -886250686, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 1
+    min: 1
+    max: 3
+    separation: 0
+    colliderMode: 0
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.9, y: 0.9}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 0
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: -5572787457919085772, guid: 7301ea6dee3377245b1f865e2ff76d45, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.4
+    min: 1
+    max: 1
+    separation: 0
+    colliderMode: 0
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.9, y: 0.9}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 0
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: -1752388792, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.6
+    min: 1
+    max: 1
+    separation: 1
+    colliderMode: 2
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.1, y: 0.1}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 0
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: -1607882866, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.5
+    min: 1
+    max: 1
+    separation: 1
+    colliderMode: 1
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0, y: 0.4}
+    colliderOffset: {x: 0.9, y: 0.7}
+    wallFilter: 0
+    breakable: 1
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 1
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: -1237704566, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.5
+    min: 1
+    max: 1
+    separation: 1
+    colliderMode: 1
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0, y: 0.4}
+    colliderOffset: {x: 0.9, y: 0.7}
+    wallFilter: 0
+    breakable: 1
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 1
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: -684481851, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
+    prefab: {fileID: 0}
+    chance: 0.4
+    min: 1
+    max: 1
+    separation: 1
+    colliderMode: 3
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.5, y: 0.2}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 0
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: 0}
+    prefab: {fileID: 3620316877694244784, guid: 7e59650ae5901b8488d992917a19eb83, type: 3}
+    chance: 0.4
+    min: 1
+    max: 1
+    separation: 1
+    colliderMode: 2
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.5, y: 0.5}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 0
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  - sprite: {fileID: 0}
+    prefab: {fileID: 7737253575201702417, guid: 59135a17a3aaaa840a23e00d7513c528, type: 3}
+    chance: 0.4
+    min: 1
+    max: 1
+    separation: 1
+    colliderMode: 0
+    colliderIsTrigger: 0
+    colliderSizeScale: {x: 0.5, y: 0.5}
+    colliderOffset: {x: 0, y: 0}
+    wallFilter: 0
+    breakable: 0
+    breakSfx: {fileID: 0}
+    breakSfxVolume: 1
+    breakVfxPrefab: {fileID: 0}
+    holdsSwords: 0
+    holdsBooks: 0
+    holdsPotions: 0
+  farToNear: 1
 --- !u!1 &438875943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,8 +1897,8 @@ MonoBehaviour:
   biomes:
   - biomeProfile: {fileID: 11400000, guid: ec335c0f63667d441898a1430c464429, type: 2}
     specialRoomPrefab: {fileID: 7207853505134779344, guid: 555a3eb130401c74e9fe225d4ed96422, type: 3}
-  - biomeProfile: {fileID: 11400000, guid: 7e9617cbb1f8556429dd135328c7e254, type: 2}
-    specialRoomPrefab: {fileID: 8117671984353988623, guid: 2533eb391e7678e46b0a695025e6219e, type: 3}
+  - biomeProfile: {fileID: 11400000, guid: ea195646ffb91cd4982fd912f84b539e, type: 2}
+    specialRoomPrefab: {fileID: 4806186307253538888, guid: 578d710f324595f4483139381e649413, type: 3}
   - biomeProfile: {fileID: 11400000, guid: 7e9617cbb1f8556429dd135328c7e254, type: 2}
     specialRoomPrefab: {fileID: 8117671984353988623, guid: 2533eb391e7678e46b0a695025e6219e, type: 3}
   dungeonController: {fileID: 465940641}
@@ -3040,9 +3538,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spikeTrapPrefab: {fileID: 8435506124361155884, guid: 51eefcb46016b3c438308ad31ccf5add, type: 3}
-  roomTrapChance: 0.65
-  trapsPerRoomMin: 1
-  trapsPerRoomMax: 3
+  roomTrapChance: 0.8
+  trapsPerRoomMin: 2
+  trapsPerRoomMax: 8
   forbiddenSurfaceKinds:
   - floor_carpet
   disallowCorridors: 1
@@ -3177,7 +3675,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 166863785}
+  - {fileID: 144745782}
+  - {fileID: 437296595}
   m_Father: {fileID: 438875944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2074109084
@@ -3194,73 +3695,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visualizer: {fileID: 881971640}
   corridorPrefix: floor_corridor
-  doorAisleDepth: 1
-  sortingLayer: Props
-  sortingOrder: 2
+  doorAisleDepth: 3
+  wallDoorClearance: 2
+  doorwayChebBuffer: 1
   fitToCell: 0
-  cornerProps:
-  - sprite: {fileID: -816199579, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-    chance: 0.3
-    min: 1
-    max: 1
-    separation: 0
-  - sprite: {fileID: -886250686, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-    chance: 0.8
-    min: 1
-    max: 3
-    separation: 0
-  - sprite: {fileID: 21300000, guid: d3ea3e59de57b4973b90868b06ae16f8, type: 3}
-    chance: 0.8
-    min: 1
-    max: 1
-    separation: 1
-  - sprite: {fileID: 303788756, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-    chance: 0.4
-    min: 1
-    max: 1
-    separation: 1
-  wallProps:
-  - sprite: {fileID: -886250686, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-    chance: 0.9
-    min: 1
-    max: 3
-    separation: 0
-  - sprite: {fileID: -1506547402, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-    chance: 0.2
-    min: 1
-    max: 2
-    separation: 1
-  - sprite: {fileID: 21300000, guid: d3ea3e59de57b4973b90868b06ae16f8, type: 3}
-    chance: 0.8
-    min: 1
-    max: 2
-    separation: 1
-  - sprite: {fileID: -970533305, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-    chance: 0.4
-    min: 1
-    max: 1
-    separation: 1
-  interiorProps:
-  - sprite: {fileID: -886250686, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-    chance: 0.9
-    min: 1
-    max: 4
-    separation: 0
-  - sprite: {fileID: -5572787457919085772, guid: 7301ea6dee3377245b1f865e2ff76d45, type: 3}
-    chance: 0.4
-    min: 1
-    max: 1
-    separation: 0
-  - sprite: {fileID: -1607882866, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-    chance: 0.5
-    min: 1
-    max: 1
-    separation: 2
-  - sprite: {fileID: -1752388792, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
-    chance: 0.4
-    min: 1
-    max: 1
-    separation: 1
+  cornerStrategy: {fileID: 166863786}
+  wallStrategy: {fileID: 144745783}
+  interiorStrategy: {fileID: 437296596}
+  dropPolicy:
+    allowSwords: 0
+    guaranteedSwords: 0
+    allowBooks: 0
+    guaranteedBooks: 0
+    allowPotions: 0
+    potionChance: 0.2
 --- !u!1 &2095296833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3309,8 +3757,8 @@ MonoBehaviour:
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.93710685, g: 0.6982779, b: 0.40372208, a: 0.90588236}
+  m_Intensity: 0.0014
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000

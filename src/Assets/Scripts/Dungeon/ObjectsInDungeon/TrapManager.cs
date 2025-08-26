@@ -1,8 +1,9 @@
 /// \file TrapManager.cs
 /// \brief Spawns traps in eligible rooms (Quarry)
-
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public sealed class TrapManager : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public sealed class TrapManager : MonoBehaviour
     [SerializeField] private List<string> forbiddenSurfaceKinds = new() { "floor_carpet" };
     [SerializeField] private bool disallowCorridors = true;
 
-    public void Build(DungeonGrid grid, List<Room> rooms, System.Func<string, int> resolveTier, bool[,] carpetMask = null)
+    public void Build(DungeonGrid grid, List<Room> rooms, Func<string,int> resolveTier, bool[,] carpetMask = null)
     {
         if (!spikeTrapPrefab || grid == null || rooms == null) return;
         ClearChildren();
@@ -34,11 +35,9 @@ public sealed class TrapManager : MonoBehaviour
             int target = Random.Range(trapsPerRoomMin, trapsPerRoomMax + 1);
             var info = room.Info;
 
-            // Prefer edges, then interior; skip entrances; never overlap occupied
             int placed = 0;
             int guard = 0;
 
-            // Edge band first
             while (placed < target && guard++ < 400)
             {
                 var cell = PickCandidate(info.EdgeBand, info, grid, carpetMask);
