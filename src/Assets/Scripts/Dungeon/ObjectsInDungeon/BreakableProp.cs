@@ -10,9 +10,8 @@ using UnityEngine.InputSystem;
 public sealed class BreakableProp : MonoBehaviour
 {
     [Header("Interact")]
-    [SerializeField] private KeyCode interactKey = KeyCode.I;
-    [SerializeField, Min(0f)] private float interactRadius = 1.25f;
-    [SerializeField, Min(0f)] private float autoPickupRadius = 1.25f;
+    [SerializeField, Min(0f)] private float interactRadius = 1f;
+    [SerializeField, Min(0f)] private float autoPickupRadius = 1f;
 
     [Header("Break FX")]
     [SerializeField] private AudioClip breakSfx;
@@ -30,6 +29,7 @@ public sealed class BreakableProp : MonoBehaviour
     [SerializeField] private GameObject pickupPrefab; // optional prefab with PickupItem
 
     private Collider2D selfCollider;
+    private KeyCode interactKey = KeyCode.E;
 
     void Awake()
     {
@@ -50,7 +50,7 @@ public sealed class BreakableProp : MonoBehaviour
 
     public void Configure(AudioClip sfx, float volume, GameObject vfx, float delay = 0f)
     {
-        interactKey = KeyCode.I;
+        interactKey = KeyCode.E;
         breakSfx = sfx;
         breakSfxVolume = Mathf.Clamp01(volume);
         breakVfxPrefab = vfx;

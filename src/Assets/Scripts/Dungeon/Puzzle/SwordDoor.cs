@@ -3,57 +3,122 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public sealed class SwordDoor : MonoBehaviour
 {
-    [SerializeField] private SwordRoomSolver solver;
+    [Header("Input")]
     [SerializeField] private KeyCode useKey = KeyCode.E;
+
+    [Header("Visuals / SFX (optional)")]
     [SerializeField] private AudioClip insertSfx;
-    [SerializeField] private GameObject insertVfx;
-    [SerializeField] private float openDelay = 0.15f;
+    [SerializeField, Range(0, 1)] private float insertVolume = 1f;
+    [SerializeField] private AudioClip failSfx;
+    [SerializeField, Range(0, 1)] private float failVolume = 1f;
+    [SerializeField] private Animator animator; // optional
 
-    private Collider2D col;
+    private SwordRoomSolver solver;
+    private bool open;
 
-    private void Awake()
+    // trigger state
+    private bool inside;
+    private PlayerInventory currentInv;
+
+    void Awake()
     {
-        col = GetComponent<Collider2D>();
-        if (col) col.isTrigger = true;
+        var col = GetComponent<Collider2D>();
+        col.isTrigger = true;
+
+        // Find the solver under the same special-room clone
+        solver = FindSolverOnClone();
+        if (!solver)
+            Debug.LogError("[SwordDoor] SwordRoomSolver not found under this special room prefab!");
+
+        if (solver) solver.OnSolved += HandleSolved;
     }
 
-    private void OnEnable()
+    void OnDestroy()
     {
-        if (solver) solver.OnSolved += OnSolved;
-    }
-    private void OnDisable()
-    {
-        if (solver) solver.OnSolved -= OnSolved;
+        if (solver) solver.OnSolved -= HandleSolved;
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    void Update()
     {
+        if (!inside || open) return;
         if (!Input.GetKeyDown(useKey)) return;
-        var inv = other.GetComponent<PlayerInventory>();
-        if (!inv) return;
+        if (!currentInv) return;
 
-        if (inv.RemoveSword(1))
+        // Already solved? Just open
+        if (solver && solver.IsSolved)
         {
-            if (insertSfx) 
-                AudioSource.PlayClipAtPoint(insertSfx, transform.position, 1f);
-            if (insertVfx)
-                Destroy(Instantiate(insertVfx, transform.position, Quaternion.identity), 1.5f);
-            if (solver) 
-                solver.UseSword();
+            HandleSolved();
+            return;
+        }
+
+        // Consume 1 sword and advance the solver
+        if (currentInv.RemoveSword(1))
+        {
+            solver?.UseSword(); // progresses puzzle by one
+
+            if (insertSfx)
+                AudioSource.PlayClipAtPoint(insertSfx, transform.position, insertVolume);
+
+            if (solver != null && solver.IsSolved)
+                HandleSolved();
         }
         else
         {
-            // Nothing for now
+            if (failSfx)
+                AudioSource.PlayClipAtPoint(failSfx, transform.position, failVolume);
+
+            Debug.Log("[SwordDoor] You need more swords.");
         }
     }
 
-    private void OnSolved()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        // Open the door
+        // Make sure the player has a Rigidbody2D for triggers to fire
+        var inv = other.GetComponent<PlayerInventory>();
+        if (inv)
+        {
+            inside = true;
+            currentInv = inv;
+             Debug.Log("[SwordDoor] Player entered door area.");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.GetComponent<PlayerInventory>())
+        {
+            inside = false;
+            currentInv = null;
+             Debug.Log("[SwordDoor] Player left door area.");
+        }
+    }
+
+    private void HandleSolved()
+    {
+        if (open) return;
+        open = true;
+
+        var col = GetComponent<Collider2D>();
         if (col) col.enabled = false;
 
-        // Optionally destroy the door object after a beat
-        if (openDelay > 0f) Destroy(gameObject, openDelay);
-        else Destroy(gameObject);
+        if (animator) animator.SetBool("Open", true);
+        Debug.Log("[SwordDoor] Door opened. (Puzzle solved)");
+    }
+
+    private SwordRoomSolver FindSolverOnClone()
+    {
+        Transform root = FindPrefabRoot(transform);
+        return root ? root.GetComponentInChildren<SwordRoomSolver>(true) : null;
+    }
+
+    private static Transform FindPrefabRoot(Transform t)
+    {
+        Transform cur = t, best = null;
+        while (cur != null)
+        {
+            if (cur.GetComponentInChildren<Grid>(true)) best = cur;
+            cur = cur.parent;
+        }
+        return best ? best : t.root;
     }
 }

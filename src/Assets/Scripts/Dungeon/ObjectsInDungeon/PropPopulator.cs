@@ -11,7 +11,7 @@ public sealed class PropPopulator : MonoBehaviour
     [Header("Avoid corridors / doors")]
     [SerializeField] public string corridorPrefix = "floor_corridor";
     [SerializeField, Range(0, 3)] private int doorAisleDepth = 1;
-    [SerializeField, Range(0, 3)] private int wallDoorClearance = 2;
+    [SerializeField, Range(0, 3)] private int wallDoorClearance = 1;
     [SerializeField, Range(0, 2)] private int doorwayChebBuffer = 1;
 
     [Header("Placement visuals")]
@@ -25,8 +25,10 @@ public sealed class PropPopulator : MonoBehaviour
     [Serializable]
     public struct DropPolicy
     {
-        public bool allowSwords; public int guaranteedSwords;
-        public bool allowBooks; public int guaranteedBooks;
+        public bool allowSwords;
+        public int guaranteedSwords;
+        public bool allowBooks;
+        public int guaranteedBooks;
         public bool allowPotions;
         [Range(0f, 1f)] public float potionChance;
     }
@@ -199,7 +201,7 @@ public sealed class PropPopulator : MonoBehaviour
                 var bp = swordHolders[i]; if (!bp || used.Contains(bp)) continue;
                 bp.ConfigureDrop(Item.ItemType.Sword, 1);
                 used.Add(bp); 
-                Debug.Log($"[PropPopulator] Assigned sword drop to {bp.name}", this);
+                Debug.Log($"[PropPopulator] Assigned sword drop to {bp.name}, {bp.transform.position}", this);
                 swordsAssigned++;
                 Debug.Log($"[PropPopulator] Assigned sword drop count {swordsAssigned}", this);
             }
@@ -216,7 +218,7 @@ public sealed class PropPopulator : MonoBehaviour
                 var t = (Item.ItemType)System.Enum.Parse(typeof(Item.ItemType), $"Book{r}");
                 bp.ConfigureDrop(t, 1);
                 used.Add(bp);
-                Debug.Log($"[PropPopulator] Assigned book drop to {bp.name}", this);
+                Debug.Log($"[PropPopulator] Assigned book drop to {bp.name}, {bp.transform.position}", this);
                 booksAssigned++;
                 Debug.Log($"[PropPopulator] Assigned book drop count {booksAssigned}", this);
             }

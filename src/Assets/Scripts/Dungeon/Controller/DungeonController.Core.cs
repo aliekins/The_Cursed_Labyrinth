@@ -8,6 +8,7 @@ public partial class DungeonController : MonoBehaviour
 {
     #region Config
     [Header("Map")]
+    [SerializeField] private Transform runtimeRoot;
     [SerializeField] private int width = 64;
     [SerializeField] private int height = 48;
 
@@ -81,8 +82,9 @@ public partial class DungeonController : MonoBehaviour
 
             if (sequence != null)
             {
-                //if (sequence.TryRestartCurrentBiome(randomSeed)) return;
-                sequence.StartFirstBiome();
+                sequence.TryRestartCurrentBiome();
+                return;
+                //sequence.StartFirstBiome();
             }
             else
             {

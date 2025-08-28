@@ -13,7 +13,7 @@ public partial class DungeonController : MonoBehaviour
     [Header("Openings and Branching")]
     [SerializeField] private bool shuffleOpenings = true;
     [SerializeField, Range(0f, 1f)] private float openingKeepChance = 0.75f;
-    [SerializeField] private bool depthFirstLike = false;             // snakier feel when true
+    [SerializeField] private bool depthFirstLike = false;
 
     [Header("Room Size Bias")]
     [SerializeField, Range(0f, 1f)] private float biasSmallRooms = 0.6f;
@@ -26,10 +26,9 @@ public partial class DungeonController : MonoBehaviour
     [Header("Corridor Length Bias")]
     [SerializeField, Range(0f, 1f)] private float biasShortCorridors = 0.6f;
 
-    [Header("Doors and Bends")]
-    [SerializeField] private int doorInsetFromCorner = 1;             // keep off corners
-    [SerializeField] private bool alignDoorToAnchor = true;           // try to align along entry edge
-    [SerializeField] private int doorJitterMax = 3;                   // slide door along edge for variety
+    private int doorInsetFromCorner = 1;             // keep off corners
+    private bool alignDoorToAnchor = true;           // to align along entry edge
+    private int doorJitterMax = 1;                   // slide door along edge for variety
 
     // caches
     private RectInt specialRoomRectGrid;       // prefab footprint in GRID coords
@@ -50,7 +49,6 @@ public partial class DungeonController : MonoBehaviour
         if (rng == null) 
             rng = (randomSeed != 0) ? new System.Random(randomSeed) : new System.Random();
 
-        // Point painter/visualizer at prefab tilemaps
         var painter = FindAnyObjectByType<BiomePainter>();
         if (painter)
             painter.OverrideTilemaps(seedInfo.ground, seedInfo.carpet, seedInfo.wall);
@@ -96,7 +94,7 @@ public partial class DungeonController : MonoBehaviour
         if (grid.InBounds(entranceInsideGrid.x, entranceInsideGrid.y)) noDigMask[entranceInsideGrid.x, entranceInsideGrid.y] = false;
         if (grid.InBounds(entranceOutsideGrid.x, entranceOutsideGrid.y)) noDigMask[entranceOutsideGrid.x, entranceOutsideGrid.y] = false;
 
-        // Grow from the seam (never upwards)
+        // Grow (never upwards)
         GrowSequential(entranceOutsideGrid + Vector2Int.down, Vector2Int.down);
 
         CleanupDanglingCorridors();
@@ -153,7 +151,7 @@ public partial class DungeonController : MonoBehaviour
                 if (grid.InBounds(anchor.x, anchor.y))
                     grid.Kind[anchor.x, anchor.y] = corridorKind;
 
-                // if start == goal (path.Count == 0) the seam is isolated; extend 1 step away from the room
+                // if start == goal the seam is isolated, extend 1 step away from the room
                 if (path.Count == 0)
                 {
                     var extend = doorOutside - dir; // step opposite to entry direction
@@ -174,7 +172,7 @@ public partial class DungeonController : MonoBehaviour
                 rooms.Add(room);
                 RoomReady?.Invoke(room);
 
-                // enqueue outgoing openings (L/R/Down only)
+                // enqueue outgoing openings
                 foreach (var f in OpeningsFor(rect, dir))
                 {
                     if (depthFirstLike && rng.NextDouble() < 0.6) deque.Add(f);
@@ -272,6 +270,7 @@ public partial class DungeonController : MonoBehaviour
     private void CarvePath(List<Vector2Int> path, string kind)
     {
         if (path == null) return;
+
         foreach (var c in path)
             if (grid.InBounds(c.x, c.y)) grid.Kind[c.x, c.y] = kind;
     }
@@ -283,6 +282,7 @@ public partial class DungeonController : MonoBehaviour
 
         if (rng.NextDouble() < biasSmallRooms)
             a = Mathf.Min(a, Rand(minRoomSize, maxRoomSize));
+
         if (rng.NextDouble() < largeRoomChance)
             a = Rand((minRoomSize + maxRoomSize) / 2, maxRoomSize);
 
@@ -317,8 +317,7 @@ public partial class DungeonController : MonoBehaviour
             int yInside = (dir == Vector2Int.down) ? rect.yMax - 1 : rect.yMin;
             int xMin = rect.xMin + doorInsetFromCorner;
             int xMax = rect.xMax - 1 - doorInsetFromCorner;
-            int xDoor = alignDoorToAnchor ? Mathf.Clamp(anchor.x, xMin, xMax)
-                                          : rect.xMin + rect.width / 2;
+            int xDoor = alignDoorToAnchor ? Mathf.Clamp(anchor.x, xMin, xMax) : rect.xMin + rect.width / 2;
 
             if (doorJitterMax > 0) 
                 xDoor = Mathf.Clamp(xDoor + Rand(-doorJitterMax, doorJitterMax), xMin, xMax);
@@ -330,8 +329,7 @@ public partial class DungeonController : MonoBehaviour
             int xInside = (dir == Vector2Int.left) ? rect.xMax - 1 : rect.xMin;
             int yMin = rect.yMin + doorInsetFromCorner;
             int yMax = rect.yMax - 1 - doorInsetFromCorner;
-            int yDoor = alignDoorToAnchor ? Mathf.Clamp(anchor.y, yMin, yMax)
-                                          : rect.yMin + rect.height / 2;
+            int yDoor = alignDoorToAnchor ? Mathf.Clamp(anchor.y, yMin, yMax) : rect.yMin + rect.height / 2;
 
             if (doorJitterMax > 0) 
                 yDoor = Mathf.Clamp(yDoor + Rand(-doorJitterMax, doorJitterMax), yMin, yMax);
@@ -377,7 +375,7 @@ public partial class DungeonController : MonoBehaviour
         if (string.Equals(k, "wall", StringComparison.OrdinalIgnoreCase)) return false;
         if (string.Equals(k, corridorKind, StringComparison.OrdinalIgnoreCase)) return false; // corridors allowed
 
-        return true; // floor_entry, floor_prefab, carpets, etc. are rooms
+        return true; // floor_entry, floor_prefab, carpets are rooms
     }
 
     private bool TryCacheEntranceFromGround(SpecialRoomSeeder.SeedInfo seed, out Vector2Int insideGrid)
@@ -399,7 +397,7 @@ public partial class DungeonController : MonoBehaviour
                 var t = seed.ground.GetTile(tc);
                 if (t == corridorTile)
                 {
-                    insideGrid = tmVisualizer.TileToGridCell(tc); // TILE -> GRID
+                    insideGrid = tmVisualizer.TileToGridCell(tc); // TILE to GRID
                     return true;
                 }
             }
@@ -479,6 +477,7 @@ public partial class DungeonController : MonoBehaviour
                         else if (IsRoomFloor(k))
                             roomAdj = true;
                     }
+
                     Check(x + 1, y);
                     Check(x - 1, y); 
                     Check(x, y + 1); 

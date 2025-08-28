@@ -28,6 +28,8 @@ public class BiomeSequenceController : MonoBehaviour
     public int currentBiomeIndex = -1;
 
     private SpecialRoomCompleteBroadcaster _activeBroadcaster;
+    private readonly Dictionary<int, PlayerInventory.Snapshot> startSnapshots = new();
+    private bool restartRequested = false;
 
     private void Awake()
     {
@@ -53,53 +55,73 @@ public class BiomeSequenceController : MonoBehaviour
         NextBiome();
     }
 
+    public void TryRestartCurrentBiome()
+    {
+        if (currentBiomeIndex < 0 || currentBiomeIndex >= biomes.Count)
+        {
+            Debug.LogError("[BiomeSequence] No current biome to restart.");
+            return;
+        }
+        restartRequested = true;          // signal we want to restore snapshot after rebuild
+        currentBiomeIndex--;              // NextBiome() will ++ it back to this biome
+        NextBiome();
+    }
     public void NextBiome()
     {
+        Debug.Log("[BiomeSequence] Generating next biome...");
         StartCoroutine(NextBiome_Co());
     }
 
     private IEnumerator NextBiome_Co()
     {
-        // Clear previous biome content 
-        if (tilemapClearer != null)
-            tilemapClearer.ClearAll();
-
-        // Slight delay to ensure all systems released their references
+        // Clear previous tiles/props
+        tilemapClearer?.ClearAll();
         yield return null;
 
-        currentBiomeIndex++;
-        if (currentBiomeIndex >= biomes.Count)
+        // Decide which biome we’re entering
+        int nextIndex = currentBiomeIndex + 1;
+
+        // Capture snapshot for the biome we’re about to ENTER, but only if we’re not restarting it
+        if (!restartRequested)
         {
-            Debug.Log("[BiomeSequence] All biomes complete.");
-            yield break;
+            var inv = FindFirstObjectByType<PlayerInventory>(FindObjectsInactive.Include);
+            if (inv != null)
+                startSnapshots[nextIndex] = inv.GetSnapshot();
         }
+
+        currentBiomeIndex = nextIndex;
+        if (currentBiomeIndex >= biomes.Count) { Debug.Log("[BiomeSequence] All biomes complete."); yield break; }
 
         var entry = biomes[currentBiomeIndex];
-        if (entry == null || entry.biomeProfile == null || entry.specialRoomPrefab == null)
-        {
-            Debug.LogError("[BiomeSequence] Invalid biome entry.");
-            yield break;
-        }
+        if (entry == null || !entry.biomeProfile || !entry.specialRoomPrefab)
+        { Debug.LogError("[BiomeSequence] Invalid biome entry."); yield break; }
 
-        // Seed the special room prefab instance
         var seedInfo = specialRoomSeeder.Seed(entry.specialRoomPrefab);
         if (seedInfo == null)
-        {
-            Debug.LogError("[BiomeSequence] Failed to seed special room.");
-            yield break;
-        }
+        { Debug.LogError("[BiomeSequence] Failed to seed special room."); yield break; }
 
-        // Ask DungeonController to build the dungeon, expanding from the prefab's tilemaps
         dungeonController.Build(entry.biomeProfile, seedInfo);
+        Debug.Log("[BiomeSequence] Biome built: " + entry.biomeProfile.name);
 
-        // Hook to special-room completion to advance the sequence
+        // re-hook special broadcaster as you already do...
         if (_activeBroadcaster != null)
             _activeBroadcaster.OnSolved -= HandleSpecialSolved;
-
         _activeBroadcaster = seedInfo.broadcaster;
         if (_activeBroadcaster != null)
             _activeBroadcaster.OnSolved += HandleSpecialSolved;
     }
+
+    //private void HandlePlayerSpawned(PlayerInventory inv)
+    //{
+    //    if (inv == null) return;
+
+    //    if (restartRequested)
+    //    {
+    //        if (startSnapshots.TryGetValue(currentBiomeIndex, out var snap))
+    //            inv.ApplySnapshot(snap);
+    //        restartRequested = false;
+    //    }
+    //}
 
     private void HandleSpecialSolved()
     {

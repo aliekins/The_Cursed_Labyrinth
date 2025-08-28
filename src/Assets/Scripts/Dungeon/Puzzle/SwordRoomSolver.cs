@@ -1,27 +1,28 @@
 using System;
 using UnityEngine;
 
-public class SwordRoomSolver : MonoBehaviour, ISpecialSolver
+public sealed class SwordRoomSolver : MonoBehaviour, ISpecialSolver
 {
     public event Action OnSolved;
 
+    [Header("Puzzle")]
     [SerializeField] private int requiredSwords = 6;
-    private int swordsUsed = 0;
 
     public int Required => requiredSwords;
-    public int Used => swordsUsed;
+    public int Used { get; private set; }
+    public bool IsSolved => Used >= Required;
 
     public void UseSword()
     {
-        if (swordsUsed >= requiredSwords) return;
-        swordsUsed++;
+        if (IsSolved) return;
+        Used++;
 
-        if (swordsUsed >= requiredSwords)
+        if (IsSolved)
         {
-            Debug.Log("Sword room puzzle solved!");
+            Debug.Log("[SwordRoomSolver] SOLVED");
             OnSolved?.Invoke();
         }
     }
 
-    public void ResetProgress() => swordsUsed = 0;
+    public void ResetProgress() => Used = 0;
 }

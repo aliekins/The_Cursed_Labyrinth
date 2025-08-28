@@ -34,4 +34,23 @@ public class TilemapClearer : MonoBehaviour
             }
         }
     }
+    public void ClearUnder(Transform root, bool alsoDestroyTagged = true, string destroyTag = "DungeonSpawned")
+    {
+        if (!root) return;
+
+        var maps = root.GetComponentsInChildren<Tilemap>(true);
+        for (int i = 0; i < maps.Length; i++)
+            maps[i].ClearAllTiles();
+
+        if (alsoDestroyTagged && !string.IsNullOrEmpty(destroyTag))
+        {
+            var all = root.GetComponentsInChildren<Transform>(true);
+            for (int i = 0; i < all.Length; i++)
+            {
+                var tr = all[i];
+                if (tr && tr.CompareTag(destroyTag))
+                    Destroy(tr.gameObject);
+            }
+        }
+    }
 }

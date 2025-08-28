@@ -33,8 +33,6 @@ public sealed class TilemapVisualizer : MonoBehaviour
     private bool[,] prefabSkipMask;
     public void SetPrefabSkipMask(bool[,] mask) => prefabSkipMask = mask;
     public void SetCellOffset(Vector2Int off) => cellOffset = off;
-    public Vector3Int GridToTileCell(Vector2Int gridCell)
-        => new Vector3Int(gridCell.x + cellOffset.x, gridCell.y + cellOffset.y, 0);
     public Vector2Int TileToGridCell(Vector3Int tileCell)
         => new Vector2Int(tileCell.x - cellOffset.x, tileCell.y - cellOffset.y);
 
@@ -99,6 +97,11 @@ public sealed class TilemapVisualizer : MonoBehaviour
         var g = GridTransform ? GridTransform.GetComponent<Grid>() : null;
         var c = new Vector3Int(x + cellOffset.x, y + cellOffset.y, 0);
         return g ? g.GetCellCenterLocal(c) : new Vector3(c.x + 0.5f, c.y + 0.5f, 0);
+    }
+    public Vector3 CellCenterWorld(int x, int y)
+    {
+        var local = CellCenterLocal(x, y); // already includes cellOffset
+        return GridTransform ? GridTransform.TransformPoint(local) : local;
     }
 
     // helpers

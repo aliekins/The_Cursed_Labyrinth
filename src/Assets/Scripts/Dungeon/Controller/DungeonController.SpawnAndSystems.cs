@@ -21,32 +21,30 @@ public partial class DungeonController
 
         return SpawnSelector.ChooseFarthestFrom(entranceInsideGrid, list);
     }
-
     public void PlacePlayer(Vector2Int cell)
     {
         if (!playerPrefab) return;
 
-        Vector3 spawnLocal = tmVisualizer.CellCenterLocal(cell.x, cell.y);
-        var gridParent = tmVisualizer.GridTransform;
-
+        // ensure instance exists under a persistent parent
         if (!playerInstance)
-        {
-            playerInstance = Instantiate(playerPrefab);
-            if (gridParent) playerInstance.transform.SetParent(gridParent, false);
-        }
-        playerInstance.transform.localPosition = spawnLocal;
+            playerInstance = Instantiate(playerPrefab, runtimeRoot ? runtimeRoot : null);
 
-        var tracker = playerInstance.GetComponent<PlayerRoomTracker>()
-                   ?? playerInstance.AddComponent<PlayerRoomTracker>();
+        // compute world position from grid-local
+        Vector3 local = tmVisualizer.CellCenterLocal(cell.x, cell.y);
+        Vector3 world = local;
+        if (tmVisualizer && tmVisualizer.GridTransform)
+            world = tmVisualizer.GridTransform.TransformPoint(local);
+
+        // place without parenting to the Grid (stay persistent)
+        playerInstance.transform.position = world;
+
+        // tracking, events, UI rebinds
+        var tracker = playerInstance.GetComponent<PlayerRoomTracker>() ?? playerInstance.AddComponent<PlayerRoomTracker>();
         tracker.SetController(this);
-
-        var inventory = playerInstance.GetComponent<PlayerInventory>()
-                     ?? playerInstance.AddComponent<PlayerInventory>();
-
-        PlayerSpawned?.Invoke(inventory);
 
         int rid = grid.InBounds(cell.x, cell.y) ? grid.RoomId[cell.x, cell.y] : -1;
         NotifyRoomEntered(rid);
+        PlayerSpawned?.Invoke(playerInstance.GetComponent<PlayerInventory>());
     }
 
     private void SetupCamera()
@@ -61,14 +59,18 @@ public partial class DungeonController
     private void SetupPlayerLighting()
     {
         if (!playerInstance) return;
-        var lightTr = FindAnyObjectByType<UnityEngine.Rendering.Universal.Light2D>()?.transform;
-        var lightAim = FindAnyObjectByType<LightAim>();
-        if (lightAim) lightAim.SetPlayer(playerInstance.GetComponent<TopDownController>());
-        if (!lightTr) return;
-        var follow = lightTr.GetComponent<FollowTarget2D>() ?? lightTr.gameObject.AddComponent<FollowTarget2D>();
+
+        var light = playerInstance.GetComponentInChildren<UnityEngine.Rendering.Universal.Light2D>(true);
+        if (!light) return;
+
+        var follow = light.GetComponent<FollowTarget2D>() ?? light.gameObject.AddComponent<FollowTarget2D>();
         follow.SetTarget(playerInstance.transform);
         follow.SetSmooth(0f);
+
+        var lightAim = light.GetComponent<LightAim>() ?? light.gameObject.AddComponent<LightAim>();
+        lightAim.SetPlayer(playerInstance.GetComponent<TopDownController>());
     }
+
     public void SetupPlayerHP()
     {
         if (playerInstance)
@@ -96,6 +98,9 @@ public partial class DungeonController
                     orderedBiomeKinds.Add(b.biomeProfile.floorKind);
         }
 
+        if (trapManager != null)
+            trapManager.SetGridContext(tmVisualizer.GridTransform, tmVisualizer);
+
         trapManager?.Build(grid, rooms, resolveTier: kind => orderedBiomeKinds.IndexOf(kind), tmVisualizer.CarpetMask);
         var trapCells = TrapCellsFromChildren(trapManager, tmVisualizer);
 
@@ -116,7 +121,7 @@ public partial class DungeonController
                 allowPotions = true,
                 guaranteedSwords = 6,
                 guaranteedBooks = 0,
-                potionChance = 0.25f
+                potionChance = 0.1f
             });
             Debug.Log("[DungeonController] SetPolicy 0");
         }
@@ -129,7 +134,7 @@ public partial class DungeonController
                 allowPotions = true,
                 guaranteedSwords = 0,
                 guaranteedBooks = 5,
-                potionChance = 0.25f
+                potionChance = 0.2f
             });
         }
         else
@@ -141,28 +146,40 @@ public partial class DungeonController
                 allowPotions = true,
                 guaranteedSwords = 0,
                 guaranteedBooks = 0,
-                potionChance = 0.25f
+                potionChance = 0.2f
             });
         }
     }
     private static HashSet<Vector2Int> TrapCellsFromChildren(TrapManager manager, TilemapVisualizer viz)
     {
         var set = new HashSet<Vector2Int>();
-        if (!manager || !viz) return set;
+        if (!manager || !viz) 
+            return set;
+
         var gridTr = viz.GridTransform;
-        var grid = gridTr ? gridTr.GetComponent<Grid>() : null;
+        var gridCmp = gridTr ? gridTr.GetComponent<Grid>() : null;
 
         for (int i = 0; i < manager.transform.childCount; i++)
         {
             var tr = manager.transform.GetChild(i);
+            if (!tr) continue;
+
             var world = tr.position;
-            Vector3Int cell;
-            if (grid) cell = grid.WorldToCell(world);
-            else cell = new Vector3Int(Mathf.RoundToInt(world.x), Mathf.RoundToInt(world.y), 0);
-            set.Add(new Vector2Int(cell.x, cell.y));
+
+            if (gridCmp != null)
+            {
+                Vector3Int tileCell = gridCmp.WorldToCell(world);
+                Vector2Int gridCell = viz.TileToGridCell(tileCell);
+                set.Add(gridCell);
+            }
+            else
+            {
+                set.Add(new Vector2Int(Mathf.RoundToInt(world.x), Mathf.RoundToInt(world.y)));
+            }
         }
         return set;
     }
+
     #endregion
 
     #region Tiers & Events

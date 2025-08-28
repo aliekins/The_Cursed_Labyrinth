@@ -2,6 +2,8 @@
 /// \brief Spawns traps in eligible rooms (Quarry)
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -19,9 +21,19 @@ public sealed class TrapManager : MonoBehaviour
     [SerializeField] private List<string> forbiddenSurfaceKinds = new() { "floor_carpet" };
     [SerializeField] private bool disallowCorridors = true;
 
-    public void Build(DungeonGrid grid, List<Room> rooms, Func<string,int> resolveTier, bool[,] carpetMask = null)
+    private Transform gridTransform;                // set by controller
+    private TilemapVisualizer viz;               // set by controller
+
+    public void SetGridContext(Transform gr, TilemapVisualizer visualizer)
+    {
+        gridTransform = gr;
+        viz = visualizer;
+    }
+
+    public void Build(DungeonGrid grid, List<Room> rooms, Func<string, int> resolveTier, bool[,] carpetMask = null)
     {
         if (!spikeTrapPrefab || grid == null || rooms == null) return;
+
         ClearChildren();
 
         foreach (var room in rooms)
@@ -29,35 +41,36 @@ public sealed class TrapManager : MonoBehaviour
             var centerKind = grid.Kind[room.Center.x, room.Center.y] ?? string.Empty;
             int tier = resolveTier(centerKind);
 
-            if (tier != 1) continue;                           
-            if (Random.value > roomTrapChance) continue;
+            // only biome 2 (tier==1) gets traps
+            if (tier != 1) continue;
 
-            int target = Random.Range(trapsPerRoomMin, trapsPerRoomMax + 1);
+            if (UnityEngine.Random.value > roomTrapChance) continue;
+
+            int target = UnityEngine.Random.Range(trapsPerRoomMin, trapsPerRoomMax + 1);
             var info = room.Info;
 
-            int placed = 0;
-            int guard = 0;
-
+            int placed = 0, guard = 0;
             while (placed < target && guard++ < 400)
             {
-                var cell = PickCandidate(info.EdgeBand, info, grid, carpetMask);
-                if (cell == null)
-                {
-                    cell = PickCandidate(info.Interior, info, grid, carpetMask);
-                    if (cell == null) break;
-                }
+                var cell = PickCandidate(info.EdgeBand, info, grid, carpetMask)
+                           ?? PickCandidate(info.Interior, info, grid, carpetMask);
+                if (cell == null) break;
 
                 var pos = cell.Value;
+
                 var go = Instantiate(spikeTrapPrefab, transform);
+                go.tag = "DungeonSpawned";
 
-                go.transform.position = new Vector3(pos.x, pos.y, 0f);
+                if (viz != null)
+                    go.transform.position = viz.CellCenterWorld(pos.x, pos.y);
+                else
+                    go.transform.position = new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0f);
 
-                info.Occupied.Add(pos);   
+                info.Occupied.Add(pos);
                 placed++;
             }
         }
     }
-
     private Vector2Int? PickCandidate(List<Vector2Int> pool, RoomInfo info, DungeonGrid grid, bool[,] carpetMask)
     {
         if (pool == null || pool.Count == 0) return null;

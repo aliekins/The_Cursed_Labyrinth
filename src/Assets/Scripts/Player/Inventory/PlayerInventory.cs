@@ -26,7 +26,7 @@ public sealed class PlayerInventory : MonoBehaviour
 
     private void Awake()
     {
-        health = GetComponent<PlayerHealth>(); 
+        health = GetComponent<PlayerHealth>();
         PushChanged();
     }
     #region API
