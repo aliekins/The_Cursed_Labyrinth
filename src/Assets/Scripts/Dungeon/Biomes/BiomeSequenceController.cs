@@ -12,7 +12,6 @@ public class BiomeSequenceController : MonoBehaviour
     {
         public BiomeSetup_SO biomeProfile;
         public GameObject specialRoomPrefab;     // must contain its own Grid and Tilemaps (Ground/Carpet/Wall)
-        //public Vector2Int mapSizeOverride = Vector2Int.zero; // optional
     }
 
     [Header("Sequence")]
@@ -62,6 +61,7 @@ public class BiomeSequenceController : MonoBehaviour
             Debug.LogError("[BiomeSequence] No current biome to restart.");
             return;
         }
+
         restartRequested = true;          // signal we want to restore snapshot after rebuild
         currentBiomeIndex--;              // NextBiome() will ++ it back to this biome
         NextBiome();
@@ -85,44 +85,41 @@ public class BiomeSequenceController : MonoBehaviour
         if (!restartRequested)
         {
             var inv = FindFirstObjectByType<PlayerInventory>(FindObjectsInactive.Include);
+
             if (inv != null)
                 startSnapshots[nextIndex] = inv.GetSnapshot();
         }
 
         currentBiomeIndex = nextIndex;
-        if (currentBiomeIndex >= biomes.Count) { Debug.Log("[BiomeSequence] All biomes complete."); yield break; }
+        if (currentBiomeIndex >= biomes.Count) 
+        {
+            Debug.Log("[BiomeSequence] All biomes complete.");
+            yield break;
+        }
 
         var entry = biomes[currentBiomeIndex];
         if (entry == null || !entry.biomeProfile || !entry.specialRoomPrefab)
-        { Debug.LogError("[BiomeSequence] Invalid biome entry."); yield break; }
+        { 
+            Debug.LogError("[BiomeSequence] Invalid biome entry.");
+            yield break;
+        }
 
         var seedInfo = specialRoomSeeder.Seed(entry.specialRoomPrefab);
         if (seedInfo == null)
-        { Debug.LogError("[BiomeSequence] Failed to seed special room."); yield break; }
+        {
+            Debug.LogError("[BiomeSequence] Failed to seed special room.");
+            yield break;
+        }
 
         dungeonController.Build(entry.biomeProfile, seedInfo);
         Debug.Log("[BiomeSequence] Biome built: " + entry.biomeProfile.name);
 
-        // re-hook special broadcaster as you already do...
         if (_activeBroadcaster != null)
             _activeBroadcaster.OnSolved -= HandleSpecialSolved;
         _activeBroadcaster = seedInfo.broadcaster;
         if (_activeBroadcaster != null)
             _activeBroadcaster.OnSolved += HandleSpecialSolved;
     }
-
-    //private void HandlePlayerSpawned(PlayerInventory inv)
-    //{
-    //    if (inv == null) return;
-
-    //    if (restartRequested)
-    //    {
-    //        if (startSnapshots.TryGetValue(currentBiomeIndex, out var snap))
-    //            inv.ApplySnapshot(snap);
-    //        restartRequested = false;
-    //    }
-    //}
-
     private void HandleSpecialSolved()
     {
         Debug.Log("[BiomeSequence] Special solved, generate next biome");

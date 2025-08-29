@@ -4,52 +4,58 @@ using UnityEngine.Tilemaps;
 [RequireComponent(typeof(Collider2D))]
 public sealed class BiomeTransitionTrigger : MonoBehaviour
 {
+    [Header("Gate")]
     [SerializeField] private bool requireSolved = true;
-    [SerializeField] private KeyCode advanceKey = KeyCode.E;
+    private KeyCode advanceKey = KeyCode.E;
 
     private BiomeSequenceController sequence;
     private ISpecialSolver solver;
-    private bool solved;
     private bool inside;
+    private bool solved;      // cached, but we’ll always re-check live on key press
     private bool advancing;
 
     private void Awake()
     {
         var col = GetComponent<Collider2D>();
-        if (col) col.isTrigger = true;
+        if (col)
+            col.isTrigger = true;
 
         sequence = FindFirstObjectByType<BiomeSequenceController>();
 
-        // bind now (works because sign and solver are in the same clone)
-        TryBindSolver();
-        SyncSolvedFromKnownSolvers();
+        TryBind();
+        SyncSolvedFromSolver();  // if puzzle already solved before we bound
     }
 
     private void OnDestroy()
     {
-        if (solver != null) solver.OnSolved -= HandleSolved;
+        if (solver != null) 
+            solver.OnSolved -= HandleSolved;
     }
 
     private void Update()
     {
-        // late-bind safety: if cloning order made us miss it, keep trying
-        if (solver == null && !solved) {
-            TryBindSolver(); 
-            SyncSolvedFromKnownSolvers(); }
+        if (solver == null) 
+        { 
+            TryBind();
+        }
 
         if (!inside) return;
 
         if (Input.GetKeyDown(advanceKey))
         {
-            if (requireSolved && !solved)
+            // Re-check live state at the moment of pressing E
+            bool solvedNow = solved || IsSolverSolved();
+
+            if (requireSolved && !solvedNow)
             {
                 Debug.Log("[BiomeTransition] Blocked: special room not solved yet.");
                 return;
             }
+
             if (!advancing)
             {
-                advancing = true; // debounce
-                sequence?.NextBiome(); // sequence handles clear/seed/build
+                advancing = true;
+                sequence?.NextBiome();
             }
         }
     }
@@ -66,43 +72,53 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
 
     private void HandleSolved() => solved = true;
 
-    private void TryBindSolver()
+    #region building_checks
+    private void TryBind()
     {
-        var root = FindPrefabRoot(transform);
-        if (!root) 
-            return;
+        var root = FindNearestGridRoot(transform);
+        if (!root) return;
 
+        // find an active ISpecialSolver on this special-room clone
         var monos = root.GetComponentsInChildren<MonoBehaviour>(true);
-        for (int i = 0; i < monos.Length; i++)
+        foreach (var m in monos)
         {
-            if (monos[i] is ISpecialSolver s)
+            if (m is ISpecialSolver s)
             {
+                // unsubscribe old solver (if any)
+                if (solver != null) solver.OnSolved -= HandleSolved;
+
                 solver = s;
                 solver.OnSolved += HandleSolved;
                 break;
             }
         }
     }
-
-    private void SyncSolvedFromKnownSolvers()
+    private void SyncSolvedFromSolver()
     {
-        if (solver == null) return;
+        if (IsSolverSolved()) solved = true;
+    }
+    private bool IsSolverSolved()
+    {
+        if (solver is LeverRoomSolver lr)
+            return lr.IsSolved;
 
-        // if your solvers expose IsSolved, reflect it here
-        if (solver is LeverRoomSolver lever && lever.IsSolved) { solved = true; return; }
-        if (solver is SwordRoomSolver sword && sword.IsSolved) { solved = true; return; }
+        if (solver is SwordRoomSolver sr)
+            return sr.IsSolved;
+
+        return false;
     }
 
-    private static Transform FindPrefabRoot(Transform t)
+    private static Transform FindNearestGridRoot(Transform t)
     {
-        // climb until we reach the clone root that owns Grid/Tilemaps
-        Transform cur = t, best = null;
+        // Walk up to the special-room clone root (object that owns Grid/Tilemaps)
+        var cur = t;
         while (cur != null)
         {
-            if (cur.GetComponentInChildren<Tilemap>(true) || cur.GetComponentInChildren<Grid>(true))
-                best = cur;
+            if (cur.GetComponent<Grid>() || cur.GetComponentInChildren<Tilemap>(true))
+                return cur;
             cur = cur.parent;
         }
-        return best ? best : t?.root;
+        return t ? t.root : null;
     }
+    #endregion
 }

@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: BiomeSetup_Third
   m_EditorClassIdentifier: 
   overrideSize: 0
-  width: 64
-  height: 64
+  width: 128
+  height: 128
   floorKind: floor_grove
   corridorKind: floor_corridor
   minPathCells: 100
-  specialRoomPrefab: {fileID: 8117671984353988623, guid: 2533eb391e7678e46b0a695025e6219e, type: 3}
-  specialEntrance: 3

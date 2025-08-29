@@ -8,8 +8,8 @@ public sealed class SpikeTrap : MonoBehaviour
 {
     [Header("Damage")]
     [SerializeField, Min(1)] private int damage = 15;               
-    [SerializeField, Min(0f)] private float damageTickInterval = 0.6f; 
-    [SerializeField, Min(0f)] private float warmupDelay = 1f;
+    [SerializeField, Min(0f)] private float damageTickInterval = 0.4f; 
+    [SerializeField, Min(0f)] private float warmupDelay = 0.2f;
 
     [Header("Animator")]
     [SerializeField] private string isPlayerNearParam = "isPlayerNear";

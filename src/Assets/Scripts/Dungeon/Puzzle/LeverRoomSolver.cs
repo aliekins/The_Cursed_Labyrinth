@@ -45,8 +45,10 @@ public sealed class LeverRoomSolver : MonoBehaviour, ISpecialSolver
             foreach (var lv in levers)
             {
                 if (!lv) continue;
+
                 if (byColor.ContainsKey(lv.color))
                     Debug.LogWarning($"[LeverRoomSolver] Duplicate color {lv.color} on {lv.name}");
+
                 byColor[lv.color] = lv;
                 lv.PulledDown += OnLeverPulled;
             }

@@ -1,32 +1,51 @@
 using UnityEngine;
 
-[DisallowMultipleComponent]
+[RequireComponent(typeof(Collider2D))]
 public sealed class PickupItem : MonoBehaviour
 {
-    [Header("Pickup")]
-    public Item.ItemType type = Item.ItemType.Sword;
-    public int quantity = 1;
+    [Header("What this pickup represents")]
+    public Item.ItemType Type;
+    public int Quantity = 1;
+
+    [Header("Pickup behaviour")]
+    public bool autoPickup = false;
+    public bool isSpecial = false;
 
     [Header("FX")]
-    [SerializeField] private AudioClip pickupSfx;
-    [SerializeField, Range(0, 1)] private float volume = 1f;
+    public AudioClip pickupSfx;
+    [Range(0f, 1f)] public float pickupVolume = 1f;
+    public GameObject pickupFlashPrefab;
 
-    private void Awake()
+    private void Reset()
     {
-        var col = GetComponent<Collider2D>();
-        if (!col) col = gameObject.AddComponent<CircleCollider2D>();
-        col.isTrigger = true;
+        // make sure collider is trigger
+        var c = GetComponent<Collider2D>();
+        if (c) c.isTrigger = true;
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (!Input.GetKeyDown(KeyCode.E)) return;
-
         var inv = other.GetComponent<PlayerInventory>();
         if (!inv) return;
 
-        inv.Add(type, Mathf.Max(1, quantity));
-        if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position, volume);
+        if (autoPickup || Input.GetKeyDown(KeyCode.E))
+            TryGiveTo(inv);
+    }
+
+    private void TryGiveTo(PlayerInventory inv)
+    {
+        if (isSpecial)
+        {
+            if (!inv.TryCarrySpecial(Type)) return;
+        }
+        else
+        {
+            inv.Add(Type, Mathf.Max(1, Quantity));
+        }
+
+        if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position, pickupVolume);
+        if (pickupFlashPrefab) Instantiate(pickupFlashPrefab, transform.position, Quaternion.identity);
+
         Destroy(gameObject);
     }
 }

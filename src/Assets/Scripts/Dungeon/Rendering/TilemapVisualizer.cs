@@ -17,26 +17,23 @@ public sealed class TilemapVisualizer : MonoBehaviour
     [SerializeField] private int minPatchWidth = 1, minPatchHeight = 1;
     [SerializeField] private int maxPatchWidth = 4, maxPatchHeight = 4;
     [SerializeField] private int maxPatchAttempts = 500;
-    [Tooltip("Use a fixed seed for reproducible masks; 0 = random each run.")]
+
     [SerializeField] private int seed = 0;
 
     [Header("Carpet Mask Controls")]
     [Tooltip("If true, keep an existing CarpetMask instead of rebuilding each Render().")]
-    [SerializeField] private bool preserveCarpetMask = true;
+    [SerializeField] private bool preserveCarpetMask = false;
     [Tooltip("Skip painting carpet on cells whose kind is corridor-like.")]
     [SerializeField] private bool excludeCorridorsFromCarpet = true;
     [Tooltip("Skip painting carpet for any cell inside the special-room bounds.")]
     [SerializeField] private bool excludePrefabFromCarpet = true;
 
-    // placement offset: tile = grid + cellOffset
     [SerializeField] private Vector2Int cellOffset = Vector2Int.zero;
     private bool[,] prefabSkipMask;
     public void SetPrefabSkipMask(bool[,] mask) => prefabSkipMask = mask;
-    public void SetCellOffset(Vector2Int off) => cellOffset = off;
-    public Vector2Int TileToGridCell(Vector3Int tileCell)
-        => new Vector2Int(tileCell.x - cellOffset.x, tileCell.y - cellOffset.y);
-
+  
     [SerializeField] private bool limitPrefabSkipToBounds = true;
+
     private RectInt prefabBoundsGrid;
     private bool hasPrefabBounds = false;
 
@@ -73,17 +70,11 @@ public sealed class TilemapVisualizer : MonoBehaviour
         walls?.ClearAllTiles();
     }
 
-    /// Force the next Render() to rebuild the carpet mask.
-    public void InvalidateCarpetMask() => CarpetMask = null;
-
-    /// Supply an external carpet mask (must match grid size).
-    public void SetCarpetMask(bool[,] mask) => CarpetMask = mask;
-
     public void Render(DungeonGrid grid)
     {
-        if (grid == null) throw new ArgumentNullException(nameof(grid));
+        if (grid == null) 
+            throw new ArgumentNullException(nameof(grid));
 
-        // Build the mask only if we don't preserve or dimensions changed
         if (!preserveCarpetMask || !MaskMatchesGrid(CarpetMask, grid))
             CarpetMask = BuildCarpetMask(grid);
 
@@ -92,10 +83,12 @@ public sealed class TilemapVisualizer : MonoBehaviour
         RenderWalls(grid);
     }
 
+    #region CellPositioning
     public Vector3 CellCenterLocal(int x, int y)
     {
         var g = GridTransform ? GridTransform.GetComponent<Grid>() : null;
         var c = new Vector3Int(x + cellOffset.x, y + cellOffset.y, 0);
+
         return g ? g.GetCellCenterLocal(c) : new Vector3(c.x + 0.5f, c.y + 0.5f, 0);
     }
     public Vector3 CellCenterWorld(int x, int y)
@@ -103,13 +96,20 @@ public sealed class TilemapVisualizer : MonoBehaviour
         var local = CellCenterLocal(x, y); // already includes cellOffset
         return GridTransform ? GridTransform.TransformPoint(local) : local;
     }
+    public void SetCellOffset(Vector2Int off) => cellOffset = off;
+    public Vector2Int TileToGridCell(Vector3Int tileCell) => new Vector2Int(tileCell.x - cellOffset.x, tileCell.y - cellOffset.y);
 
-    // helpers
-    private static bool IsFloor(string k) =>
-        !string.IsNullOrEmpty(k) && k.StartsWith("floor", StringComparison.OrdinalIgnoreCase);
+    #endregion
 
-    private static bool IsPrefabFloor(string k) =>
-        !string.IsNullOrEmpty(k) && k.StartsWith("floor_prefab", StringComparison.OrdinalIgnoreCase);
+    #region helpers
+    private static bool IsFloor(string k) => !string.IsNullOrEmpty(k) && k.StartsWith("floor", StringComparison.OrdinalIgnoreCase);
+
+    private static bool IsPrefabFloor(string k) => !string.IsNullOrEmpty(k) && k.StartsWith("floor_prefab", StringComparison.OrdinalIgnoreCase);
+    /// Force the next Render() to rebuild the carpet mask.
+    public void InvalidateCarpetMask() => CarpetMask = null;
+
+    /// Supply an external carpet mask (must match grid size).
+    public void SetCarpetMask(bool[,] mask) => CarpetMask = mask;
 
     private static bool IsCorridorLike(string k)
     {
@@ -141,17 +141,17 @@ public sealed class TilemapVisualizer : MonoBehaviour
     {
         if (!hasPrefabBounds || !limitPrefabSkipToBounds) return false;
 
-        var b = new RectInt(prefabBoundsGrid.xMin, prefabBoundsGrid.yMin,
-                            prefabBoundsGrid.width, prefabBoundsGrid.height);
+        var b = new RectInt(prefabBoundsGrid.xMin, prefabBoundsGrid.yMin, prefabBoundsGrid.width, prefabBoundsGrid.height);
+
         return b.Contains(new Vector2Int(x, y));
     }
 
-    private static bool MaskMatchesGrid(bool[,] mask, DungeonGrid grid)
-        => mask != null && mask.GetLength(0) == grid.Width && mask.GetLength(1) == grid.Height;
+    private static bool MaskMatchesGrid(bool[,] mask, DungeonGrid grid) => mask != null && mask.GetLength(0) == grid.Width && mask.GetLength(1) == grid.Height;
 
     private int CountFloors(DungeonGrid g, bool includePrefab = true, bool includeCorridors = true)
     {
         int c = 0;
+
         for (int x = 0; x < g.Width; x++)
             for (int y = 0; y < g.Height; y++)
             {
@@ -167,10 +167,10 @@ public sealed class TilemapVisualizer : MonoBehaviour
 
     private bool[,] BuildCarpetMask(DungeonGrid grid)
     {
-        int W = grid.Width, H = grid.Height;
+        int W = grid.Width;
+        int H = grid.Height;
         var mask = new bool[W, H];
 
-        // Only place carpet on "normal" floors (no prefab, no corridor)
         int floorCount = CountFloors(grid, includePrefab: !excludePrefabFromCarpet, includeCorridors: !excludeCorridorsFromCarpet);
 
         if (floorCount == 0 || coverageRatio <= 0f) return mask;
@@ -192,26 +192,40 @@ public sealed class TilemapVisualizer : MonoBehaviour
             int ry = rng.Next(0, Mathf.Max(1, H - rh + 1));
 
             for (int x = rx; x < rx + rw && painted < target; x++)
+            {
                 for (int y = ry; y < ry + rh && painted < target; y++)
                 {
                     var k = grid.Kind[x, y];
                     if (!IsFloor(k)) continue;
                     if (excludePrefabFromCarpet && IsPrefabFloor(k)) continue;
                     if (excludeCorridorsFromCarpet && IsCorridorLike(k)) continue;
-                    if (InPrefabHalo(x, y)) continue; // keep seam area clear
+                    if (InPrefabHalo(x, y)) continue;
 
                     if (mask[x, y]) continue;
+
                     mask[x, y] = true;
                     painted++;
                 }
+            }
         }
 
         return mask;
     }
+    public float CellSize
+    {
+        get
+        {
+            var g = GridTransform?.GetComponent<Grid>();
+            return g ? g.cellSize.x : 1f;
+        }
+    }
+    #endregion
 
+    #region RenderSteps
     private void RenderFloors(DungeonGrid grid)
     {
         for (int x = 0; x < grid.Width; x++)
+        {
             for (int y = 0; y < grid.Height; y++)
             {
                 var kind = grid.Kind[x, y];
@@ -221,6 +235,7 @@ public sealed class TilemapVisualizer : MonoBehaviour
                 var pos = new Vector3Int(x + cellOffset.x, y + cellOffset.y, 0);
                 ground.SetTile(pos, tile);
             }
+        }
     }
 
     private void RenderCarpets(DungeonGrid grid, bool[,] mask)
@@ -229,12 +244,14 @@ public sealed class TilemapVisualizer : MonoBehaviour
         if (!db.TryGet("carpet", out var t)) return;
 
         for (int x = 0; x < grid.Width; x++)
+        {
             for (int y = 0; y < grid.Height; y++)
             {
                 if (!mask[x, y]) continue;
                 var pos = new Vector3Int(x + cellOffset.x, y + cellOffset.y, 0);
                 if (ground.HasTile(pos)) carpet.SetTile(pos, t);
             }
+        }
     }
 
     private void RenderWalls(DungeonGrid grid)
@@ -242,6 +259,7 @@ public sealed class TilemapVisualizer : MonoBehaviour
         if (!db.TryGet("wall", out var wallTile)) return;
 
         for (int x = 0; x < grid.Width; x++)
+        {
             for (int y = 0; y < grid.Height; y++)
             {
                 var kind = grid.Kind[x, y];
@@ -261,15 +279,7 @@ public sealed class TilemapVisualizer : MonoBehaviour
                 var pos = new Vector3Int(x + cellOffset.x, y + cellOffset.y, 0);
                 walls.SetTile(pos, wallTile);
             }
-    }
-
-
-    public float CellSize
-    {
-        get
-        {
-            var g = GridTransform?.GetComponent<Grid>();
-            return g ? g.cellSize.x : 1f;
         }
     }
+    #endregion
 }

@@ -7,23 +7,26 @@ public sealed class PlayerInventory : MonoBehaviour
     [Header("Healing")]
     [SerializeField, Min(1)] private int potionHealAmount = 20;
 
+    [Header("Biome 3")]
+    [SerializeField] private Item.ItemType? carriedSpecial = null;
+
     public int Swords { get; private set; }
     public int Potions { get; private set; }
 
-    // fixed-order book slots
     private readonly bool[] books = new bool[5];
 
-    // events
+    public Item.ItemType? CarriedSpecial { get; private set; } = null;
+
     public struct Snapshot
     {
         public int swords;
         public int potions;
         public bool[] books;
+        public Item.ItemType? carried;
     }
     public event Action<Snapshot> Changed;
 
-    private PlayerHealth health; // to consume potions
-
+    private PlayerHealth health;
     private void Awake()
     {
         health = GetComponent<PlayerHealth>();
@@ -51,17 +54,50 @@ public sealed class PlayerInventory : MonoBehaviour
             case Item.ItemType.Book4:
             case Item.ItemType.Book5:
                 int idx = BookIndex(type);
-                if (idx >= 0 && idx < books.Length)
-                    books[idx] = true;       // placed into its fixed slot
+                if (idx >= 0) 
+                    books[idx] = true;
                 break;
         }
         PushChanged();
     }
 
-    public bool HasBook(Item.ItemType t) => books[BookIndex(t)];
-    public bool AllBooksFilled()
+    public event System.Action<Item.ItemType?> CarriedSpecialChanged;
+    public bool IsCarrying(Item.ItemType t) => carriedSpecial.HasValue && carriedSpecial.Value == t;
+    public bool IsCarryingAny => carriedSpecial.HasValue;
+
+    /// Try to place a special item into the carry slot. Returns false if already carrying something else.
+    public bool TryCarrySpecial(Item.ItemType t)
     {
-        for (int i = 0; i < books.Length; i++) if (!books[i]) return false;
+        if (carriedSpecial.HasValue) return false;
+        carriedSpecial = t;
+        CarriedSpecialChanged?.Invoke(carriedSpecial);
+        return true;
+    }
+
+    /// Drop the carried special. If dropPrefab is provided, it will be instantiated at 'pos'.
+    public void DropCarriedSpecial(GameObject dropPrefab, Vector3 pos)
+    {
+        if (!carriedSpecial.HasValue) return;
+
+        if (dropPrefab)
+        {
+            var go = Instantiate(dropPrefab, pos, Quaternion.identity);
+            var pi = go.GetComponent<PickupItem>() ?? go.AddComponent<PickupItem>();
+            pi.Type = carriedSpecial.Value;
+            pi.Quantity = 1;
+            pi.isSpecial = true;
+            var col = go.GetComponent<Collider2D>() ?? go.AddComponent<CircleCollider2D>();
+            col.isTrigger = true;
+        }
+
+        carriedSpecial = null;
+        CarriedSpecialChanged?.Invoke(null);
+    }
+    public bool RemoveSword(int amount = 1)
+    {
+        if (amount <= 0 || Swords < amount) return false;
+        Swords -= amount;
+        PushChanged();
         return true;
     }
 
@@ -73,22 +109,71 @@ public sealed class PlayerInventory : MonoBehaviour
         PushChanged();
         return true;
     }
-    public bool RemoveSword(int amount = 1)
+
+    public bool HasBook(Item.ItemType t)
     {
-        if (Swords < amount) return false;
-        Swords -= amount;
+        int i = BookIndex(t);
+        return i >= 0 && books[i];
+    }
+
+    public bool AllBooksFilled()
+    {
+        for (int i = 0; i < books.Length; i++) if (!books[i]) return false;
+        return true;
+    }
+    #endregion
+
+    #region specialCarry
+    public bool TryPickupSpecial(Item.ItemType t)
+    {
+        if (CarriedSpecial != null) return false;
+        if (t != Item.ItemType.SkullDiamond && t != Item.ItemType.HeartDiamond && t != Item.ItemType.Crown)
+            return false;
+
+        CarriedSpecial = t;
         PushChanged();
         return true;
     }
 
+    public bool DropCarriedSpecial(GameObject pickupPrefab = null, Vector3? worldPos = null)
+    {
+        if (CarriedSpecial == null) return false;
+
+        if (pickupPrefab != null && worldPos.HasValue)
+        {
+            var go = UnityEngine.Object.Instantiate(pickupPrefab, worldPos.Value, Quaternion.identity);
+            var pu = go.GetComponent<PickupItem>() ?? go.AddComponent<PickupItem>();
+            pu.Type = CarriedSpecial.Value;
+            pu.Quantity = 1;
+        }
+
+        CarriedSpecial = null;
+        PushChanged();
+        return true;
+    }
+    #endregion
+
+    #region snapshots
     public Snapshot GetSnapshot() => new Snapshot
     {
         swords = Swords,
         potions = Potions,
-        books = (bool[])books.Clone()
+        books = (bool[])books.Clone(),
+        carried = CarriedSpecial
     };
+
+    public void ApplySnapshot(Snapshot s)
+    {
+        Swords = s.swords;
+        Potions = s.potions;
+        if (s.books != null && s.books.Length == books.Length)
+            Array.Copy(s.books, books, books.Length);
+        CarriedSpecial = s.carried;
+        PushChanged();
+    }
     #endregion
     #region helpers
+
     private static int BookIndex(Item.ItemType t) => t switch
     {
         Item.ItemType.Book1 => 0,
@@ -100,11 +185,5 @@ public sealed class PlayerInventory : MonoBehaviour
     };
 
     private void PushChanged() => Changed?.Invoke(GetSnapshot());
-    // H for consuming potion
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-            UsePotion();
-    }
     #endregion
 }

@@ -126,8 +126,8 @@ public sealed class BreakableProp : MonoBehaviour
 
         var pi = go.GetComponent<PickupItem>();
         if (!pi) pi = go.AddComponent<PickupItem>();
-        pi.type = type;
-        pi.quantity = Mathf.Max(1, qty);
+        pi.Type = type;
+        pi.Quantity = Mathf.Max(1, qty);
     }
 
     private static PlayerInventory FindPlayerInventory()

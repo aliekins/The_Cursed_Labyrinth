@@ -3,8 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public sealed class SwordDoor : MonoBehaviour
 {
-    [Header("Input")]
-    [SerializeField] private KeyCode useKey = KeyCode.E;
+    private KeyCode useKey = KeyCode.E;
 
     [Header("Visuals / SFX (optional)")]
     [SerializeField] private AudioClip insertSfx;
@@ -35,7 +34,8 @@ public sealed class SwordDoor : MonoBehaviour
 
     void OnDestroy()
     {
-        if (solver) solver.OnSolved -= HandleSolved;
+        if (solver) 
+            solver.OnSolved -= HandleSolved;
     }
 
     void Update()
@@ -73,13 +73,13 @@ public sealed class SwordDoor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Make sure the player has a Rigidbody2D for triggers to fire
         var inv = other.GetComponent<PlayerInventory>();
         if (inv)
         {
             inside = true;
             currentInv = inv;
-             Debug.Log("[SwordDoor] Player entered door area.");
+
+            Debug.Log("[SwordDoor] Player entered door area.");
         }
     }
 
@@ -89,7 +89,8 @@ public sealed class SwordDoor : MonoBehaviour
         {
             inside = false;
             currentInv = null;
-             Debug.Log("[SwordDoor] Player left door area.");
+
+            Debug.Log("[SwordDoor] Player left door area.");
         }
     }
 
@@ -102,23 +103,29 @@ public sealed class SwordDoor : MonoBehaviour
         if (col) col.enabled = false;
 
         if (animator) animator.SetBool("Open", true);
+
         Debug.Log("[SwordDoor] Door opened. (Puzzle solved)");
     }
 
     private SwordRoomSolver FindSolverOnClone()
     {
         Transform root = FindPrefabRoot(transform);
+
         return root ? root.GetComponentInChildren<SwordRoomSolver>(true) : null;
     }
 
     private static Transform FindPrefabRoot(Transform t)
     {
-        Transform cur = t, best = null;
+        Transform cur = t;
+        Transform best = null;
+
         while (cur != null)
         {
-            if (cur.GetComponentInChildren<Grid>(true)) best = cur;
+            if (cur.GetComponentInChildren<Grid>(true)) 
+                best = cur;
             cur = cur.parent;
         }
+
         return best ? best : t.root;
     }
 }

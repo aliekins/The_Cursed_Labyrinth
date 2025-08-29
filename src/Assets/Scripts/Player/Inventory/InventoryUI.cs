@@ -15,6 +15,7 @@ public sealed class InventoryUI : MonoBehaviour
 
     [SerializeField] private Image[] bookSlots = new Image[5];
 
+    [SerializeField] private Color notFoundTint = new Color(1, 1, 1, 0.25f);
     [SerializeField] private Color emptyTint = new Color(1, 1, 1, 0.25f);
     [SerializeField] private Color filledTint = Color.white;
 
@@ -22,18 +23,23 @@ public sealed class InventoryUI : MonoBehaviour
 
     private void Awake()
     {
-        if (!controller) controller = FindFirstObjectByType<DungeonController>(FindObjectsInactive.Exclude);
+        if (!controller)
+            controller = FindFirstObjectByType<DungeonController>(FindObjectsInactive.Exclude);
     }
 
     private void OnEnable()
     {
-        if (controller) controller.PlayerSpawned += OnPlayerSpawned;
+        if (controller)
+            controller.PlayerSpawned += OnPlayerSpawned;
+
         TryBindExistingInventory();
     }
 
     private void OnDisable()
     {
-        if (controller) controller.PlayerSpawned -= OnPlayerSpawned;
+        if (controller)
+            controller.PlayerSpawned -= OnPlayerSpawned;
+
         UnhookInventory();
     }
 
@@ -56,14 +62,17 @@ public sealed class InventoryUI : MonoBehaviour
     private void HookInventory(PlayerInventory inv)
     {
         if (!inv) return;
+
         inventory = inv;
         inventory.Changed += OnInvChanged;
+
         OnInvChanged(inventory.GetSnapshot());
     }
 
     private void UnhookInventory()
     {
         if (!inventory) return;
+
         inventory.Changed -= OnInvChanged;
         inventory = null;
     }
@@ -74,13 +83,13 @@ public sealed class InventoryUI : MonoBehaviour
         if (swordText)
             swordText.text = s.swords.ToString();
         if (swordIcon)
-            swordIcon.color = hasSword ? filledTint : emptyTint;
+            swordIcon.color = hasSword ? filledTint : notFoundTint;
 
         bool hasPotion = s.potions > 0;
         if (potionText)
             potionText.text = s.potions.ToString();
         if (potionIcon)
-            potionIcon.color = hasPotion ? filledTint : emptyTint;
+            potionIcon.color = hasPotion ? filledTint : notFoundTint;
 
         if (bookSlots != null && s.books != null && s.books.Length == 5)
         {

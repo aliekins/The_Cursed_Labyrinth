@@ -25,7 +25,7 @@ public abstract class PropStrategyBase : MonoBehaviour
         [Header("Placement")]
         [Range(0f, 1f)] public float chance = 0.85f;
         public int min = 1, max = 2;
-        [Tooltip("Chebyshev spacing in tiles vs. other placed props.")]
+        [Tooltip("Spacing in tiles vs. other placed props.")]
         public int separation = 1;
 
         public enum ColliderMode { None, Box, Circle, Capsule }
@@ -47,9 +47,15 @@ public abstract class PropStrategyBase : MonoBehaviour
         public GameObject breakVfxPrefab;
 
         [Header("Drop Eligibility")]
-        public bool holdsSwords = false;
-        public bool holdsBooks = false;
         public bool holdsPotions = false;
+
+        public bool holdsSwords = false;
+
+        public bool holdsBooks = false;
+
+        public bool holdsSkull = false;
+        public bool holdsHeart = false;
+        public bool holdsCrown = false;
     }
 
     public IReadOnlyList<SimpleProp> Rules => rules;
