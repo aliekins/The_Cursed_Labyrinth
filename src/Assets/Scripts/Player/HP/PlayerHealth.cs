@@ -26,6 +26,7 @@ public sealed class PlayerHealth : MonoBehaviour
         Current = Mathf.Max(0, Current - amount);
         Debug.Log($"[HP] Damage({amount}) -> {Current}/{maxHP}", this);
         Changed?.Invoke(Current, maxHP);
+
         if (Current == 0) Died?.Invoke();
     }
 
@@ -34,6 +35,7 @@ public sealed class PlayerHealth : MonoBehaviour
         if (amount <= 0 || Current <= 0) return;
 
         Current = Mathf.Min(maxHP, Current + amount);
+        Debug.Log($"[HP] Heal({amount}) -> {Current}/{maxHP}", this);
         Changed?.Invoke(Current, maxHP);
     }
 

@@ -82,8 +82,12 @@ public static class PropSpawner
         tag.book = rule.holdsBooks;
         tag.potion = rule.holdsPotions;
 
-        // tag.skull = rule.holdsSkull;
-        // tag.heart = rule.holdsHeart;
-        // tag.crown = rule.holdsCrown;
+        tag.skull = rule.holdsSkull;
+        tag.heart = rule.holdsHeart;
+        tag.crown = rule.holdsCrown;
+
+        Debug.Log($"[PropSpawner] Tagged prop '{go.name}' " +
+                  $"S:{tag.sword} B:{tag.book} P:{tag.potion} " +
+                  $"Skull:{tag.skull} Heart:{tag.heart} Crown:{tag.crown}");
     }
 }

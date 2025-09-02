@@ -105,7 +105,10 @@ public sealed class PlayerInventory : MonoBehaviour
     {
         if (Potions <= 0) return false;
         Potions--;
-        if (health) health.Heal(potionHealAmount);
+
+        if (health) 
+            health.Heal(potionHealAmount);
+
         PushChanged();
         return true;
     }

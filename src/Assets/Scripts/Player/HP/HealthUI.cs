@@ -13,13 +13,15 @@ public sealed class HealthUI : MonoBehaviour
     void OnEnable()
     {
         if (health == null || hearts == null) return;
+
         health.Changed += OnChanged;
         OnChanged(health.Current, health.Max);
     }
 
     void OnDisable()
     {
-        if (health != null) health.Changed -= OnChanged;
+        if (health != null)
+            health.Changed -= OnChanged;
     }
 
     void OnChanged(int current, int max) => hearts.SetHealth(current, max);

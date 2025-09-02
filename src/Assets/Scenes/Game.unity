@@ -1369,7 +1369,7 @@ MonoBehaviour:
     holdsBooks: 0
     holdsSkull: 0
     holdsHeart: 0
-    holdsCrown: 0
+    holdsCrown: 1
   - sprite: {fileID: -1237704566, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
     prefab: {fileID: 0}
     chance: 0.5
@@ -1390,7 +1390,7 @@ MonoBehaviour:
     holdsBooks: 0
     holdsSkull: 0
     holdsHeart: 0
-    holdsCrown: 0
+    holdsCrown: 1
   - sprite: {fileID: -684481851, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
     prefab: {fileID: 0}
     chance: 0.4

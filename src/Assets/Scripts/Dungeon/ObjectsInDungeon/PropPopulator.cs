@@ -86,6 +86,8 @@ public sealed class PropPopulator : MonoBehaviour
         // Drops
         var rng = SaltedRng(globalSeed, 13579);
         DropAssigner.Assign(GetDropPolicy(),visualizer, grid, rooms, spawned, breakables, rng);
+        Debug.Log($"[PropPopulator] Populate complete: spawned={spawned.Count}, breakables={breakables.Count}, traps={trapCells.Count}.");
+
     }
     #endregion
 
@@ -153,6 +155,12 @@ public sealed class PropPopulator : MonoBehaviour
 
                     bp.Configure(rule.breakSfx, rule.breakSfxVolume, rule.breakVfxPrefab);
                     breakables.Add(bp);
+
+                    var tags = go.GetComponent<PropDropTags>();
+                    Debug.Log($"[PropPopulator] Breakable added: '{go.name}' " +
+                              (tags
+                                 ? $"tags S:{tags.sword} B:{tags.book} P:{tags.potion} Skull:{tags.skull} Heart:{tags.heart} Crown:{tags.crown}"
+                                 : "NO PropDropTags"));
                 }
 
                 want--;

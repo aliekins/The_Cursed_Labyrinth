@@ -36,11 +36,14 @@ public sealed class PickupItem : MonoBehaviour
     {
         if (isSpecial)
         {
-            if (!inv.TryCarrySpecial(Type)) return;
+            bool ok = inv.TryCarrySpecial(Type);
+            Debug.Log($"[PickupItem] Special pickup '{Type}' - TryCarrySpecial: {ok}");
+            if (!ok) return;
         }
         else
         {
             inv.Add(Type, Mathf.Max(1, Quantity));
+            Debug.Log($"[PickupItem] Normal pickup '{Type}' x{Mathf.Max(1, Quantity)} - Add()");
         }
 
         if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position, pickupVolume);

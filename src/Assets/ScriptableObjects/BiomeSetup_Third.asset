@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215c994d93be7064aacbec30e0676c18, type: 3}
   m_Name: BiomeSetup_Third
   m_EditorClassIdentifier: 
-  overrideSize: 0
-  width: 128
-  height: 128
+  overrideSize: 1
+  width: 256
+  height: 256
   floorKind: floor_grove
   corridorKind: floor_corridor
   minPathCells: 100

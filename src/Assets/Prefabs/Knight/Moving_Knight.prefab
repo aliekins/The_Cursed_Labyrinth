@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6196395718028973837}
   - component: {fileID: 6359482925320897949}
   - component: {fileID: 3053863053599685949}
+  - component: {fileID: 5818234422829376263}
   m_Layer: 0
   m_Name: Moving_Knight
   m_TagString: Player
@@ -219,6 +220,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potionHealAmount: 20
+--- !u!114 &5818234422829376263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5724184534580437276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d248d8d6ea60364d84db7f10fa31753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anchor: {fileID: 5978998764952521177}
+  skullSprite: {fileID: -5955765039167973149, guid: b8e90ff09b5ad3346ad7264d3bde2832, type: 3}
+  heartSprite: {fileID: 263992266792596228, guid: b8e90ff09b5ad3346ad7264d3bde2832, type: 3}
+  crownSprite: {fileID: 4083977669005830345, guid: 1cd8753f50002bc4ba3c2df4accb2427, type: 3}
 --- !u!1001 &5500837984209441144
 PrefabInstance:
   m_ObjectHideFlags: 0
