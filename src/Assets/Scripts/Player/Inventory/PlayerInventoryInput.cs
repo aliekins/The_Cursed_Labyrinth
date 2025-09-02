@@ -14,7 +14,7 @@ public sealed class PlayerInventoryInput : MonoBehaviour
     {
         if (!inv) return;
 
-        if (Input.GetKeyDown(dropSpecialKey) && inv.CarriedSpecial != null)
+        if (Input.GetKeyDown(dropSpecialKey) && inv.IsCarryingAny)
         {
             inv.DropCarriedSpecial(null, transform.position);
         }

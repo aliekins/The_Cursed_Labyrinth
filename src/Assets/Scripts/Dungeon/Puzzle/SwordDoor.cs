@@ -102,7 +102,7 @@ public sealed class SwordDoor : MonoBehaviour
         var col = GetComponent<Collider2D>();
         if (col) col.enabled = false;
 
-        if (animator) animator.SetBool("Open", true);
+        //if (animator) animator.SetBool("Open", true);
 
         Debug.Log("[SwordDoor] Door opened. (Puzzle solved)");
     }

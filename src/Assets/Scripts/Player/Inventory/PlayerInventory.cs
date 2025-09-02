@@ -96,6 +96,7 @@ public sealed class PlayerInventory : MonoBehaviour
     public bool RemoveSword(int amount = 1)
     {
         if (amount <= 0 || Swords < amount) return false;
+
         Swords -= amount;
         PushChanged();
         return true;

@@ -30,6 +30,7 @@ public class BiomeSequenceController : MonoBehaviour
     private readonly Dictionary<int, PlayerInventory.Snapshot> startSnapshots = new();
     private bool restartRequested = false;
 
+
     private void Awake()
     {
         if (dungeonController == null) dungeonController = FindAnyObjectByType<DungeonController>();
@@ -122,7 +123,14 @@ public class BiomeSequenceController : MonoBehaviour
     }
     private void HandleSpecialSolved()
     {
-        Debug.Log("[BiomeSequence] Special solved, generate next biome");
-        NextBiome();
+        if (currentBiomeIndex < biomes.Count - 1)
+        {
+            Debug.Log("[BiomeSequence] Special solved, generate next biome");
+            NextBiome();
+            return;
+        }
+
+        // FINAL BIOME: keep the world so the portal can spawn
+        Debug.Log("[BiomeSequence] Final biome solved — waiting for portal/exit.");
     }
 }

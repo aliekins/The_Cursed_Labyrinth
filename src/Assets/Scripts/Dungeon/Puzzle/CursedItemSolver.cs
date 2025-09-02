@@ -9,9 +9,9 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
     private KeyCode depositKey = KeyCode.E;
 
     [Header("State (read-only)")]
-    [SerializeField] private bool skullDelivered;
-    [SerializeField] private bool heartDelivered;
-    [SerializeField] private bool crownDelivered;
+    [SerializeField] private bool skullDelivered = false;
+    [SerializeField] private bool heartDelivered = false;
+    [SerializeField] private bool crownDelivered = false;
 
     public bool IsSolved => skullDelivered && heartDelivered && crownDelivered;
 
@@ -28,13 +28,14 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
     {
         if (!playerInside || !inv) return;
         if (!Input.GetKeyDown(depositKey)) return;
-        if (IsSolved) return;
+        //if (IsSolved) return;
 
         if (inv.IsCarrying(Item.ItemType.SkullDiamond) && !skullDelivered)
         {
             inv.DropCarriedSpecial(null, transform.position);
             skullDelivered = true;
             CheckSolved();
+            Debug.Log("[CursedItemsSolver] Delivered SKULL");
 
             return;
         }
@@ -43,6 +44,7 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
             inv.DropCarriedSpecial(null, transform.position);
             heartDelivered = true;
             CheckSolved();
+            Debug.Log("[CursedItemsSolver] Delivered HEART");
 
             return;
         }
@@ -51,6 +53,7 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
             inv.DropCarriedSpecial(null, transform.position);
             crownDelivered = true;
             CheckSolved();
+            Debug.Log("[CursedItemsSolver] Delivered CROWN");
 
             return;
         }

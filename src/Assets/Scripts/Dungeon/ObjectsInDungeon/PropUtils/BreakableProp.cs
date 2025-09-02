@@ -98,15 +98,38 @@ public sealed class BreakableProp : MonoBehaviour
 
         if (dropOnBreak)
         {
+            bool isCursed = dropItem == Item.ItemType.SkullDiamond
+                         || dropItem == Item.ItemType.HeartDiamond
+                         || dropItem == Item.ItemType.Crown;
+
             if (invInRange)
             {
-                invInRange.Add(dropItem, dropQty);
-                if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position, 1f);
-                if (pickupFlashPrefab) Destroy(Instantiate(pickupFlashPrefab, transform.position, Quaternion.identity), 1.0f);
+                if (isCursed)
+                {
+                    bool ok = invInRange.TryCarrySpecial(dropItem); // use carry slot for cursed
+                    Debug.Log($"[BreakableProp] TryCarrySpecial({dropItem}) - {ok}");
+                    if (!ok)
+                    {
+                        // player already carrying one - leave special pickup in world
+                        SpawnFallbackPickup(dropItem, dropQty, true);
+                    }
+                    else
+                    {
+                        if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position, 1f);
+                        if (pickupFlashPrefab) Destroy(Instantiate(pickupFlashPrefab, transform.position, Quaternion.identity), 1.0f);
+                    }
+                }
+                else
+                {
+                    invInRange.Add(dropItem, dropQty); // normal inventory items
+                    if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position, 1f);
+                    if (pickupFlashPrefab) Destroy(Instantiate(pickupFlashPrefab, transform.position, Quaternion.identity), 1.0f);
+                }
             }
             else
             {
-                SpawnFallbackPickup(dropItem, dropQty);
+                // player not in auto-pickup radius - spawn pickup (flag special if cursed)
+                SpawnFallbackPickup(dropItem, dropQty, isCursed);
             }
         }
 
@@ -114,7 +137,7 @@ public sealed class BreakableProp : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void SpawnFallbackPickup(Item.ItemType type, int qty)
+    private void SpawnFallbackPickup(Item.ItemType type, int qty, bool forceSpecial)
     {
         var parent = transform.parent;
         var go = pickupPrefab ? Instantiate(pickupPrefab, parent) : new GameObject($"pickup_{type}");
@@ -124,15 +147,23 @@ public sealed class BreakableProp : MonoBehaviour
         if (!c) c = go.AddComponent<CircleCollider2D>();
         c.isTrigger = true;
 
-        var pi = go.GetComponent<PickupItem>();
-        if (!pi) pi = go.AddComponent<PickupItem>();
+        var pi = go.GetComponent<PickupItem>() ?? go.AddComponent<PickupItem>();
         pi.Type = type;
         pi.Quantity = Mathf.Max(1, qty);
 
-        pi.isSpecial = (type == Item.ItemType.SkullDiamond
-                || type == Item.ItemType.HeartDiamond
-                || type == Item.ItemType.Crown);
+        // mark cursed ones so PlayerInventory uses the carry slot on pickup
+        pi.isSpecial = forceSpecial;
+
+        Debug.Log($"[BreakableProp] Fallback pickup spawned: {type} special={pi.isSpecial} at {transform.position}");
     }
+
+    //private void SpawnFallbackPickup(Item.ItemType type, int qty)
+    //{
+    //    bool isCursed = type == Item.ItemType.SkullDiamond
+    //                 || type == Item.ItemType.HeartDiamond
+    //                 || type == Item.ItemType.Crown;
+    //    SpawnFallbackPickup(type, qty, isCursed);
+    //}
 
     private static PlayerInventory FindPlayerInventory()
     {
