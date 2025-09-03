@@ -3,8 +3,8 @@ using UnityEngine;
 public sealed class CursedBiomeController : MonoBehaviour
 {
     [Header("Curse Timing")]
-    [SerializeField] private float graceSeconds = 120f;  
-    [SerializeField] private float dps = 0.0002f;             // damage/second after grace
+    [SerializeField] private float graceSeconds = 60f;  
+    [SerializeField] private float dps = 0.1f;             // damage/second after grace
 
     private ISpecialSolver solver;
     private bool solved;
@@ -34,6 +34,7 @@ public sealed class CursedBiomeController : MonoBehaviour
         t += Time.deltaTime;
         if (t < graceSeconds) return;
 
+        //Debug.Log($"[CursedBiomeController] Applying curse damage tick", this);
         var hp = GetComponent<PlayerHealth>();
         if (!hp || hp.Current <= 0) return;
 
@@ -43,6 +44,7 @@ public sealed class CursedBiomeController : MonoBehaviour
         if (ticks <= 0) return;
 
         damageAccumulator -= ticks;
+        //Debug.Log($"[CursedBiomeController] Applying {ticks} curse damage", this);
         hp.Damage(ticks);
     }
 
@@ -51,8 +53,11 @@ public sealed class CursedBiomeController : MonoBehaviour
         var monos = FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
         foreach (var m in monos)
-            if (m is ISpecialSolver s) 
+            if (m is ISpecialSolver s)
+            {
+                Debug.Log($"[CursedBiomeController] Found solver: {s.GetType().Name} on {s}", s as MonoBehaviour);
                 return s;
+            }
 
         return null;
     }

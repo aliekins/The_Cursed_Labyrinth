@@ -21,6 +21,7 @@ public sealed class PlayerInventoryInput : MonoBehaviour
 
         if (Input.GetKeyDown(usePotionKey))
         {
+            Debug.Log("[PlayerInventoryInput] UsePotion key pressed.");
             inv.UsePotion();
         }
     }

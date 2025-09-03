@@ -222,11 +222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d514f7f79a9e4846bfc875b70f784ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sequence: {fileID: 0}
-  controller: {fileID: 0}
   requireSolved: 1
-  solverComponent: {fileID: 0}
-  useKey: 113
-  activateSfx: {fileID: 0}
-  activateVfx: {fileID: 0}
-  postFXDelay: 0.15
+  portalPrefab: {fileID: 8205045819688545836, guid: fb61bdb4869edbe43a6379963474ee9e, type: 3}
+  endingSceneName: Cutscene_Ending

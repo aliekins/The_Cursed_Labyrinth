@@ -9,9 +9,9 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
     private KeyCode depositKey = KeyCode.E;
 
     [Header("State (read-only)")]
-    [SerializeField] private bool skullDelivered = false;
-    [SerializeField] private bool heartDelivered = false;
-    [SerializeField] private bool crownDelivered = false;
+    [SerializeField] private static bool skullDelivered = false;
+    [SerializeField] private static bool heartDelivered = false;
+    [SerializeField] private static bool crownDelivered = false;
 
     public bool IsSolved => skullDelivered && heartDelivered && crownDelivered;
 
@@ -36,6 +36,10 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
             skullDelivered = true;
             CheckSolved();
             Debug.Log("[CursedItemsSolver] Delivered SKULL");
+            Debug.Log("[CursedItemsSolver] State: " +
+                (skullDelivered ? "SKULL " : "") +
+                (heartDelivered ? "HEART " : "") +
+                (crownDelivered ? "CROWN " : ""));
 
             return;
         }
@@ -45,6 +49,10 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
             heartDelivered = true;
             CheckSolved();
             Debug.Log("[CursedItemsSolver] Delivered HEART");
+            Debug.Log("[CursedItemsSolver] State: " +
+                (skullDelivered ? "SKULL " : "") +
+                (heartDelivered ? "HEART " : "") +
+                (crownDelivered ? "CROWN " : ""));
 
             return;
         }
@@ -54,6 +62,10 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
             crownDelivered = true;
             CheckSolved();
             Debug.Log("[CursedItemsSolver] Delivered CROWN");
+            Debug.Log("[CursedItemsSolver] State: " +
+                (skullDelivered ? "SKULL " : "") +
+                (heartDelivered ? "HEART " : "") +
+                (crownDelivered ? "CROWN " : ""));
 
             return;
         }

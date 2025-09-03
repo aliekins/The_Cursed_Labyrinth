@@ -17,7 +17,10 @@ public partial class DungeonController
         if (sequence && sequence.currentBiomeIndex == 2 && playerInstance)
         {
             if (!playerInstance.TryGetComponent<CursedBiomeController>(out _))
+            {
                 playerInstance.AddComponent<CursedBiomeController>();
+                Debug.Log("[DungeonController] CursedBiomeController added to player.");
+            }
         }
     }
 
@@ -126,7 +129,7 @@ public partial class DungeonController
             propPopulator.SetDropPolicy(new PropPopulator.DropPolicy
             {
                 allowSwords = true,
-                guaranteedSwords = 6,
+                guaranteedSwords = 7,
                 allowBooks = false,
                 guaranteedBooks = 0,
                 allowPotions = true,
@@ -142,7 +145,7 @@ public partial class DungeonController
                 allowBooks = true,
                 guaranteedBooks = 5,
                 allowPotions = true,
-                potionChance = 0.20f
+                potionChance = 0.30f
             });
         }
         else

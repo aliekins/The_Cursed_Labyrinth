@@ -154,16 +154,8 @@ public sealed class BreakableProp : MonoBehaviour
         // mark cursed ones so PlayerInventory uses the carry slot on pickup
         pi.isSpecial = forceSpecial;
 
-        Debug.Log($"[BreakableProp] Fallback pickup spawned: {type} special={pi.isSpecial} at {transform.position}");
+        //Debug.Log($"[BreakableProp] Fallback pickup spawned: {type} special={pi.isSpecial} at {transform.position}");
     }
-
-    //private void SpawnFallbackPickup(Item.ItemType type, int qty)
-    //{
-    //    bool isCursed = type == Item.ItemType.SkullDiamond
-    //                 || type == Item.ItemType.HeartDiamond
-    //                 || type == Item.ItemType.Crown;
-    //    SpawnFallbackPickup(type, qty, isCursed);
-    //}
 
     private static PlayerInventory FindPlayerInventory()
     {

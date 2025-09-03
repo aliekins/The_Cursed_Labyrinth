@@ -69,6 +69,7 @@ public sealed class PlayerInventory : MonoBehaviour
     public bool TryCarrySpecial(Item.ItemType t)
     {
         if (carriedSpecial.HasValue) return false;
+
         carriedSpecial = t;
         CarriedSpecialChanged?.Invoke(carriedSpecial);
         return true;
@@ -107,8 +108,11 @@ public sealed class PlayerInventory : MonoBehaviour
         if (Potions <= 0) return false;
         Potions--;
 
-        if (health) 
+        if (health)
+        {
             health.Heal(potionHealAmount);
+            Debug.Log($"[Inventory] Used potion to heal {potionHealAmount} HP.", this);
+        }
 
         PushChanged();
         return true;

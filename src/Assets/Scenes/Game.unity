@@ -1357,8 +1357,8 @@ MonoBehaviour:
     separation: 1
     colliderMode: 1
     colliderIsTrigger: 0
-    colliderSizeScale: {x: 0.9, y: 0.7}
-    colliderOffset: {x: 0, y: 0.4}
+    colliderSizeScale: {x: 0.9, y: 0.8}
+    colliderOffset: {x: 0, y: 0.42}
     wallFilter: 0
     breakable: 1
     breakSfx: {fileID: 0}
@@ -1378,8 +1378,8 @@ MonoBehaviour:
     separation: 1
     colliderMode: 1
     colliderIsTrigger: 0
-    colliderSizeScale: {x: 0.9, y: 0.7}
-    colliderOffset: {x: 0, y: 0.4}
+    colliderSizeScale: {x: 0.9, y: 0.8}
+    colliderOffset: {x: 0, y: 0.42}
     wallFilter: 0
     breakable: 1
     breakSfx: {fileID: 0}

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2255358100011669127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4712191182792299198}
+  m_Layer: 0
+  m_Name: CursedItemCarrier
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4712191182792299198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2255358100011669127}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.41, y: 0.563, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5978998764952521177}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5724184534580437276
 GameObject:
   m_ObjectHideFlags: 0
@@ -16,7 +47,8 @@ GameObject:
   - component: {fileID: 6196395718028973837}
   - component: {fileID: 6359482925320897949}
   - component: {fileID: 3053863053599685949}
-  - component: {fileID: 5818234422829376263}
+  - component: {fileID: 9004973091166789001}
+  - component: {fileID: 2129449453208433458}
   m_Layer: 0
   m_Name: Moving_Knight
   m_TagString: Player
@@ -37,6 +69,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4712191182792299198}
   - {fileID: 8258452533906616659}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -220,7 +253,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potionHealAmount: 20
---- !u!114 &5818234422829376263
+--- !u!114 &9004973091166789001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5724184534580437276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 825dadb20d3c2a746bb8c15c19cbd451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2129449453208433458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,7 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d248d8d6ea60364d84db7f10fa31753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchor: {fileID: 5978998764952521177}
+  anchor: {fileID: 4712191182792299198}
   skullSprite: {fileID: -5955765039167973149, guid: b8e90ff09b5ad3346ad7264d3bde2832, type: 3}
   heartSprite: {fileID: 263992266792596228, guid: b8e90ff09b5ad3346ad7264d3bde2832, type: 3}
   crownSprite: {fileID: 4083977669005830345, guid: 1cd8753f50002bc4ba3c2df4accb2427, type: 3}

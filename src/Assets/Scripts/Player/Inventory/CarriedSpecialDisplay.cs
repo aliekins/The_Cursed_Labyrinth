@@ -16,10 +16,12 @@ public sealed class CarriedSpecialDisplay : MonoBehaviour
         inv = GetComponent<PlayerInventory>();
         if (!anchor)
         {
+            Debug.Log("[CarriedSpecialDisplay] No anchor assigned, creating one.");
             anchor = new GameObject("CarryAnchor").transform;
             anchor.SetParent(transform, false);
-            anchor.localPosition = new Vector3(0f, 0.8f, 0f);
+            anchor.localPosition = new Vector3(-10f, 20f, 0f);
         }
+        Debug.Log($"[CarriedSpecialDisplay] Anchor position: {anchor.position}", this);
         var go = new GameObject("CarriedSprite");
         go.transform.SetParent(anchor, false);
         sr = go.AddComponent<SpriteRenderer>();
