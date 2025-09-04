@@ -16,8 +16,11 @@ public sealed class LeverRoomSolver : MonoBehaviour, ISpecialSolver
     [Tooltip("If true, levers pop back up on fail.")]
     public bool autoResetOnFail = true;
 
-    [Header("UI (optional)")]
-    public TMP_Text countdownText; // optional
+    [Header("UI")]
+    public TMP_Text countdownText;
+
+    [Header("HP Damage")]
+    public int damageOnFail = 20;
     public bool IsSolved => solved;
 
     // Required order by book colors
@@ -135,7 +138,7 @@ public sealed class LeverRoomSolver : MonoBehaviour, ISpecialSolver
 
         if (solved) { countdownText.text = "Solved!"; }
         else if (!timerRunning && progressIndex == 0)
-            countdownText.text = $"Order: B  G  R  O  P\nTime: {timeLimitSeconds:0}s";
+            countdownText.text = $"";
         else
             countdownText.text = $"{Mathf.CeilToInt(Mathf.Max(0f, timeRemaining))}s";
     }

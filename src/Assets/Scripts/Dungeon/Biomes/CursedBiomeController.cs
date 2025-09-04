@@ -4,7 +4,7 @@ public sealed class CursedBiomeController : MonoBehaviour
 {
     [Header("Curse Timing")]
     [SerializeField] private float graceSeconds = 60f;  
-    [SerializeField] private float dps = 0.1f;             // damage/second after grace
+    [SerializeField] private float dps = 0.05f;             // damage/second after grace
 
     private ISpecialSolver solver;
     private bool solved;
@@ -15,8 +15,12 @@ public sealed class CursedBiomeController : MonoBehaviour
     {
         solver = FindCurrentSolver();
 
-        if (solver != null) 
+        if (solver != null)
+        {
+            Debug.Log($"[CursedBiomeController] Binding to solver: {solver.GetType().Name}", solver as MonoBehaviour);
             solver.OnSolved += HandleSolved;
+        }
+        else { Debug.LogWarning("[CursedBiomeController] No solver found in scene!", this); }
     }
 
     private void OnDestroy()

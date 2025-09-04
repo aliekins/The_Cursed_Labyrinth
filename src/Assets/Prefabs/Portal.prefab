@@ -9867,5 +9867,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d39698e895381c47aca9e088203fafd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endingSceneName: MainMenu
+  endingSceneName: Cutscene_Ending
   loadDelay: 0.5

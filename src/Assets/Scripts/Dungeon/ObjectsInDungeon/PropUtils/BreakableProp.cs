@@ -155,6 +155,7 @@ public sealed class BreakableProp : MonoBehaviour
         pi.isSpecial = forceSpecial;
 
         //Debug.Log($"[BreakableProp] Fallback pickup spawned: {type} special={pi.isSpecial} at {transform.position}");
+        if (forceSpecial) CursedItemRespawnManager.RegisterPickup(pi);
     }
 
     private static PlayerInventory FindPlayerInventory()

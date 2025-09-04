@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object= UnityEngine.Object;
 
 public static class DropAssigner
 {
@@ -281,7 +282,9 @@ public static class DropAssigner
                 pu.Type = m;
                 pu.Quantity = 1;
                 pu.autoPickup = false;
-                pu.isSpecial = true; 
+                pu.isSpecial = true;
+
+                CursedItemRespawnManager.RegisterPickup(pu);
 
                 break;
             }

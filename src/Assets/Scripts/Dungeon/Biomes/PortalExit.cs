@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public sealed class PortalExit : MonoBehaviour
 {
     [SerializeField] private string endingSceneName = "EndingCutscene";
-    [SerializeField, Min(0f)] private float loadDelay = 0.5f;
+    [SerializeField, Min(0f)] private float loadDelay = 2f;
 
     private bool armed = true;
 

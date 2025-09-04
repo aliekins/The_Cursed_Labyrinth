@@ -231,10 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59757f7fce39d0848806776b27e75249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depositKey: 101
-  skullDelivered: 0
-  heartDelivered: 0
-  crownDelivered: 0
+  expected: 102
 --- !u!1 &1319615509689872919
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,10 +796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59757f7fce39d0848806776b27e75249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depositKey: 101
-  skullDelivered: 0
-  heartDelivered: 0
-  crownDelivered: 0
+  expected: 100
 --- !u!1 &4963454931767087653
 GameObject:
   m_ObjectHideFlags: 0
@@ -4235,10 +4229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59757f7fce39d0848806776b27e75249, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depositKey: 101
-  skullDelivered: 0
-  heartDelivered: 0
-  crownDelivered: 0
+  expected: 101
 --- !u!1 &8755344541991053377
 GameObject:
   m_ObjectHideFlags: 0

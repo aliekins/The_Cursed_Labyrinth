@@ -170,7 +170,10 @@ public partial class DungeonController : MonoBehaviour
     #endregion
 
     #region Accessors
+    public IReadOnlyList<Room> Rooms => rooms;
     public DungeonGrid Grid => grid;
+    public TilemapVisualizer Viz => tmVisualizer;
+    public DungeonMapIndex MapIndex => mapIndex;
     public Vector2Int ToCell(Vector3 world)
     {
         var g = tmVisualizer.GridTransform?.GetComponent<Grid>();

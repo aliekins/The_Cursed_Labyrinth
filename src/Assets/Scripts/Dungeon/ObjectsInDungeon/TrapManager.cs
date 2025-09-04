@@ -21,7 +21,7 @@ public sealed class TrapManager : MonoBehaviour
     [SerializeField] private List<string> forbiddenSurfaceKinds = new() { "floor_carpet" };
     [SerializeField] private bool disallowCorridors = true;
 
-    private Transform gridTransform;                // set by controller
+    private Transform gridTransform;              // set by controller
     private TilemapVisualizer viz;               // set by controller
 
     public void SetGridContext(Transform gr, TilemapVisualizer visualizer)
@@ -59,7 +59,6 @@ public sealed class TrapManager : MonoBehaviour
                 var pos = cell.Value;
 
                 var go = Instantiate(spikeTrapPrefab, transform);
-                go.tag = "DungeonSpawned";
 
                 if (viz != null)
                     go.transform.position = viz.CellCenterWorld(pos.x, pos.y);

@@ -32,6 +32,7 @@ public sealed class PlayerInventory : MonoBehaviour
         health = GetComponent<PlayerHealth>();
         PushChanged();
     }
+
     #region API
     public void Add(Item.ItemType type, int amount = 1)
     {
@@ -62,8 +63,6 @@ public sealed class PlayerInventory : MonoBehaviour
     }
 
     public event System.Action<Item.ItemType?> CarriedSpecialChanged;
-    public bool IsCarrying(Item.ItemType t) => carriedSpecial.HasValue && carriedSpecial.Value == t;
-    public bool IsCarryingAny => carriedSpecial.HasValue;
 
     /// Try to place a special item into the carry slot. Returns false if already carrying something else.
     public bool TryCarrySpecial(Item.ItemType t)
@@ -75,25 +74,52 @@ public sealed class PlayerInventory : MonoBehaviour
         return true;
     }
 
-    /// Drop the carried special. If dropPrefab is provided, it will be instantiated at 'pos'.
+    /// Drop the carried special. If dropPrefab is provided, it will be instantiated at 'pos'
     public void DropCarriedSpecial(GameObject dropPrefab, Vector3 pos)
     {
         if (!carriedSpecial.HasValue) return;
 
+        GameObject go;
         if (dropPrefab)
         {
-            var go = Instantiate(dropPrefab, pos, Quaternion.identity);
-            var pi = go.GetComponent<PickupItem>() ?? go.AddComponent<PickupItem>();
-            pi.Type = carriedSpecial.Value;
-            pi.Quantity = 1;
-            pi.isSpecial = true;
-            var col = go.GetComponent<Collider2D>() ?? go.AddComponent<CircleCollider2D>();
-            col.isTrigger = true;
+            go = Instantiate(dropPrefab, pos, Quaternion.identity);
         }
+        else
+        {
+            go = new GameObject($"pickup_{carriedSpecial.Value}");
+            go.transform.position = pos;
+            var c = go.AddComponent<CircleCollider2D>();
+            c.isTrigger = true;
+        }
+
+        var pi = go.GetComponent<PickupItem>() ?? go.AddComponent<PickupItem>();
+        // Set fields BEFORE registering so it's recognized as cursed
+        pi.Type = carriedSpecial.Value;
+        pi.Quantity = 1;
+        pi.isSpecial = true;
+        pi.autoPickup = false;
+
+        // Robust registration
+        CursedItemRespawnManager.RegisterPickup(pi);
 
         carriedSpecial = null;
         CarriedSpecialChanged?.Invoke(null);
     }
+
+
+    public void ConsumeCarriedSpecial()
+    {
+        if (carriedSpecial == null) return;
+        var t = carriedSpecial.Value;
+        carriedSpecial = null;
+        CarriedSpecialChanged?.Invoke(null); // keep UI in sync if present
+        Debug.Log($"[PlayerInventory] Consumed special: {t}");
+    }
+
+    public bool IsCarryingAny => carriedSpecial.HasValue;
+    public bool IsCarrying(Item.ItemType t) => carriedSpecial.HasValue && carriedSpecial.Value == t;
+
+
     public bool RemoveSword(int amount = 1)
     {
         if (amount <= 0 || Swords < amount) return false;
@@ -142,23 +168,6 @@ public sealed class PlayerInventory : MonoBehaviour
         PushChanged();
         return true;
     }
-
-    public bool DropCarriedSpecial(GameObject pickupPrefab = null, Vector3? worldPos = null)
-    {
-        if (CarriedSpecial == null) return false;
-
-        if (pickupPrefab != null && worldPos.HasValue)
-        {
-            var go = UnityEngine.Object.Instantiate(pickupPrefab, worldPos.Value, Quaternion.identity);
-            var pu = go.GetComponent<PickupItem>() ?? go.AddComponent<PickupItem>();
-            pu.Type = CarriedSpecial.Value;
-            pu.Quantity = 1;
-        }
-
-        CarriedSpecial = null;
-        PushChanged();
-        return true;
-    }
     #endregion
 
     #region snapshots
@@ -180,6 +189,7 @@ public sealed class PlayerInventory : MonoBehaviour
         PushChanged();
     }
     #endregion
+
     #region helpers
 
     private static int BookIndex(Item.ItemType t) => t switch

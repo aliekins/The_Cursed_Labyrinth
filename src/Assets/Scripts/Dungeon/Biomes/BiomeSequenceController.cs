@@ -30,6 +30,7 @@ public class BiomeSequenceController : MonoBehaviour
     private readonly Dictionary<int, PlayerInventory.Snapshot> startSnapshots = new();
     private bool restartRequested = false;
 
+    public List<Room> CurrentRooms { get; private set; }
 
     private void Awake()
     {

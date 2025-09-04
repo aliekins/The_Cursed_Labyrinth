@@ -158,7 +158,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5724184534580437276}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -174,7 +174,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!58 &8827883223040032420
@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825dadb20d3c2a746bb8c15c19cbd451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  specialPickupPrefab: {fileID: 0}
 --- !u!114 &2129449453208433458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,8 +279,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchor: {fileID: 4712191182792299198}
-  skullSprite: {fileID: -5955765039167973149, guid: b8e90ff09b5ad3346ad7264d3bde2832, type: 3}
-  heartSprite: {fileID: 263992266792596228, guid: b8e90ff09b5ad3346ad7264d3bde2832, type: 3}
+  skullSprite: {fileID: 1514023737305006473, guid: 47ab724add8bf794bae8b04f9a604667, type: 3}
+  heartSprite: {fileID: -8715180716917860955, guid: 9cb5f7ff89f01d044aecca6781a566f2, type: 3}
   crownSprite: {fileID: 4083977669005830345, guid: 1cd8753f50002bc4ba3c2df4accb2427, type: 3}
 --- !u!1001 &5500837984209441144
 PrefabInstance:

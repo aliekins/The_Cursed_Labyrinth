@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public partial class DungeonController
 {
+    [Header("Game Flow")]
+    [SerializeField] private string gameSceneName = "Game";
+
     #region Spawn
     private void SpawnPlayerAndCamera()
     {
@@ -13,7 +17,7 @@ public partial class DungeonController
         SetupPlayerLighting();
         SetupPlayerHP();
 
-        //// Biome 3: curse drain
+        // Biome 3: curse drain
         if (sequence && sequence.currentBiomeIndex == 2 && playerInstance)
         {
             if (!playerInstance.TryGetComponent<CursedBiomeController>(out _))
@@ -95,6 +99,16 @@ public partial class DungeonController
             hp.Changed -= healthUI.SetHealth;
             hp.Changed += healthUI.SetHealth;
         }
+
+        hp.Died -= OnPlayerDied;
+        hp.Died += OnPlayerDied;
+    }
+
+    private void OnPlayerDied()
+    {
+        Debug.Log("[Game] Player died — restarting from biome 0 (reloading Game scene).", this);
+
+        SceneManager.LoadScene(gameSceneName, LoadSceneMode.Single);
     }
     #endregion
 
