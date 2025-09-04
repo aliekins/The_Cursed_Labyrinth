@@ -1,16 +1,30 @@
 using UnityEngine;
+/**
+ * @file CursedBiomeController.cs
+ * @brief Applies a timed "curse" to the player until the local puzzle is solved.
+ * @ingroup Biomes
+ */
 
+/**
+ * @class CursedBiomeController
+ * @brief Binds to the current special room solver and deals damage after a grace period.
+ *
+ * Attach to the player in biomes that should be cursed until their puzzle is solved.
+ */
 public sealed class CursedBiomeController : MonoBehaviour
 {
+    #region config
     [Header("Curse Timing")]
     [SerializeField] private float graceSeconds = 60f;  
-    [SerializeField] private float dps = 0.05f;             // damage/second after grace
+    [SerializeField] private float dps = 0.05f;  // damage/second after grace
 
     private ISpecialSolver solver;
     private bool solved;
     private float t;
     private float damageAccumulator;
+    #endregion
 
+    #region cycle
     private void Start()
     {
         solver = FindCurrentSolver();
@@ -51,7 +65,9 @@ public sealed class CursedBiomeController : MonoBehaviour
         //Debug.Log($"[CursedBiomeController] Applying {ticks} curse damage", this);
         hp.Damage(ticks);
     }
-
+    #endregion
+    
+    #region helpers
     private static ISpecialSolver FindCurrentSolver()
     {
         var monos = FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None);
@@ -65,4 +81,5 @@ public sealed class CursedBiomeController : MonoBehaviour
 
         return null;
     }
+    #endregion
 }

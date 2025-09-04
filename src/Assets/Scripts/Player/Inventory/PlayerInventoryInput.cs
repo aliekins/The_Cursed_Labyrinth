@@ -1,9 +1,15 @@
 using UnityEngine;
 
+/**
+ * @file PlayerInventoryInput.cs
+ * @brief Minimal input bridge for inventory actions (drop special, use potion).
+ * @ingroup PlayerInventory
+ */
+
 [RequireComponent(typeof(PlayerInventory))]
 public sealed class PlayerInventoryInput : MonoBehaviour
 {
-    [SerializeField] private GameObject specialPickupPrefab; // optional – used when dropping
+    [SerializeField] private GameObject specialPickupPrefab;
     private KeyCode dropSpecialKey = KeyCode.E;
     private KeyCode usePotionKey = KeyCode.H;
 

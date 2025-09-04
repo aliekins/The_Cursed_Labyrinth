@@ -1,6 +1,10 @@
 using System;
 using UnityEngine;
-
+/**
+ * @file SwordRoomSolver.cs
+ * @brief Counter puzzle: feed N swords to open the door.
+ * @ingroup Puzzle
+ */
 public sealed class SwordRoomSolver : MonoBehaviour, ISpecialSolver
 {
     public event Action OnSolved;

@@ -1,4 +1,14 @@
 using UnityEngine;
+/**
+ * @file TopDownController.cs
+ * @brief 4-way top-down movement.
+ * @ingroup Player
+ *
+ * Reads WASD/Arrow keys.
+ * Chooses vertical vs. horizontal
+ * Animator params: IsMoving, MoveX, MoveY. Sprite flips on X.
+ * Exposes FacingDir for lights/aiming; when idle - keeps last direction.
+ */
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]

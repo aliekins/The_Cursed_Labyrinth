@@ -1,4 +1,7 @@
-/// \file KindTile_DB.cs
+/// @file KindTile_DB.cs
+/// @brief ScriptableObject database mapping string "kinds" to TileBase assets.
+/// @ingroup Rendering
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;

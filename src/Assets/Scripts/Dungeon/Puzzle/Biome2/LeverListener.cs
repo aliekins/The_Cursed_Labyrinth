@@ -1,6 +1,12 @@
 using System;
 using UnityEngine;
 
+/**
+ * @file LeverListener.cs
+ * @brief Reads a ToggleSpriteOnUse and emits an event when pulled down.
+ * @ingroup Puzzle
+ */
+
 [RequireComponent(typeof(SpriteRenderer))]
 public sealed class LeverListener : MonoBehaviour
 {

@@ -2,9 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/**
+ * @file InventoryUI.cs
+ * @brief Small HUD that mirrors PlayerInventory counts.
+ * @ingroup PlayerInventory
+ */
+
 [DisallowMultipleComponent]
 public sealed class InventoryUI : MonoBehaviour
 {
+    #region config
     [SerializeField] private DungeonController controller; 
 
     [SerializeField] private Image swordIcon;
@@ -19,8 +26,10 @@ public sealed class InventoryUI : MonoBehaviour
     [SerializeField] private Color emptyTint = new Color(1, 1, 1, 0.25f);
     [SerializeField] private Color filledTint = Color.white;
 
-    private PlayerInventory inventory; 
+    private PlayerInventory inventory;
+    #endregion
 
+    #region cycle
     private void Awake()
     {
         if (!controller)
@@ -42,23 +51,9 @@ public sealed class InventoryUI : MonoBehaviour
 
         UnhookInventory();
     }
+    #endregion
 
-    private void OnPlayerSpawned(PlayerInventory inv)
-    {
-        UnhookInventory();
-        HookInventory(inv);
-    }
-
-    private void TryBindExistingInventory()
-    {
-        if (inventory) return;
-
-        var inv = FindFirstObjectByType<PlayerInventory>(FindObjectsInactive.Exclude);
-
-        if (inv)
-            HookInventory(inv);
-    }
-
+    #region (un)hooking inventory
     private void HookInventory(PlayerInventory inv)
     {
         if (!inv) return;
@@ -75,6 +70,24 @@ public sealed class InventoryUI : MonoBehaviour
 
         inventory.Changed -= OnInvChanged;
         inventory = null;
+    }
+    #endregion
+
+    #region helpers
+    private void OnPlayerSpawned(PlayerInventory inv)
+    {
+        UnhookInventory();
+        HookInventory(inv);
+    }
+
+    private void TryBindExistingInventory()
+    {
+        if (inventory) return;
+
+        var inv = FindFirstObjectByType<PlayerInventory>(FindObjectsInactive.Exclude);
+
+        if (inv)
+            HookInventory(inv);
     }
 
     private void OnInvChanged(PlayerInventory.Snapshot s)
@@ -101,4 +114,5 @@ public sealed class InventoryUI : MonoBehaviour
             }
         }
     }
+    #endregion
 }

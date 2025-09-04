@@ -1,14 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-/// Breakable prop controlled by proximity:
-/// - Press I while within interactRadius to break this prop (not global)
-/// - On break: SFX/VFX, drop item
-///   - If player within autoPickupRadius: auto-add to inventory
-///   - Else: spawn guaranteed collectible PickupItem at this position
+/**
+ * @file BreakableProp.cs
+ * @brief Breakable prop that drops items; cursed drops integrate with respawn.
+ * @ingroup PropUtils
+ *
+ * Press E near the prop to break it. If the player is close enough, items can be
+ * auto-picked up; otherwise a PickupItem is spawned at this position (cursed ones
+ * are registered with the CursedItemRespawnManager).
+ */
 [DisallowMultipleComponent]
 public sealed class BreakableProp : MonoBehaviour
 {
+    #region config
     [Header("Interact")]
     [SerializeField, Min(0f)] private float interactRadius = 1f;
     [SerializeField, Min(0f)] private float autoPickupRadius = 1f;
@@ -30,44 +34,12 @@ public sealed class BreakableProp : MonoBehaviour
 
     private Collider2D selfCollider;
     private KeyCode interactKey = KeyCode.E;
+    #endregion
 
+    #region cycle
     void Awake()
     {
-        selfCollider = GetComponent<Collider2D>(); // may be null; we null-guard below
-    }
-
-    // configured by PropPopulator
-    public void ConfigureDrop(bool enable, Item.ItemType item, int qty, bool autoPickup, AudioClip pickSfx, GameObject flashPrefab, GameObject pickupObjPrefab)
-    {
-        dropOnBreak = enable;
-        dropItem = item;
-        dropQty = Mathf.Max(1, qty);
-        autoPickupIfNear = autoPickup;
-        pickupSfx = pickSfx;
-        pickupFlashPrefab = flashPrefab;
-        pickupPrefab = pickupObjPrefab;
-    }
-
-    public void Configure(AudioClip sfx, float volume, GameObject vfx, float delay = 0f)
-    {
-        interactKey = KeyCode.E;
-        breakSfx = sfx;
-        breakSfxVolume = Mathf.Clamp01(volume);
-        breakVfxPrefab = vfx;
-        destroyDelay = Mathf.Max(0f, delay);
-    }
-
-    public void ConfigureDrop(Item.ItemType item, int qty)
-    {
-        ConfigureDrop(
-            enable: true,
-            item: item,
-            qty: Mathf.Max(1, qty),
-            autoPickup: true,
-            pickSfx: null,
-            flashPrefab: null,
-            pickupObjPrefab: null
-        );
+        selfCollider = GetComponent<Collider2D>(); // may be null
     }
 
     void Update()
@@ -157,9 +129,48 @@ public sealed class BreakableProp : MonoBehaviour
         //Debug.Log($"[BreakableProp] Fallback pickup spawned: {type} special={pi.isSpecial} at {transform.position}");
         if (forceSpecial) CursedItemRespawnManager.RegisterPickup(pi);
     }
+    #endregion
 
+    #region configuration of the drop
+    // configured by PropPopulator
+    public void ConfigureDrop(bool enable, Item.ItemType item, int qty, bool autoPickup, AudioClip pickSfx, GameObject flashPrefab, GameObject pickupObjPrefab)
+    {
+        dropOnBreak = enable;
+        dropItem = item;
+        dropQty = Mathf.Max(1, qty);
+        autoPickupIfNear = autoPickup;
+        pickupSfx = pickSfx;
+        pickupFlashPrefab = flashPrefab;
+        pickupPrefab = pickupObjPrefab;
+    }
+
+    public void Configure(AudioClip sfx, float volume, GameObject vfx, float delay = 0f)
+    {
+        interactKey = KeyCode.E;
+        breakSfx = sfx;
+        breakSfxVolume = Mathf.Clamp01(volume);
+        breakVfxPrefab = vfx;
+        destroyDelay = Mathf.Max(0f, delay);
+    }
+
+    public void ConfigureDrop(Item.ItemType item, int qty)
+    {
+        ConfigureDrop(
+            enable: true,
+            item: item,
+            qty: Mathf.Max(1, qty),
+            autoPickup: true,
+            pickSfx: null,
+            flashPrefab: null,
+            pickupObjPrefab: null
+        );
+    }
+    #endregion
+
+    #region helpers
     private static PlayerInventory FindPlayerInventory()
     {
         return FindFirstObjectByType<PlayerInventory>();
     }
+    #endregion
 }

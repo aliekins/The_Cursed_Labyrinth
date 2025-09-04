@@ -1,17 +1,17 @@
+/// @file DungeonMapIndexBuilder.cs
+/// @brief Builds a DungeonMapIndex from the carved grid and room info.
+/// @ingroup Grid
 using System.Collections.Generic;
 using UnityEngine;
 
+/// @class DungeonMapIndexBuilder
+/// @brief Static builder that fills indices (rooms, interiors, doors, corridors).
 public static class DungeonMapIndexBuilder
 {
     public sealed class Options
     {
         public string CorridorPrefix = "floor_corridor";
     }
-
-    /// <summary>
-    /// Build a DungeonMapIndex from the carved grid and room infos.
-    /// Assumes Room.Info.BuildFromGrid has been called for each room.
-    /// </summary>
     public static DungeonMapIndex Build(DungeonGrid grid, List<Room> rooms, Options opt = null)
     {
         opt ??= new Options();
@@ -48,7 +48,6 @@ public static class DungeonMapIndexBuilder
                 }
             }
         }
-
         return idx;
     }
 }

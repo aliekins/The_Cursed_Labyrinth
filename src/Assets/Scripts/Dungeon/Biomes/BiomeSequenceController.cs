@@ -3,10 +3,23 @@ using UnityEngine.Tilemaps;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+/**
+ * @file BiomeSequenceController.cs
+ * @brief Drives progression through biomes and rebuilds the dungeon each step.
+ * @ingroup Biomes
+ */
 
-/// \brief Listens for "special room solved" and then regenerates the dungeon with the next biome
+/**
+ * @class BiomeSequenceController
+ * @brief Listens for "special room solved" and builds the next biome; keeps simple run snapshots.
+ */
 public class BiomeSequenceController : MonoBehaviour
 {
+    #region Config
+    /**
+     * @struct BiomeEntry
+     * @brief A single step in the sequence: biome profile + its special-room prefab.
+     */
     [Serializable]
     public class BiomeEntry
     {
@@ -29,9 +42,11 @@ public class BiomeSequenceController : MonoBehaviour
     private SpecialRoomCompleteBroadcaster _activeBroadcaster;
     private readonly Dictionary<int, PlayerInventory.Snapshot> startSnapshots = new();
     private bool restartRequested = false;
-
+    /// @brief Rooms of the current build
     public List<Room> CurrentRooms { get; private set; }
+    #endregion
 
+    #region lifecycle
     private void Awake()
     {
         if (dungeonController == null) dungeonController = FindAnyObjectByType<DungeonController>();
@@ -44,7 +59,14 @@ public class BiomeSequenceController : MonoBehaviour
     {
         StartFirstBiome();
     }
+    #endregion
 
+    #region flow
+    /**
+     * @brief Begin the sequence from biome 0.
+     *
+     * Resets @ref currentBiomeIndex then advances to the first biome.
+     */
     public void StartFirstBiome()
     {
         if (biomes.Count == 0)
@@ -68,12 +90,20 @@ public class BiomeSequenceController : MonoBehaviour
         currentBiomeIndex--;              // NextBiome() will ++ it back to this biome
         NextBiome();
     }
+
+    /// @brief Kick off building the next biome.
     public void NextBiome()
     {
         Debug.Log("[BiomeSequence] Generating next biome...");
         StartCoroutine(NextBiome_Co());
     }
 
+    /**
+     * @brief Coroutine that clears old content, seeds special room, and rebuilds the dungeon.
+     *
+     * Captures a lightweight inventory snapshot on entry (unless restarting), then
+     * builds the biome and subscribes to its special-room completion.
+     */
     private IEnumerator NextBiome_Co()
     {
         // Clear previous tiles/props
@@ -122,6 +152,13 @@ public class BiomeSequenceController : MonoBehaviour
         if (_activeBroadcaster != null)
             _activeBroadcaster.OnSolved += HandleSpecialSolved;
     }
+
+    /**
+     * @brief React to special room completion.
+     *
+     * If not final biome, builds the next one. On the final biome, keeps the world
+     * so the portal can appear and the player can exit.
+     */
     private void HandleSpecialSolved()
     {
         if (currentBiomeIndex < biomes.Count - 1)
@@ -131,7 +168,7 @@ public class BiomeSequenceController : MonoBehaviour
             return;
         }
 
-        // FINAL BIOME: keep the world so the portal can spawn
         Debug.Log("[BiomeSequence] Final biome solved — waiting for portal/exit.");
     }
+    #endregion
 }

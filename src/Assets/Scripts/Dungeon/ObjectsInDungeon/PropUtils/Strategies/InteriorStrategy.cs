@@ -1,6 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * @file InteriorStrategy.cs
+ * @brief Prop placement strategy that targets interior cells.
+ * @ingroup PropUtils
+ */
+
 [DisallowMultipleComponent]
 public sealed class InteriorStrategy : PropStrategyBase
 {

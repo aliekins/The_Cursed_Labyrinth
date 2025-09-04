@@ -1,5 +1,9 @@
 using UnityEngine;
-
+/**
+ * @file HealthUI.cs
+ * @brief Binds a PlayerHealth to a HeartsBar and keeps it updated.
+ * @ingroup PlayerHP
+ */
 public sealed class HealthUI : MonoBehaviour
 {
     [SerializeField] private PlayerHealth health; 

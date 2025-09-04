@@ -1,18 +1,29 @@
-// CursedItemRespawnManager.cs
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * @file CursedItemRespawnManager.cs
+ * @brief Tracks cursed pickups dropped in the world and periodically relocates them.
+ * @ingroup Puzzle
+ *
+ * Automatically creates an instance on first registration.
+ * Starts a timer that resets if the player stays near the pickup.
+ * Relocates into valid room interiors using DungeonController/MapIndex.
+ */
 [DisallowMultipleComponent]
 public sealed class CursedItemRespawnManager : MonoBehaviour
 {
+    #region config 
     [Header("Respawn rules")]
-    [SerializeField, Min(1f)] private float respawnDelaySeconds = 20f;
+    [SerializeField, Min(1f)] private float respawnDelaySeconds = 5f;
     [SerializeField, Min(0f)] private float minDistanceFromPlayer = 4f;
     [SerializeField, Min(0)] private int maxRelocateTries = 60;
 
     private readonly Dictionary<PickupItem, Coroutine> timers = new();
+    #endregion
 
+    #region access
     public static CursedItemRespawnManager Instance { get; private set; }
     private static readonly List<PickupItem> pending = new();
 
@@ -62,6 +73,21 @@ public sealed class CursedItemRespawnManager : MonoBehaviour
         Debug.Log($"[CursedRespawn] Timer started for {pickup.Type} ({respawnDelaySeconds}s).");
     }
 
+
+    public static bool ForceRelocateNow(PickupItem pickup)
+    {
+        if (!pickup) return false;
+        if (Instance == null)
+        {
+            var go = new GameObject("CursedItemRespawnManager");
+            UnityEngine.Object.DontDestroyOnLoad(go);
+            go.AddComponent<CursedItemRespawnManager>(); // Awake sets Instance
+        }
+        return Instance.TryRelocate(pickup);
+    }
+    #endregion
+
+    #region helpers
     private IEnumerator RespawnAfterIdle(PickupItem pickup)
     {
         float t = 0f;
@@ -150,17 +176,6 @@ public sealed class CursedItemRespawnManager : MonoBehaviour
 
         return false;
     }
-    public static bool ForceRelocateNow(PickupItem pickup)
-    {
-        if (!pickup) return false;
-        if (Instance == null)
-        {
-            var go = new GameObject("CursedItemRespawnManager");
-            UnityEngine.Object.DontDestroyOnLoad(go);
-            go.AddComponent<CursedItemRespawnManager>(); // Awake sets Instance
-        }
-        return Instance.TryRelocate(pickup);
-    }
 
     private static bool TryPickRandom(ICollection<Vector2Int> set, out Vector2Int value)
     {
@@ -177,15 +192,24 @@ public sealed class CursedItemRespawnManager : MonoBehaviour
                 return true;
             }
         }
-        // Fallback (shouldn’t happen):
-        foreach (var v in set) { value = v; return true; }
+        // Fallback (shouldn’t happen)
+        foreach (var v in set)
+        {
+            value = v;
+            return true;
+        }
+
         return false;
     }
 
     private static void MovePickupToGridLocal(PickupItem p, TilemapVisualizer viz, Vector2Int cell)
     {
         var parent = viz.GridTransform ? viz.GridTransform : null;
-        if (parent) p.transform.SetParent(parent, false);
+
+        if (parent)
+            p.transform.SetParent(parent, false);
+
         p.transform.localPosition = viz.CellCenterLocal(cell.x, cell.y);
     }
+    #endregion
 }

@@ -1,11 +1,21 @@
 using System;
 using UnityEngine;
 
+/**
+ * @file CursedItemSolver.cs
+ * @brief Pedestal logic for the cursed items puzzle (Skull, Heart, Crown).
+ * @ingroup Puzzle
+ *
+ * Each pedestal accepts a single expected item.
+ * On correct item: consume and mark global delivered flag.
+ * On wrong item: consume and immediately respawn the item elsewhere.
+ * Fires OnSolved once when all three items are delivered correctly.
+ */
+
 [RequireComponent(typeof(Collider2D))]
 public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
 {
-    public event Action OnSolved;
-
+    #region config
     [Header("This pedestal accepts:")]
     [SerializeField] private Item.ItemType expected = Item.ItemType.SkullDiamond; // set per trigger in Inspector
 
@@ -13,13 +23,11 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
     [SerializeField] private static bool skullDelivered = false;
     [SerializeField] private static bool heartDelivered = false;
     [SerializeField] private static bool crownDelivered = false;
-
-    public bool IsSolved => skullDelivered && heartDelivered && crownDelivered;
-    public static void ResetNow() => ResetRunState();
-
     private bool playerInside;
     private PlayerInventory inv;
+    #endregion
 
+    #region instantiation
     private void Awake()
     {
         var col = GetComponent<Collider2D>();
@@ -33,6 +41,13 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
         heartDelivered = false;
         crownDelivered = false;
     }
+    #endregion
+
+    #region access
+    public event Action OnSolved;
+    public bool IsSolved => skullDelivered && heartDelivered && crownDelivered;
+    public static void ResetNow() => ResetRunState();
+
     public bool TryDepositFrom(PlayerInventory who)
     {
         if (!playerInside || !who || who != inv) return false;
@@ -84,7 +99,7 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
             return true;
         }
 
-        // Wrong pedestal: immediately respawn elsewhere
+        // Wrong pedestal - respawn elsewhere
         // Clear carry
         who.ConsumeCarriedSpecial();
 
@@ -98,23 +113,24 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
         pu.isSpecial = true;
         pu.autoPickup = false;
 
-        // 3) Relocate immediately (and also start timer so it will re-relocate if needed)
         if (!CursedItemRespawnManager.ForceRelocateNow(pu))
         {
             // If immediate relocation fails for any reason, fall back to timer-based respawn.
             CursedItemRespawnManager.RegisterPickup(pu);
-            Debug.LogWarning("[CursedItemsSolver] Wrong pedestal -> queued for respawn (no immediate slot found).");
+            Debug.LogWarning("[CursedItemsSolver] Wrong pedestal - queued for respawn (no immediate slot found).");
         }
         else
         {
             // After forced relocation, keep the timer alive so it won’t get stuck later
             CursedItemRespawnManager.RegisterPickup(pu);
-            Debug.Log($"[CursedItemsSolver] Wrong pedestal -> {carried} respawned elsewhere.");
+            Debug.Log($"[CursedItemsSolver] Wrong pedestal - {carried} respawned elsewhere.");
         }
 
-        return true; // we handled the key press
+        return true;
     }
+    #endregion
 
+    #region triggers
     private void OnTriggerEnter2D(Collider2D other)
     {
         var pi = other.GetComponent<PlayerInventory>();
@@ -128,4 +144,5 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
             playerInside = false; inv = null;
         }
     }
+    #endregion
 }

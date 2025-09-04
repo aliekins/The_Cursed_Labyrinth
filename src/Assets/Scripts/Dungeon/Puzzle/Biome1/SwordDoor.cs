@@ -1,5 +1,14 @@
 using UnityEngine;
 
+/**
+ * @file SwordDoor.cs
+ * @brief Door in the sword room: consumes swords and opens when the puzzle is solved.
+ * @ingroup Puzzle
+ *
+ * Press E while inside: if enough swords were used to complete the puzzle,
+ * the door opens; otherwise it consumes one sword and progresses the solver.
+ */
+
 [RequireComponent(typeof(Collider2D))]
 public sealed class SwordDoor : MonoBehaviour
 {

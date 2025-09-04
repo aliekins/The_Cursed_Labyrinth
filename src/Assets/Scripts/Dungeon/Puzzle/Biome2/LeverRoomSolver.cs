@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/**
+ * @file LeverRoomSolver.cs
+ * @brief Orders colored levers; pull them in sequence under a time limit.
+ * @ingroup Puzzle
+ *
+ * Starts a countdown on first correct pull.
+ * Resets on wrong pull or timeout.
+ * Locks levers and fires OnSolved on success.
+ */
 public sealed class LeverRoomSolver : MonoBehaviour, ISpecialSolver
 {
     public event Action OnSolved;

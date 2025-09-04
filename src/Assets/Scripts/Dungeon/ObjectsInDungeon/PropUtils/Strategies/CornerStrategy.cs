@@ -1,6 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * @file CornerStrategy.cs
+ * @brief Prop placement strategy that targets corner labeled cells.
+ * @ingroup PropUtils
+ */
 [DisallowMultipleComponent]
 public sealed class CornerStrategy : PropStrategyBase
 {

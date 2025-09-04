@@ -1,7 +1,18 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Reflection;
+/**
+ * @file BiomePainter.cs
+ * @brief Overrides TilemapVisualizer tilemaps at runtime for the active biome/prefab.
+ * @ingroup Biomes
+ */
 
+/**
+ * @class BiomePainter
+ * @brief Points the TilemapVisualizer to specific Ground/Carpet/Wall tilemaps using reflection.
+ *
+ * Used when a special-room prefab brings its own tilemaps that should drive rendering.
+ */
 public sealed class BiomePainter : MonoBehaviour
 {
     private Tilemap overrideGround;

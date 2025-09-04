@@ -1,11 +1,13 @@
-/// \file SpikeTrap.cs
-/// \brief Reactive spike trap: animates on proximity and damages with a short warmup delay
+/// @file SpikeTrap.cs
+/// @brief Reactive spike trap: animates on proximity and applies periodic damage.
+/// @ingroup Objects
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Animator))]
 public sealed class SpikeTrap : MonoBehaviour
 {
+    #region Inspector
     [Header("Damage")]
     [SerializeField, Min(1)] private int damage = 15;               
     [SerializeField, Min(0f)] private float damageTickInterval = 0.4f; 
@@ -14,13 +16,18 @@ public sealed class SpikeTrap : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private string isPlayerNearParam = "isPlayerNear";
 
+    #endregion
+
+    #region params
     private Animator animator;
     private int paramHash;
 
     private float nextTickTime;
     private float enteredTime;
     private bool playerInside;
+    #endregion
 
+    #region cycle
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -62,4 +69,5 @@ public sealed class SpikeTrap : MonoBehaviour
         playerInside = false;
         animator.SetBool(paramHash, false);
     }
+    #endregion
 }

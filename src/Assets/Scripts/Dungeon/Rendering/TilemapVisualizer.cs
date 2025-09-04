@@ -1,9 +1,19 @@
 using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+/// @file TilemapVisualizer.cs
+/// @brief Renders @ref DungeonGrid kinds onto Tilemaps
+/// @ingroup Rendering
+///
+/// Responsibilities:
+/// Convert grid kinds into ground/wall tiles via @ref KindTile_DB.
+/// Procedurally paint carpets using a mask.
+/// Provide helpers for converting between grid/tile/world coordinates.
+/// Respect prefab skip masks and bounds (so seeded rooms render correctly).
 
 public sealed class TilemapVisualizer : MonoBehaviour
 {
+    #region config
     [Header("Tilemaps")]
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap carpet;
@@ -30,13 +40,16 @@ public sealed class TilemapVisualizer : MonoBehaviour
 
     [SerializeField] private Vector2Int cellOffset = Vector2Int.zero;
     private bool[,] prefabSkipMask;
-    public void SetPrefabSkipMask(bool[,] mask) => prefabSkipMask = mask;
   
     [SerializeField] private bool limitPrefabSkipToBounds = true;
 
     private RectInt prefabBoundsGrid;
     private bool hasPrefabBounds = false;
+    private System.Random rng;
+    #endregion
 
+    #region access
+    public void SetPrefabSkipMask(bool[,] mask) => prefabSkipMask = mask;
     public bool TryGetTileForKind(string kind, out TileBase tile)
     {
         if (db == null)
@@ -55,9 +68,9 @@ public sealed class TilemapVisualizer : MonoBehaviour
     public Transform GridTransform => ground ? ground.layoutGrid.transform : null;
 
     public bool[,] CarpetMask { get; private set; }
+    #endregion
 
-    private System.Random rng;
-
+    #region cycle
     private void Awake()
     {
         rng = (seed != 0) ? new System.Random(seed) : new System.Random();
@@ -82,6 +95,7 @@ public sealed class TilemapVisualizer : MonoBehaviour
         RenderCarpets(grid, CarpetMask);
         RenderWalls(grid);
     }
+    #endregion
 
     #region CellPositioning
     public Vector3 CellCenterLocal(int x, int y)

@@ -2,9 +2,16 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+/**
+ * @file HeartsUIController.cs
+ * @brief Orchestrates heart bar binding and hit feedback (pulse+tint).
+ * @ingroup PlayerHP
+ */
+
 [RequireComponent(typeof(HeartsBar))]
 public class HeartsUIController : MonoBehaviour
 {
+    #region config
     [Header("Player binding")]
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private bool autoFindPlayer = true;
@@ -22,7 +29,9 @@ public class HeartsUIController : MonoBehaviour
     private int lastHP;
     private Image[] heartImgs;
     private Color[] baseColors;
+    #endregion
 
+    #region cycle
     void Awake()
     {
         heartsBar = GetComponent<HeartsBar>();
@@ -51,7 +60,9 @@ public class HeartsUIController : MonoBehaviour
         if (pulseCo != null) { StopCoroutine(pulseCo); pulseCo = null; }
         ResetVisuals();
     }
+    #endregion
 
+    #region binding
     void TryBindExistingPlayer()
     {
         if (!playerHealth) playerHealth = FindFirstObjectByType<PlayerHealth>();
@@ -75,7 +86,9 @@ public class HeartsUIController : MonoBehaviour
         Subscribe();
         heartsBar.SetHealth(playerHealth.Current, playerHealth.Max);
     }
+    #endregion
 
+    #region (un)subscription
     void Subscribe()
     {
         Unsubscribe();
@@ -88,7 +101,9 @@ public class HeartsUIController : MonoBehaviour
     {
         if (playerHealth) playerHealth.Changed -= OnHealthChanged;
     }
+    #endregion
 
+    #region helpers
     void OnHealthChanged(int current, int max)
     {
         // Always update fills
@@ -163,4 +178,5 @@ public class HeartsUIController : MonoBehaviour
                 img.color = baseColors[i];
         }
     }
+    #endregion
 }

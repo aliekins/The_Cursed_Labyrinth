@@ -1,7 +1,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Object= UnityEngine.Object;
+
+/**
+ * @file DropAssigner.cs
+ * @brief Assigns drops to breakable holders and spawns fallback cursed pickups.
+ * @ingroup PropUtils
+ *
+ * Categories: swords, books (unique), potions (chance), cursed (Skull/Heart/Crown).
+ * Ensures guarantees from policy; if any cursed holder is missing, spawns world pickups.
+ */
 
 public static class DropAssigner
 {

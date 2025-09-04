@@ -1,8 +1,15 @@
 using UnityEngine;
 
+/**
+ * @file PickupItem.cs
+ * @brief World pickup that gives an item to the player on E (or auto pickup).
+ * @ingroup PlayerInventory
+ */
+
 [RequireComponent(typeof(Collider2D))]
 public sealed class PickupItem : MonoBehaviour
 {
+    #region config
     [Header("What this pickup represents")]
     public Item.ItemType Type;
     public int Quantity = 1;
@@ -15,7 +22,9 @@ public sealed class PickupItem : MonoBehaviour
     public AudioClip pickupSfx;
     [Range(0f, 1f)] public float pickupVolume = 1f;
     public GameObject pickupFlashPrefab;
+    #endregion
 
+    #region cyclr
     private void Reset()
     {
         // make sure collider is trigger
@@ -31,7 +40,9 @@ public sealed class PickupItem : MonoBehaviour
         if (autoPickup || Input.GetKeyDown(KeyCode.E))
             TryGiveTo(inv);
     }
+    #endregion
 
+    #region helpers
     private void TryGiveTo(PlayerInventory inv)
     {
         if (isSpecial)
@@ -51,4 +62,5 @@ public sealed class PickupItem : MonoBehaviour
 
         Destroy(gameObject);
     }
+    #endregion
 }

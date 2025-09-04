@@ -2,11 +2,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+/**
+ * @file DungeonController.SpawnAndSystems.cs
+ * @brief Player spawn/placement, camera and lighting setup, HP wiring, and systems.
+ *
+ * Also handles death and scene reload, trap/grid wiring, and prop population.
+ */
 public partial class DungeonController
 {
+    #region Config
     [Header("Game Flow")]
     [SerializeField] private string gameSceneName = "Game";
+    #endregion
 
     #region Spawn
     private void SpawnPlayerAndCamera()
@@ -35,7 +42,12 @@ public partial class DungeonController
 
         return SpawnSelector.ChooseFarthestFrom(entranceInsideGrid, list);
     }
-
+    /**
+     * @brief Instantiate/move the player object to a grid cell.
+     * @param cell Grid cell to spawn at
+     *
+     * Also raises @ref PlayerSpawned and room enter notification.
+     */
     public void PlacePlayer(Vector2Int cell)
     {
         if (!playerPrefab) return;
@@ -104,6 +116,7 @@ public partial class DungeonController
         hp.Died += OnPlayerDied;
     }
 
+    /// <summary>Restart the run/ reloads the Game scene when the player dies.</summary>
     private void OnPlayerDied()
     {
         Debug.Log("[Game] Player died — restarting from biome 0 (reloading Game scene).", this);
@@ -113,6 +126,7 @@ public partial class DungeonController
     #endregion
 
     #region Systems Wiring
+    /// <summary>Wire traps, drop policy, and populate props for the current build.</summary>
     private void WireSystems()
     {
         // ordered kinds for trap tiers

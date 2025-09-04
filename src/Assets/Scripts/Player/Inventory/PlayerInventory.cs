@@ -1,6 +1,12 @@
 using System;
 using UnityEngine;
 
+/**
+ * @file PlayerInventory.cs
+ * @brief Tracks swords, potions, unique books, and (a single) carried cursed item.
+ * @ingroup PlayerInventory
+ */
+
 [DisallowMultipleComponent]
 public sealed class PlayerInventory : MonoBehaviour
 {
@@ -12,11 +18,12 @@ public sealed class PlayerInventory : MonoBehaviour
 
     public int Swords { get; private set; }
     public int Potions { get; private set; }
-
     private readonly bool[] books = new bool[5];
-
     public Item.ItemType? CarriedSpecial { get; private set; } = null;
+    private PlayerHealth health;
 
+
+    #region snapshots
     public struct Snapshot
     {
         public int swords;
@@ -24,9 +31,10 @@ public sealed class PlayerInventory : MonoBehaviour
         public bool[] books;
         public Item.ItemType? carried;
     }
-    public event Action<Snapshot> Changed;
 
-    private PlayerHealth health;
+    public event Action<Snapshot> Changed;
+    #endregion
+
     private void Awake()
     {
         health = GetComponent<PlayerHealth>();

@@ -1,6 +1,10 @@
 using UnityEngine;
 
-/// Tags set on spawned props so the drop-assigner can find eligible holders.
+/**
+ * @file PopulatorTypes.cs
+ * @brief Per prop tags used by DropAssigner to find eligible holders.
+ * @ingroup PropUtils
+ */
 public sealed class PropDropTags : MonoBehaviour
 {
     public bool potion;

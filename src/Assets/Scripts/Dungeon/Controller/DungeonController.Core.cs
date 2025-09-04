@@ -2,7 +2,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// \brief Orchestrator for dungeon generation and wiring.
+/**
+ * @file DungeonController.Core.cs
+ * @brief Core orchestrator for dungeon generation, rendering and high-level events.
+ *
+ * Owns the grid, rooms list, indices, visualizer, and player instance. Focuses on startup, rebuild entry points, and public accessors.
+ */
+
+/**
+ * @class DungeonController
+ * @brief Central owner that builds the dungeon, wires systems, and raises runtime events.
+ */
 
 public partial class DungeonController : MonoBehaviour
 {
@@ -96,6 +106,11 @@ public partial class DungeonController : MonoBehaviour
     #endregion
 
     #region Build Entry
+    /**
+     * @brief Build the dungeon for a biome profile and special room seed
+     * @param profile Biome setup asset (sizes, kinds)
+     * @param seedInfo Prefab/tiles info for the special room
+     */
     public void Build(BiomeSetup_SO profile, SpecialRoomSeeder.SeedInfo seedInfo)
     {
         // Apply biome overrides (size/kinds) and RNG

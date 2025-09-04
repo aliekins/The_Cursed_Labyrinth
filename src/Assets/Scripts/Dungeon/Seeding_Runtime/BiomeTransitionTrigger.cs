@@ -2,9 +2,16 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 
+/**
+ * @file BiomeTransitionTrigger.cs
+ * @brief Sign trigger that advances to the next biome or, on the final biome, spawns a portal and loads the ending.
+ * @ingroup SeedingRT
+ */
+
 [RequireComponent(typeof(Collider2D))]
 public sealed class BiomeTransitionTrigger : MonoBehaviour
 {
+    #region config
     [Header("Gate")]
     [SerializeField] private bool requireSolved = true;
     private KeyCode advanceKey = KeyCode.E;
@@ -21,7 +28,9 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
     private bool isFinalBiome;
     private bool portalActive;
     private bool loading;
+    #endregion
 
+    #region lifecycle
     private void Awake()
     {
         var col = GetComponent<Collider2D>();
@@ -98,6 +107,7 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
         if (isFinalBiome)
             ActivatePortal();
     }
+    #endregion
 
     #region binding + status
     // BiomeTransitionTrigger.cs  (inside TryBind)

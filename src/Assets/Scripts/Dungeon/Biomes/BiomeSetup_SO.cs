@@ -2,9 +2,21 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * @file BiomeSetup_SO.cs
+ * @brief ScriptableObject holding per-biome map and floor + corridor kinds.
+ * @ingroup Biomes
+ */
+
+/**
+ * @class BiomeSetup_SO
+ * @brief Authoring asset with map overrides and kind strings for a biome.
+ */
+
 [CreateAssetMenu(menuName = "Dungeon/Biome Setup", fileName = "BiomeSetup")]
 public class BiomeSetup_SO : ScriptableObject
 {
+    #region config
     [Header("Map Overrides (optional)")]
     public bool overrideSize;
     public int width = 64;
@@ -19,13 +31,5 @@ public class BiomeSetup_SO : ScriptableObject
     [Header("Start/Special selection")]
     [Tooltip("Min path distance (in room graph cells) between start and special room")]
     public int minPathCells = 100;
-
-    //[Header("Special Room")]
-    //public GameObject specialRoomPrefab;
-    //public SpecialPort specialEntrance = SpecialPort.Bottom;   // where corridor should enter the special prefab
-
-    //[Header("Props / Traps")]
-    //public ScriptableObject propRules;
-    //public bool keepSpikeTraps = true;
-
+    #endregion
 }

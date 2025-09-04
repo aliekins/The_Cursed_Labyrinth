@@ -1,6 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/**
+ * @file HeartsBar.cs
+ * @brief Renders HP using a fixed array of Image hearts with partial fill.
+ * @ingroup PlayerHP
+ */
+
 public class HeartsBar : MonoBehaviour
 {
     [SerializeField] private Image[] hearts; 
@@ -32,6 +38,7 @@ public class HeartsBar : MonoBehaviour
             {
                 int start = i * hph;
                 int remaining = Mathf.Clamp(current - start, 0, hph);
+
                 fill = (float)remaining / hph;
             }
 

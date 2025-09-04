@@ -2,16 +2,27 @@ using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/**
+ * @file SpecialRoomSeeder.cs
+ * @brief Instantiates the special room prefab and exposes its tilemaps/bounds for generation.
+ * @ingroup SeedingRT
+ */
+
 public class SpecialRoomSeeder : MonoBehaviour
 {
+    #region config
+    /**
+     * @struct SeedInfo
+     * @brief Data returned after seeding: tilemaps, occupied rect and (optional) broadcaster.
+     */
     [Serializable]
     public class SeedInfo
     {
-        public Transform root;                         // instance root (for convenience)
-        public Tilemap ground;                         // prefab Ground tilemap
-        public Tilemap carpet;                         // prefab Carpet tilemap
-        public Tilemap wall;                           // prefab Wall tilemap
-        public RectInt occupiedRectInt;                // union of ground+wall tile bounds (TILE coords)
+        public Transform root;                             // instance root (for convenience)
+        public Tilemap ground;                             // prefab Ground tilemap
+        public Tilemap carpet;                             // prefab Carpet tilemap
+        public Tilemap wall;                               // prefab Wall tilemap
+        public RectInt occupiedRectInt;                    // union of ground+wall tile bounds (TILE coords)
         public SpecialRoomCompleteBroadcaster broadcaster; // optional
     }
 
@@ -20,7 +31,9 @@ public class SpecialRoomSeeder : MonoBehaviour
     [SerializeField] private string spawnedTag = "DungeonSpawned";
 
     private GameObject currentInstance;
+    #endregion
 
+    #region (un)seeed
     /// \brief Instantiate the special room prefab and return its tilemaps/bounds as SeedInfo
     public SeedInfo Seed(GameObject prefab)
     {
@@ -78,6 +91,7 @@ public class SpecialRoomSeeder : MonoBehaviour
         else DestroyImmediate(currentInstance);
         currentInstance = null;
     }
+    #endregion
 
     #region helpers
     private static void TagRecursively(GameObject go, string tag)

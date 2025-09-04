@@ -1,5 +1,11 @@
 using UnityEngine;
 
+/**
+ * @file Item.cs
+ * @brief Lightweight item model used by pickups and inventory.
+ * @ingroup PlayerInventory
+ */
+
 public class Item 
 {
     public enum ItemType

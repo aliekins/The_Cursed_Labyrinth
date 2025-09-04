@@ -2,6 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * @file PropStrategyBase.cs
+ * @brief Base class for prop placement strategies and rule data.
+ * @ingroup PropUtils
+ */
+
+#region PlacementMods
+/// @brief Optional placement overrides for a single spawn
 [Serializable]
 public struct PlacementMods
 {
@@ -9,12 +17,18 @@ public struct PlacementMods
     public bool scaleToCell;
     public static PlacementMods Default => new PlacementMods { offset = Vector2.zero, scaleToCell = true };
 }
+#endregion
 
+/// @class PropStrategyBase
+/// @brief Abstract strategy that orders/filters candidate cells for prop placement.
 public abstract class PropStrategyBase : MonoBehaviour
 {
+    #region config
     [Header("Rules")]
     public List<SimpleProp> rules = new();
 
+    /// @class SimpleProp
+    /// @brief Minimal prop definition for a single placement rule.
     [Serializable]
     public class SimpleProp
     {
@@ -57,7 +71,9 @@ public abstract class PropStrategyBase : MonoBehaviour
         public bool holdsHeart = false;
         public bool holdsCrown = false;
     }
+    #endregion
 
+    #region access
     public IReadOnlyList<SimpleProp> Rules => rules;
     public bool HasRules => rules != null && rules.Count > 0;
 
@@ -68,4 +84,5 @@ public abstract class PropStrategyBase : MonoBehaviour
         => candidates ?? new List<Vector2Int>();
 
     public virtual PlacementMods GetPlacementMods(Vector2Int cell, Room room) => PlacementMods.Default;
+    #endregion
 }

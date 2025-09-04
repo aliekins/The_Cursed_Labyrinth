@@ -1,4 +1,6 @@
 /// \file PlayerHealth.cs
+/// \brief Player HP model with change and death events and damage/heal.
+/// \ingroup PlayerHP
 using UnityEngine;
 using System;
 

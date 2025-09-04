@@ -1,14 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * @file WallStrategy.cs
+ * @brief Prop placement strategy that targets wall-edge cells (top/side filters).
+ * @ingroup PropUtils
+ */
+
 [DisallowMultipleComponent]
 public sealed class WallStrategy : PropStrategyBase
 {
+    #region config
     [Header("Wall Controls")]
     [Tooltip("If true, props on the TOP wall will be offset slightly upwards to look like they hang.")]
     [SerializeField] private bool hangOnTopWall = true;
     [SerializeField] private float hangYOffsetWorld = 0.18f;
+    #endregion
 
+    #region order, filter, place
     public override List<Vector2Int> OrderCandidates(Room room, List<Vector2Int> candidates, System.Random rng)
     {
         candidates.Sort((a, b) =>
@@ -56,5 +65,5 @@ public sealed class WallStrategy : PropStrategyBase
         }
         return PlacementMods.Default;
     }
-
+    #endregion
 }

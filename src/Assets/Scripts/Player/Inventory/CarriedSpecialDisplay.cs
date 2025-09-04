@@ -1,5 +1,11 @@
 using UnityEngine;
 
+/**
+ * @file CarriedSpecialDisplay.cs
+ * @brief Renders a small sprite above the player for the currently carried cursed item.
+ * @ingroup PlayerInventory
+ */
+
 [RequireComponent(typeof(PlayerInventory))]
 public sealed class CarriedSpecialDisplay : MonoBehaviour
 {
@@ -17,13 +23,17 @@ public sealed class CarriedSpecialDisplay : MonoBehaviour
         if (!anchor)
         {
             Debug.Log("[CarriedSpecialDisplay] No anchor assigned, creating one.");
+
             anchor = new GameObject("CarryAnchor").transform;
             anchor.SetParent(transform, false);
             anchor.localPosition = new Vector3(-10f, 20f, 0f);
         }
+
         Debug.Log($"[CarriedSpecialDisplay] Anchor position: {anchor.position}", this);
+
         var go = new GameObject("CarriedSprite");
         go.transform.SetParent(anchor, false);
+
         sr = go.AddComponent<SpriteRenderer>();
         sr.sortingOrder = 10;
         sr.enabled = false;
@@ -34,7 +44,11 @@ public sealed class CarriedSpecialDisplay : MonoBehaviour
 
     private void OnCarryChanged(Item.ItemType? t)
     {
-        if (!t.HasValue) { sr.enabled = false; return; }
+        if (!t.HasValue)
+        {
+            sr.enabled = false;
+            return; 
+        }
 
         sr.sprite = t.Value switch
         {
@@ -43,6 +57,7 @@ public sealed class CarriedSpecialDisplay : MonoBehaviour
             Item.ItemType.Crown => crownSprite,
             _ => null
         };
+
         sr.enabled = sr.sprite != null;
     }
 }

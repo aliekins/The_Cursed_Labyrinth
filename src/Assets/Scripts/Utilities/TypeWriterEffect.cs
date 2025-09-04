@@ -4,6 +4,12 @@ using UnityEngine;
 using TMPro;
 using Object = UnityEngine.Object;
 
+/**
+ * @file TypeWriterEffect.cs
+ * @brief Reveals TMP text char by char with (optional) skip/pauses.
+ * @ingroup Utilities
+ */
+
 [RequireComponent(typeof(TMP_Text))]
 public class TypeWriterEffect : MonoBehaviour
 {

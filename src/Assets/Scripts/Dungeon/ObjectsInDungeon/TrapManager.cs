@@ -1,14 +1,17 @@
-/// \file TrapManager.cs
-/// \brief Spawns traps in eligible rooms (Quarry)
+/// @file TrapManager.cs
+/// @brief Places spike traps in eligible rooms for a given biome tier.
+/// @ingroup Objects
+
 using System;
 using System.Collections.Generic;
-using Unity.Mathematics;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+/// @class TrapManager
+/// @brief Spawns and positions traps per room using filters and counts.
 public sealed class TrapManager : MonoBehaviour
 {
+    #region config
     [Header("Prefabs")]
     [SerializeField] private GameObject spikeTrapPrefab;
 
@@ -23,13 +26,25 @@ public sealed class TrapManager : MonoBehaviour
 
     private Transform gridTransform;              // set by controller
     private TilemapVisualizer viz;               // set by controller
+    #endregion
 
+    #region API
     public void SetGridContext(Transform gr, TilemapVisualizer visualizer)
     {
         gridTransform = gr;
         viz = visualizer;
     }
 
+    /**
+     * @brief Build traps for the current dungeon build.
+     * @param grid Source grid
+     * @param rooms Rooms to consider for placement
+     * @param resolveTier Maps a floor kind string to a biome tier index
+     * @param carpetMask Optional mask that excludes cells from placement
+     *
+     * Only rooms in the desired tier are considered. Within a room,
+     * candidates are chosen from edge/interior cells that pass @ref CanPlaceOn.
+     */
     public void Build(DungeonGrid grid, List<Room> rooms, Func<string, int> resolveTier, bool[,] carpetMask = null)
     {
         if (!spikeTrapPrefab || grid == null || rooms == null) return;
@@ -70,6 +85,9 @@ public sealed class TrapManager : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region helpers
     private Vector2Int? PickCandidate(List<Vector2Int> pool, RoomInfo info, DungeonGrid grid, bool[,] carpetMask)
     {
         if (pool == null || pool.Count == 0) return null;
@@ -111,4 +129,5 @@ public sealed class TrapManager : MonoBehaviour
         for (int i = transform.childCount - 1; i >= 0; i--)
             Destroy(transform.GetChild(i).gameObject);
     }
+    #endregion
 }

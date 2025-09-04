@@ -1,15 +1,29 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/**
+ * @file PortalExit.cs
+ * @brief Simple exit portal that loads a scene when the player enters.
+ * @ingroup Biomes
+ */
+
+/**
+ * @class PortalExit
+ * @brief Loads the configured ending scene after (an optional) delay.
+ */
+
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Collider2D))]
 public sealed class PortalExit : MonoBehaviour
 {
+    #region Config
     [SerializeField] private string endingSceneName = "EndingCutscene";
     [SerializeField, Min(0f)] private float loadDelay = 2f;
 
     private bool armed = true;
+    #endregion
 
+    #region Lifecycle
     private void Reset()
     {
         var c = GetComponent<Collider2D>();
@@ -39,4 +53,5 @@ public sealed class PortalExit : MonoBehaviour
         else
             Debug.LogError("[PortalExit] endingSceneName is empty.");
     }
+    #endregion
 }

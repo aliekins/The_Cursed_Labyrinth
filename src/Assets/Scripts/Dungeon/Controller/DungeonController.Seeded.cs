@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+/**
+ * @file DungeonController.Seeded.cs
+ * @brief Seeded growth: stamps the special room and grows rooms and corridors around it.
+ *
+ * Contains the procedural growth loop, corridor routing, and helper samplers.
+ */
 public partial class DungeonController : MonoBehaviour
 {
+    #region config
     [Header("Sequential Growth")]
     [SerializeField] private int sequentialRoomCount = 14;            // fallback if range == (0,0)
     [SerializeField] private Vector2Int randomRoomCountRange = new Vector2Int(20, 32);
@@ -13,7 +20,8 @@ public partial class DungeonController : MonoBehaviour
     [Header("Openings and Branching")]
     [SerializeField] private bool shuffleOpenings = true;
     [SerializeField, Range(0f, 1f)] private float openingKeepChance = 0.75f;
-    [SerializeField] private bool depthFirstLike = false;
+    [SerializeField] [Tooltip("DFS when true; BFS when false")]
+    private bool depthFirstLike = false;
 
     [Header("Room Size Bias")]
     [SerializeField, Range(0f, 1f)] private float biasSmallRooms = 0.6f;
@@ -35,8 +43,16 @@ public partial class DungeonController : MonoBehaviour
     private Vector2Int entranceInsideGrid;     // prefab corridor tile
     private Vector2Int entranceOutsideGrid;    // one cell outside (y-1)
     private bool[,] noDigMask;                 // special
+    #endregion
 
     #region build
+    /**
+     * @brief Generate the dungeon from a prefab seed and biome profile.
+     * @param profile Biome setup with sizes and kinds
+     * @param seedInfo Prefab tilemaps and occupied rect
+     *
+     * Stamps the special room, computes masks, then grows rooms downward/sideways
+     */
     internal void GenerateFromSeed(BiomeSetup_SO profile, SpecialRoomSeeder.SeedInfo seedInfo)
     {
         if (!profile || seedInfo == null)
@@ -100,7 +116,23 @@ public partial class DungeonController : MonoBehaviour
         CleanupDanglingCorridors();
     }
     #endregion
+
     #region growth
+    /**
+     * @brief Frontier based room growth with a DFS/BFS toggle.
+     *
+     * Uses a deque of growth fronts:
+     * - If @c depthFirstLike is true, pops from the back (stack).
+     * - If @c depthFirstLike is false, pops from the front (queue).
+     *
+     * New openings discovered from the placed room are appended to the back.
+     * Optional randomness (shuffleOpenings, openingKeepChance) shuffles and filters
+     * the set of openings, so the search order is DFS/BFS, but not all neighbors
+     * are necessarily expanded.
+     *
+     * @param firstAnchor First corridor cell to grow from
+     * @param firstDir Initial growth direction
+     */
     private void GrowSequential(Vector2Int firstAnchor, Vector2Int firstDir)
     {
         var deque = new List<(Vector2Int anchor, Vector2Int dir)>();
@@ -184,6 +216,11 @@ public partial class DungeonController : MonoBehaviour
         }
     }
 
+    /**
+     * @brief Candidate openings (d/l/r) for growth out of a room.
+     * @param rect Room rectangle
+     * @param cameDir Direction we came from (to avoid immediate backtracking)
+     */
     private IEnumerable<(Vector2Int anchor, Vector2Int dir)> OpeningsFor(RectInt rect, Vector2Int cameDir)
     {
         var list = new List<(Vector2Int, Vector2Int)>(3);
@@ -206,7 +243,15 @@ public partial class DungeonController : MonoBehaviour
                 yield return f;
     }
     #endregion
+
     #region corridour routing
+    /**
+     * @brief Grid BFS to connect two cells with a corridor, respecting masks.
+     * @param start Corridor start cell
+     * @param goal Target cell near a room doorway
+     * @param forbiddenRect Rect of the new room to avoid
+     * @return Ordered cell list or null if unreachable
+     */
     private List<Vector2Int> FindCorridorPath(Vector2Int start, Vector2Int goal, RectInt forbiddenRect)
     {
         if (start == goal) return new List<Vector2Int>();
@@ -275,6 +320,7 @@ public partial class DungeonController : MonoBehaviour
             if (grid.InBounds(c.x, c.y)) grid.Kind[c.x, c.y] = kind;
     }
     #endregion
+
     #region helpers
     private int SampleRoomSize()
     {

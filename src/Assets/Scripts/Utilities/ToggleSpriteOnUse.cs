@@ -1,5 +1,11 @@
 using UnityEngine;
 
+/**
+ * @file ToggleSpriteOnUse.cs
+ * @brief Toggles between two sprites when the player presses E inside the trigger.
+ * @ingroup Utilities
+ */
+
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class ToggleSpriteOnUse : MonoBehaviour

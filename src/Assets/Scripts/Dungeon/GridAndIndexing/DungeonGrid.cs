@@ -1,7 +1,11 @@
-/// \file DungeonGrid.cs
-/// \brief Grid model that stores a tile kind string per cell.
+/// @file DungeonGrid.cs
+/// @brief Grid model that stores a tile kind per cell and optional room ids.
+/// @ingroup Grid
 using UnityEngine;
 
+/// @class DungeonGrid
+/// @brief Backing 2D grid for dungeon generation and queries.
+/// @brief Backing 2D grid for dungeon generation and queries.
 public sealed class DungeonGrid
 {
     public readonly int Width;
@@ -50,22 +54,6 @@ public sealed class DungeonGrid
         }
     }
 
-    ///// \brief Carve a path of cells as a spec floor kind (optional thickness)
-    //public void CarvePath(System.Collections.Generic.IEnumerable<Vector2Int> cells, string floorKind, int thickness = 1)
-    //{
-    //    foreach (var c in cells)
-    //    {
-    //        for (int dx = -thickness + 1; dx <= thickness - 1; dx++)
-    //        {
-    //            for (int dy = -thickness + 1; dy <= thickness - 1; dy++)
-    //            {
-    //                int x = c.x + dx, y = c.y + dy;
-    //                if (InBounds(x, y)){ Kind[x, y] = floorKind; }
-    //            }
-    //        }
-    //    }
-    //}
-
     /// \brief Check bounds
     public bool InBounds(int x, int y) => x >= 0 && y >= 0 && x < Width && y < Height;
 
@@ -84,5 +72,4 @@ public sealed class DungeonGrid
             }
         }
     }
-
 }

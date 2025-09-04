@@ -1,11 +1,13 @@
-/// \file LightAim.cs
-/// \brief Rotates a child light to match the player's facing direction
-
+/**
+ * @file LightAim.cs
+ * @brief Rotates a child light to match the player's facing direction.
+ * @ingroup Player
+ */
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 
 public sealed class LightAim : MonoBehaviour
 {
+    #region config and setters
     [Header("Optional (auto-wired)")]
     [SerializeField] private TopDownController playerController;   
     [SerializeField] private Transform playerTransform;
@@ -15,7 +17,9 @@ public sealed class LightAim : MonoBehaviour
 
     private float _currentZ;
     public void SetPlayer(TopDownController tc) => playerController = tc;
+    #endregion
 
+    #region cycle
     private void Awake()
     {
         var follow = GetComponent<FollowTarget2D>();
@@ -50,7 +54,9 @@ public sealed class LightAim : MonoBehaviour
 
         ApplyZ(_currentZ);
     }
+    #endregion
 
+    #region helpers
     private void ApplyZ(float z)
     {
         var e = transform.eulerAngles; 
@@ -59,4 +65,5 @@ public sealed class LightAim : MonoBehaviour
         e.z = z;
         transform.eulerAngles = e;
     }
+    #endregion
 }

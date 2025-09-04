@@ -1,10 +1,15 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-/// \brief Clears all Tilemaps under this object; also destroys leftover spawned props/traps/enemies tagged by a marker
+/**
+ * @file TilemapClearer.cs
+ * @brief Clears Tilemaps under given roots; (optional) destroys tagged spawned objects.
+ * @ingroup SeedingRT
+ */
+
 public class TilemapClearer : MonoBehaviour
 {
-    [Header("Roots to clean (e.g. the prefab instance parent)")]
+    [Header("Roots to clean")]
     public Transform[] roots;
 
     [Header("Also destroy objects with this tag (optional)")]

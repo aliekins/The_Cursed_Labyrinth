@@ -1,8 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+/**
+ * @file DoorMaskBuilder.cs
+ * @brief Builds a set of cells near doors where props should not spawn.
+ * @ingroup PropUtils
+ */
 public static class DoorMaskBuilder
 {
+    /**
+     * @brief Compute a "no prop" mask around door tiles and aisles
+     * @param grid Source grid
+     * @param index Map index with per room entrances
+     * @param room Room to build the mask for
+     * @param corridorPrefix Corridor kind
+     * @param doorAisleDepth Depth of clear aisle inward from each door
+     * @param wallDoorClearance Lateral clearance along the door wall
+     * @param doorwayChebBuffer Pad around the doorway cell
+     * @param isRoomFloor Predicate to test room floors
+     * @return Set of blocked cells
+     */
     public static HashSet<Vector2Int> BuildDoorNoPropMask(DungeonGrid grid, DungeonMapIndex index, Room room, string corridorPrefix, int doorAisleDepth, int wallDoorClearance, int doorwayChebBuffer, System.Func<string, bool> isRoomFloor)
     {
         var blocked = new HashSet<Vector2Int>();

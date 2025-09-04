@@ -1,5 +1,7 @@
-/// \file PlayerRoomTracker.cs
-/// \brief Detects when the player crosses into a different room and notifies the controller.
+/// @file PlayerRoomTracker.cs
+/// @brief Detects when the player crosses into a different room and notifies the controller.
+/// @ingroup Player
+
 using UnityEngine;
 
 public sealed class PlayerRoomTracker : MonoBehaviour

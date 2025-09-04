@@ -1,8 +1,12 @@
-/// \file Room.cs
-/// \brief Carved room representation with bounds, center and persistent info.
+/// @file Room.cs
+/// @brief Carved room representation with bounds, center and derived info.
+/// @ingroup Grid
 using System.Collections.Generic;
 using UnityEngine;
 
+#region Room
+/// @class Room
+/// @brief Immutable room bounds/center plus a mutable RoomInfo payload.
 public sealed class Room
 {
     public int Id { get; }
@@ -16,7 +20,11 @@ public sealed class Room
         Center = new Vector2Int(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
     }
 }
+#endregion
 
+#region RoomInfo
+/// @class RoomInfo
+/// @brief Derived room features (interior, edges, corner anchors, entrances, reservations).
 public sealed class RoomInfo
 {
     public int Id { get; private set; }
@@ -89,16 +97,7 @@ public sealed class RoomInfo
                 Entrances.Add(c);
         }
     }
-
-    public bool IsFree(Vector2Int cell) => !Occupied.Contains(cell);
-
-    public bool TryReserve(Vector2Int cell)
-    {
-        if (Occupied.Contains(cell)) return false;
-        Occupied.Add(cell);
-        return true;
-    }
-
+    #region helpers
     private static bool IsWall(DungeonGrid grid, int x, int y)
     {
         if (!grid.InBounds(x, y)) return true;
@@ -120,4 +119,6 @@ public sealed class RoomInfo
         }
         return false;
     }
+    #endregion
 }
+#endregion

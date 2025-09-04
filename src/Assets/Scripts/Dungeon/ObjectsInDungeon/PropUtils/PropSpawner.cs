@@ -1,5 +1,10 @@
 using UnityEngine;
 
+/**
+ * @file PropSpawner.cs
+ * @brief Spawns visual/physical props at grid cells and tags them for drops.
+ * @ingroup PropUtils
+ */
 public static class PropSpawner
 {
     private const int SortingOrder = 2; // above floor, below walls
@@ -41,6 +46,7 @@ public static class PropSpawner
         return go;
     }
 
+    #region helpers
     private static void EnsureCollider(GameObject go, TilemapVisualizer viz, PropStrategyBase.SimpleProp rule)
     {
         if (rule.colliderMode == PropStrategyBase.SimpleProp.ColliderMode.None) return;
@@ -90,4 +96,5 @@ public static class PropSpawner
                   $"S:{tag.sword} B:{tag.book} P:{tag.potion} " +
                   $"Skull:{tag.skull} Heart:{tag.heart} Crown:{tag.crown}");
     }
+    #endregion
 }

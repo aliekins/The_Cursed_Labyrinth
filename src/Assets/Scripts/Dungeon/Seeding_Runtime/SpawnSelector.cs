@@ -1,7 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
-
-/// \brief Picks the spawn room (or cell) farthest from the special room center
+/**
+ * @file SpawnSelector.cs
+ * @brief Picks a spawn cell farthest from the special room center.
+ * @ingroup SeedingRT
+ */
 public class SpawnSelector : MonoBehaviour
 {
     public static Vector2Int ChooseFarthestFrom(Vector2Int specialCenter, List<Room> rooms)
@@ -17,6 +20,7 @@ public class SpawnSelector : MonoBehaviour
             var c = r.Bounds.center;
             var cell = new Vector2Int(Mathf.RoundToInt(c.x), Mathf.RoundToInt(c.y));
             var d = Vector2Int.Distance(cell, specialCenter);
+
             if (d > bestDist)
             {
                 bestDist = d;
