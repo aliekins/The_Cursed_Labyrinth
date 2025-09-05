@@ -15,8 +15,8 @@ public sealed class CursedBiomeController : MonoBehaviour
 {
     #region config
     [Header("Curse Timing")]
-    [SerializeField] private float graceSeconds = 60f;  
-    [SerializeField] private float dps = 0.05f;  // damage/second after grace
+    [SerializeField] private float graceSeconds = 90f;  
+    [SerializeField] private float dps = 0.5f;  // damage/second after grace
 
     private ISpecialSolver solver;
     private bool solved;

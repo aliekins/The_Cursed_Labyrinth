@@ -53,7 +53,9 @@ public class BiomeSequenceController : MonoBehaviour
         if (specialRoomSeeder == null) specialRoomSeeder = FindAnyObjectByType<SpecialRoomSeeder>();
         if (spawnSelector == null) spawnSelector = FindAnyObjectByType<SpawnSelector>();
         if (tilemapClearer == null) tilemapClearer = FindAnyObjectByType<TilemapClearer>();
+        if (dungeonController) dungeonController.PlayerSpawned += OnPlayerSpawned;
     }
+
 
     private void Start()
     {
@@ -74,6 +76,7 @@ public class BiomeSequenceController : MonoBehaviour
             Debug.LogError("[BiomeSequence] No biomes configured.");
             return;
         }
+        startSnapshots.Clear();
         currentBiomeIndex = -1;
         NextBiome();
     }
@@ -86,8 +89,8 @@ public class BiomeSequenceController : MonoBehaviour
             return;
         }
 
-        restartRequested = true;          // signal we want to restore snapshot after rebuild
-        currentBiomeIndex--;              // NextBiome() will ++ it back to this biome
+        restartRequested = true;
+        currentBiomeIndex--;
         NextBiome();
     }
 
@@ -106,24 +109,13 @@ public class BiomeSequenceController : MonoBehaviour
      */
     private IEnumerator NextBiome_Co()
     {
-        // Clear previous tiles/props
         tilemapClearer?.ClearAll();
         yield return null;
 
-        // Decide which biome we’re entering
         int nextIndex = currentBiomeIndex + 1;
 
-        // Capture snapshot for the biome we’re about to ENTER, but only if we’re not restarting it
-        if (!restartRequested)
-        {
-            var inv = FindFirstObjectByType<PlayerInventory>(FindObjectsInactive.Include);
-
-            if (inv != null)
-                startSnapshots[nextIndex] = inv.GetSnapshot();
-        }
-
         currentBiomeIndex = nextIndex;
-        if (currentBiomeIndex >= biomes.Count) 
+        if (currentBiomeIndex >= biomes.Count)
         {
             Debug.Log("[BiomeSequence] All biomes complete.");
             yield break;
@@ -131,7 +123,7 @@ public class BiomeSequenceController : MonoBehaviour
 
         var entry = biomes[currentBiomeIndex];
         if (entry == null || !entry.biomeProfile || !entry.specialRoomPrefab)
-        { 
+        {
             Debug.LogError("[BiomeSequence] Invalid biome entry.");
             yield break;
         }
@@ -145,6 +137,16 @@ public class BiomeSequenceController : MonoBehaviour
 
         dungeonController.Build(entry.biomeProfile, seedInfo);
         Debug.Log("[BiomeSequence] Biome built: " + entry.biomeProfile.name);
+
+        if (!restartRequested)
+        {
+            var inv = FindFirstObjectByType<PlayerInventory>(FindObjectsInactive.Include);
+            if (inv != null)
+            {
+                startSnapshots[currentBiomeIndex] = inv.GetSnapshot();
+                Debug.Log("[BiomeSequence] Captured baseline for biome " + currentBiomeIndex);
+            }
+        }
 
         if (_activeBroadcaster != null)
             _activeBroadcaster.OnSolved -= HandleSpecialSolved;
@@ -169,6 +171,35 @@ public class BiomeSequenceController : MonoBehaviour
         }
 
         Debug.Log("[BiomeSequence] Final biome solved — waiting for portal/exit.");
+    }
+    private void OnPlayerSpawned(PlayerInventory inv)
+    {
+        if (!inv) return;
+
+        if (restartRequested)
+        {
+            if (startSnapshots.TryGetValue(currentBiomeIndex, out var snap))
+            {
+                Debug.Log("[BiomeSequence] Restoring inventory snapshot for biome " + currentBiomeIndex);
+
+                inv.ApplySnapshot(snap);
+                StartCoroutine(ApplySnapshotEndOfFrame(inv, snap)); // defeats late auto-pickups
+            }
+            restartRequested = false;
+            return;
+        }
+    }
+
+    private System.Collections.IEnumerator ApplySnapshotEndOfFrame(PlayerInventory inv, PlayerInventory.Snapshot snap)
+    {
+        yield return null;
+        inv.ApplySnapshot(snap);
+    }
+
+    private void OnDestroy()
+    {
+        if (dungeonController)
+            dungeonController.PlayerSpawned -= OnPlayerSpawned;
     }
     #endregion
 }

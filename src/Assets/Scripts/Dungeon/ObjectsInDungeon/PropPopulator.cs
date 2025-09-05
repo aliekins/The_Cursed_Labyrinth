@@ -157,10 +157,10 @@ public sealed class PropPopulator : MonoBehaviour
                     breakables.Add(bp);
 
                     var tags = go.GetComponent<PropDropTags>();
-                    Debug.Log($"[PropPopulator] Breakable added: '{go.name}' " +
-                              (tags
-                                 ? $"tags S:{tags.sword} B:{tags.book} P:{tags.potion} Skull:{tags.skull} Heart:{tags.heart} Crown:{tags.crown}"
-                                 : "NO PropDropTags"));
+                    //Debug.Log($"[PropPopulator] Breakable added: '{go.name}' " +
+                    //          (tags
+                    //             ? $"tags S:{tags.sword} B:{tags.book} P:{tags.potion} Skull:{tags.skull} Heart:{tags.heart} Crown:{tags.crown}"
+                    //             : "NO PropDropTags"));
                 }
 
                 want--;

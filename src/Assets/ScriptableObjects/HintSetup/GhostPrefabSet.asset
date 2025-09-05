@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3fee9920bf69eb4b87f1c40de926939, type: 3}
+  m_Name: GhostPrefabSet
+  m_EditorClassIdentifier: 
+  byBiome:
+  - label: Biome0
+    prefab: {fileID: 747853975742133622, guid: a834c485a1f7d3c43b5b450fe5209c35, type: 3}
+  - label: Biome1
+    prefab: {fileID: 219761503139285497, guid: d0515625e199db547bc1992923523aa7, type: 3}
+  - label: Biome2
+    prefab: {fileID: 1477737407601065333, guid: f40e435f683e7484eacab3eb7f1e27eb, type: 3}

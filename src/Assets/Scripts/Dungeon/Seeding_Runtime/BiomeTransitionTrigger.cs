@@ -110,7 +110,6 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
     #endregion
 
     #region binding + status
-    // BiomeTransitionTrigger.cs  (inside TryBind)
     private void TryBind()
     {
         var root = FindNearestGridRoot(transform);
@@ -118,24 +117,43 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
 
         var monos = root.GetComponentsInChildren<MonoBehaviour>(true);
 
+        ISpecialSolver best = null;
+        float bestSqr = float.PositiveInfinity;
+
         foreach (var m in monos)
         {
-            if (m is ISpecialSolver s)
+            if (m is ISpecialSolver s && s is Component c && c.gameObject.activeInHierarchy)
             {
-                if (solver != null)
-                    solver.OnSolved -= HandleSolved;
+                float sqr = (c.transform.position - transform.position).sqrMagnitude;
 
-                solver = s;
-                solver.OnSolved += HandleSolved;
-
-                UpdateIsFinalBiome();
-                solved = IsSolverSolved();
-
-                if (isFinalBiome && solved)
-                    ActivatePortal();
-
-                break;
+                if (sqr < bestSqr)
+                {
+                    bestSqr = sqr;
+                    best = s; 
+                }
             }
+        }
+
+        if (best == null) return;
+        if (!ReferenceEquals(best, solver))
+        {
+            if (solver != null) 
+                solver.OnSolved -= HandleSolved;
+
+            solver = best;
+            solver.OnSolved += HandleSolved;
+
+            solved = IsSolverSolved();
+            UpdateIsFinalBiome();
+
+            Debug.Log($"[BiomeTransition] Bound to solver '{solver.GetType().Name}' at ~{Mathf.Sqrt(bestSqr):0.0} units. Solved={solved}");
+
+            if (isFinalBiome && solved) 
+                ActivatePortal();
+        }
+        else
+        {
+            solved = solved || IsSolverSolved();
         }
     }
 

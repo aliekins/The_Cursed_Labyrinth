@@ -4,40 +4,37 @@ using UnityEngine;
 
 /**
  * @file CursedItemRespawnManager.cs
- * @brief Tracks cursed pickups dropped in the world and periodically relocates them.
+ * @brief One-shot relocation per registration for cursed pickups.
  * @ingroup Puzzle
- *
- * Automatically creates an instance on first registration.
- * Starts a timer that resets if the player stays near the pickup.
- * Relocates into valid room interiors using DungeonController/MapIndex.
  */
 [DisallowMultipleComponent]
 public sealed class CursedItemRespawnManager : MonoBehaviour
 {
-    #region config 
+    #region Config
     [Header("Respawn rules")]
-    [SerializeField, Min(1f)] private float respawnDelaySeconds = 5f;
+    [SerializeField, Min(0.25f)] private float respawnDelaySeconds = 5f;
     [SerializeField, Min(0f)] private float minDistanceFromPlayer = 4f;
-    [SerializeField, Min(0)] private int maxRelocateTries = 60;
-
-    private readonly Dictionary<PickupItem, Coroutine> timers = new();
+    [SerializeField, Min(1)] private int maxRelocateTries = 60;
     #endregion
 
-    #region access
+    #region State
+    private readonly Dictionary<PickupItem, Coroutine> timers = new();
+    private readonly Dictionary<PickupItem, int> generations = new();
+    #endregion
+
+    #region Singleton
     public static CursedItemRespawnManager Instance { get; private set; }
-    private static readonly List<PickupItem> pending = new();
 
     private void Awake()
     {
-        Instance = this;
-        if (pending.Count > 0)
-        {
-            foreach (var p in pending.ToArray())
-                if (p)
-                    Register(p);
-
-            pending.Clear();
+        if (Instance && Instance != this) 
+        { 
+            Destroy(gameObject);
+            return; 
         }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public static void RegisterPickup(PickupItem pickup)
@@ -47,81 +44,122 @@ public sealed class CursedItemRespawnManager : MonoBehaviour
             Debug.LogWarning("[CursedRespawn] RegisterPickup(null)");
             return;
         }
-
-        if (Instance == null)
+        if (!Instance)
         {
             var go = new GameObject("CursedItemRespawnManager");
-            DontDestroyOnLoad(go);
-            var mgr = go.AddComponent<CursedItemRespawnManager>(); // Awake() sets Instance and drains 'pending'
-        }
 
+            DontDestroyOnLoad(go);
+            go.AddComponent<CursedItemRespawnManager>();
+        }
         Instance.Register(pickup);
     }
+    #endregion
 
+    #region API
     public void Register(PickupItem pickup)
     {
-        if (!pickup || !IsCursed(pickup))
-        {
-            Debug.LogWarning($"[CursedRespawn] Ignored registration: isSpecial={pickup && pickup.isSpecial}, Type={(pickup ? pickup.Type : 0)}");
-            return;
-        }
+        if (!pickup) return;
+        if (!IsCursed(pickup)) return;
 
-        if (timers.TryGetValue(pickup, out var c))
-            StopCoroutine(c);
+        if (timers.TryGetValue(pickup, out var co) && co != null)
+            StopCoroutine(co);
 
-        timers[pickup] = StartCoroutine(RespawnAfterIdle(pickup));
-        Debug.Log($"[CursedRespawn] Timer started for {pickup.Type} ({respawnDelaySeconds}s).");
+        int next = generations.TryGetValue(pickup, out var g) ? g + 1 : 1;
+        generations[pickup] = next;
+
+        timers[pickup] = StartCoroutine(RespawnAfterIdle(pickup, next));
     }
 
+    public void Unregister(PickupItem pickup)
+    {
+        if (!pickup) return;
+        if (timers.TryGetValue(pickup, out var co) && co != null)
+            StopCoroutine(co);
+
+        timers.Remove(pickup);
+    }
 
     public static bool ForceRelocateNow(PickupItem pickup)
     {
         if (!pickup) return false;
-        if (Instance == null)
+
+        if (!Instance)
         {
             var go = new GameObject("CursedItemRespawnManager");
-            UnityEngine.Object.DontDestroyOnLoad(go);
-            go.AddComponent<CursedItemRespawnManager>(); // Awake sets Instance
+
+            DontDestroyOnLoad(go);
+            go.AddComponent<CursedItemRespawnManager>();
         }
+
+        if (Instance.timers.TryGetValue(pickup, out var co) && co != null)
+            Instance.StopCoroutine(co);
+
+        Instance.timers.Remove(pickup);
+
         return Instance.TryRelocate(pickup);
     }
     #endregion
 
-    #region helpers
-    private IEnumerator RespawnAfterIdle(PickupItem pickup)
+    #region core
+    private IEnumerator RespawnAfterIdle(PickupItem pickup, int epoch)
     {
         float t = 0f;
+        var player = FindFirstObjectByType<PlayerInventory>()?.transform;
+        float minDistSqr = minDistanceFromPlayer * minDistanceFromPlayer;
 
         while (pickup && t < respawnDelaySeconds)
         {
-            if (!pickup.gameObject.activeInHierarchy) yield break; // picked/destroyed
+            if (!pickup.gameObject.activeInHierarchy) // picked up / disabled / destroyed
+            {
+                Cleanup(pickup);
+                yield break;
+            }
 
-            var inv = FindFirstObjectByType<PlayerInventory>();
-            if (inv && (inv.transform.position - pickup.transform.position).sqrMagnitude <= minDistanceFromPlayer * minDistanceFromPlayer)
-                t = 0f;
+            if (!IsCurrentEpoch(pickup, epoch))
+                yield break;
+
+            if (player)
+            {
+                float sqr = (player.position - pickup.transform.position).sqrMagnitude;
+                if (sqr >= minDistSqr) t += Time.deltaTime;
+            }
             else
+            {
                 t += Time.deltaTime;
+            }
 
             yield return null;
         }
 
         if (!pickup) yield break;
+        if (!IsCurrentEpoch(pickup, epoch)) yield break;
 
-        if (TryRelocate(pickup))
-        {
-            // restart the timer so it won’t sit forever in another bad corner
-            timers[pickup] = StartCoroutine(RespawnAfterIdle(pickup));
-        }
-        else
-        {
+        bool moved = TryRelocate(pickup);
+        if (!moved)
             Debug.LogWarning("[CursedRespawn] Could not find a relocation spot.");
-        }
+
+        Cleanup(pickup); // stop tracking; next drop must call Register again
     }
 
+    private bool IsCurrentEpoch(PickupItem p, int epoch)
+        => generations.TryGetValue(p, out var cur) && cur == epoch;
+
+    private void Cleanup(PickupItem p)
+    {
+        if (timers.TryGetValue(p, out var co) && co != null)
+            StopCoroutine(co);
+        timers.Remove(p);
+    }
+    #endregion
+
+    #region relocation
     private static bool IsCursed(PickupItem p)
     {
+        if (!p || !p.isSpecial) return false;
         var t = p.Type;
-        return p.isSpecial && (t == Item.ItemType.SkullDiamond || t == Item.ItemType.HeartDiamond || t == Item.ItemType.Crown);
+        return t == Item.ItemType.SkullDiamond
+            || t == Item.ItemType.HeartDiamond
+            || t == Item.ItemType.Crown;
     }
 
     private bool TryRelocate(PickupItem p)
@@ -133,7 +171,7 @@ public sealed class CursedItemRespawnManager : MonoBehaviour
 
         if (!viz || grid == null) return false;
 
-        // Prefer indexed room interiors
+        // Prefer indexed room interiors (accurate placement)
         if (map != null && map.Rooms != null && map.Rooms.Count > 0)
         {
             var list = new List<DungeonMapIndex.RoomIndex>(map.Rooms.Values);
@@ -143,18 +181,18 @@ public sealed class CursedItemRespawnManager : MonoBehaviour
                 if (ri == null || ri.Interior == null || ri.Interior.Count == 0) continue;
 
                 if (!TryPickRandom(ri.Interior, out var cell)) continue;
-
                 if (!grid.InBounds(cell.x, cell.y)) continue;
+
                 var kind = grid.Kind[cell.x, cell.y] ?? "";
                 if (kind == "wall") continue;
 
                 MovePickupToGridLocal(p, viz, cell);
-                Debug.Log($"[CursedRespawn] Relocated {p.Type} to room {ri.Id} at {cell.x},{cell.y}.");
+                 Debug.Log($"[CursedRespawn] Relocated {p.Type} to room {ri.Id} at {cell.x},{cell.y}.");
                 return true;
             }
         }
 
-        // Fallback: sample random inner area from controller Rooms
+        // Fallback: random inner area of a room
         var rooms = dc ? dc.Rooms : null;
         if (rooms != null && rooms.Count > 0)
         {
@@ -164,12 +202,13 @@ public sealed class CursedItemRespawnManager : MonoBehaviour
                 var b = rm.Bounds;
                 int x = Random.Range(b.xMin + 1, b.xMax - 1);
                 int y = Random.Range(b.yMin + 1, b.yMax - 1);
+
                 if (!grid.InBounds(x, y)) continue;
                 var kind = grid.Kind[x, y] ?? "";
                 if (kind == "wall") continue;
 
                 MovePickupToGridLocal(p, viz, new Vector2Int(x, y));
-                Debug.Log($"[CursedRespawn] Relocated {p.Type} to {x},{y}.");
+                 Debug.Log($"[CursedRespawn] Relocated {p.Type} to {x},{y}.");
                 return true;
             }
         }
@@ -186,29 +225,16 @@ public sealed class CursedItemRespawnManager : MonoBehaviour
         int i = 0;
         foreach (var v in set)
         {
-            if (i++ == skip)
-            {
-                value = v;
-                return true;
-            }
+            if (i++ == skip) { value = v; return true; }
         }
-        // Fallback (shouldn’t happen)
-        foreach (var v in set)
-        {
-            value = v;
-            return true;
-        }
-
+        foreach (var v in set) { value = v; return true; } // ultra-fallback
         return false;
     }
 
     private static void MovePickupToGridLocal(PickupItem p, TilemapVisualizer viz, Vector2Int cell)
     {
         var parent = viz.GridTransform ? viz.GridTransform : null;
-
-        if (parent)
-            p.transform.SetParent(parent, false);
-
+        if (parent) p.transform.SetParent(parent, false);
         p.transform.localPosition = viz.CellCenterLocal(cell.x, cell.y);
     }
     #endregion

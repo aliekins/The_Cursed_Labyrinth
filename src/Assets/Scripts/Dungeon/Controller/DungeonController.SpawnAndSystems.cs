@@ -148,6 +148,8 @@ public partial class DungeonController
 
         SetPolicy();
         propPopulator?.Populate(grid, rooms, mapIndex, tmVisualizer.CarpetMask, randomSeed, trapCells);
+
+        FindFirstObjectByType<GhostHintPlacer>()?.PlaceForCurrentBiome();
     }
 
     private void SetPolicy()

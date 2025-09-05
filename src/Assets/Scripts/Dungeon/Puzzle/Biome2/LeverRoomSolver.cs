@@ -145,10 +145,9 @@ public sealed class LeverRoomSolver : MonoBehaviour, ISpecialSolver
     {
         if (!countdownText) return;
 
-        if (solved) { countdownText.text = "Solved!"; }
-        else if (!timerRunning && progressIndex == 0)
-            countdownText.text = $"";
-        else
+        if (!solved && timerRunning && progressIndex != 0) 
             countdownText.text = $"{Mathf.CeilToInt(Mathf.Max(0f, timeRemaining))}s";
+        else
+            countdownText.text = "";
     }
 }

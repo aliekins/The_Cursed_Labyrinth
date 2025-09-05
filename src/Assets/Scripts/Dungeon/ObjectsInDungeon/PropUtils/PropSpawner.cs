@@ -92,9 +92,9 @@ public static class PropSpawner
         tag.heart = rule.holdsHeart;
         tag.crown = rule.holdsCrown;
 
-        Debug.Log($"[PropSpawner] Tagged prop '{go.name}' " +
-                  $"S:{tag.sword} B:{tag.book} P:{tag.potion} " +
-                  $"Skull:{tag.skull} Heart:{tag.heart} Crown:{tag.crown}");
+        //Debug.Log($"[PropSpawner] Tagged prop '{go.name}' " +
+        //          $"S:{tag.sword} B:{tag.book} P:{tag.potion} " +
+        //          $"Skull:{tag.skull} Heart:{tag.heart} Crown:{tag.crown}");
     }
     #endregion
 }

@@ -119,6 +119,57 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &72429293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 72429294}
+  - component: {fileID: 72429295}
+  m_Layer: 0
+  m_Name: HintPlacer_Special
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &72429294
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72429293}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2142322348}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &72429295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72429293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7fd34588b42d0241a8eddee6ae6813f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placementMode: 2
+  countPerBiome: 3
+  minSeparation: 1
+  hintTagForThisPlacer: InsideSpecial
+  ghostHintTriggerPrefab: {fileID: 3361264327322213380, guid: baff0539b7db7ba409507754022052c7, type: 3}
+  hintDB: {fileID: 11400000, guid: b853fc33a41e5ed47b1e4183c6e5d66a, type: 2}
+  prefabSet: {fileID: 11400000, guid: 5c82c5c5cb44f0f49bf46b279aa4142a, type: 2}
 --- !u!1 &100506732
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,6 +926,7 @@ Transform:
   m_Children:
   - {fileID: 763393198}
   - {fileID: 1225187831}
+  - {fileID: 2142322348}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &234413193
@@ -1516,6 +1568,7 @@ MonoBehaviour:
   minGrowCorridorLen: 3
   maxGrowCorridorLen: 5
   biasShortCorridors: 0.6
+  gameSceneName: Game
 --- !u!1 &481029313
 GameObject:
   m_ObjectHideFlags: 0
@@ -2620,6 +2673,57 @@ MonoBehaviour:
   notFoundTint: {r: 0.38039216, g: 0.3254902, b: 0.5058824, a: 0.5019608}
   emptyTint: {r: 1, g: 1, b: 1, a: 0}
   filledTint: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &984786508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 984786509}
+  - component: {fileID: 984786510}
+  m_Layer: 0
+  m_Name: HintPlacer_Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &984786509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984786508}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2142322348}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &984786510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984786508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7fd34588b42d0241a8eddee6ae6813f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placementMode: 0
+  countPerBiome: 1
+  minSeparation: 0
+  hintTagForThisPlacer: SpawnDoors
+  ghostHintTriggerPrefab: {fileID: 3361264327322213380, guid: baff0539b7db7ba409507754022052c7, type: 3}
+  hintDB: {fileID: 11400000, guid: b853fc33a41e5ed47b1e4183c6e5d66a, type: 2}
+  prefabSet: {fileID: 11400000, guid: 5c82c5c5cb44f0f49bf46b279aa4142a, type: 2}
 --- !u!1 &1012119710
 GameObject:
   m_ObjectHideFlags: 0
@@ -3956,6 +4060,57 @@ RectTransform:
   m_AnchoredPosition: {x: 32, y: 0}
   m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1654215042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1654215043}
+  - component: {fileID: 1654215044}
+  m_Layer: 0
+  m_Name: HintPlacer_SpecialD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1654215043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654215042}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2142322348}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1654215044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654215042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7fd34588b42d0241a8eddee6ae6813f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placementMode: 1
+  countPerBiome: 1
+  minSeparation: 0
+  hintTagForThisPlacer: SpecialDoors
+  ghostHintTriggerPrefab: {fileID: 3361264327322213380, guid: baff0539b7db7ba409507754022052c7, type: 3}
+  hintDB: {fileID: 11400000, guid: b853fc33a41e5ed47b1e4183c6e5d66a, type: 2}
+  prefabSet: {fileID: 11400000, guid: 5c82c5c5cb44f0f49bf46b279aa4142a, type: 2}
 --- !u!1 &1686007630
 GameObject:
   m_ObjectHideFlags: 0
@@ -4317,6 +4472,57 @@ MonoBehaviour:
   cornerStrategy: {fileID: 166863786}
   wallStrategy: {fileID: 144745783}
   interiorStrategy: {fileID: 437296596}
+--- !u!1 &2074637950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2074637951}
+  - component: {fileID: 2074637952}
+  m_Layer: 0
+  m_Name: HintPlacer_Random
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2074637951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074637950}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2142322348}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2074637952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074637950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7fd34588b42d0241a8eddee6ae6813f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placementMode: 3
+  countPerBiome: 5
+  minSeparation: 10
+  hintTagForThisPlacer: RandomDoors
+  ghostHintTriggerPrefab: {fileID: 3361264327322213380, guid: baff0539b7db7ba409507754022052c7, type: 3}
+  hintDB: {fileID: 11400000, guid: b853fc33a41e5ed47b1e4183c6e5d66a, type: 2}
+  prefabSet: {fileID: 11400000, guid: 5c82c5c5cb44f0f49bf46b279aa4142a, type: 2}
 --- !u!1 &2095296833
 GameObject:
   m_ObjectHideFlags: 0
@@ -4401,6 +4607,41 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &2142322347
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2142322348}
+  m_Layer: 0
+  m_Name: GhostHintSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2142322348
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142322347}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 984786509}
+  - {fileID: 1654215043}
+  - {fileID: 72429294}
+  - {fileID: 2074637951}
+  m_Father: {fileID: 222496309}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

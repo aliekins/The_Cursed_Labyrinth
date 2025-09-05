@@ -64,3 +64,7 @@
 /** @defgroup Utils Utilities
  *  Cross-cutting helpers.
  */
+
+/** @defgroup Ghost Ghost
+ *  Hint providers
+ */
