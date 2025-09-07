@@ -146,6 +146,7 @@ public sealed class PickupItem : MonoBehaviour
             Debug.Log($"[PickupItem] Normal pickup '{Type}' x{Mathf.Max(1, Quantity)} - Add()");
         }
 
+        PickupTextUI.Show(Type, Mathf.Max(1, Quantity));
         if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position, pickupVolume);
         if (pickupFlashPrefab) Instantiate(pickupFlashPrefab, transform.position, Quaternion.identity);
 

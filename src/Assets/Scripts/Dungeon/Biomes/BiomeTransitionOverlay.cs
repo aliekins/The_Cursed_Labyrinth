@@ -5,6 +5,7 @@ using TMPro;
 
 public sealed class BiomeTransitionOverlay : MonoBehaviour
 {
+    #region config
     [Header("Wiring")]
     [SerializeField] private CanvasGroup group;
     [SerializeField] private TMP_Text titleText;
@@ -13,7 +14,9 @@ public sealed class BiomeTransitionOverlay : MonoBehaviour
     [SerializeField] private float fadeIn = 0.20f;
     [SerializeField] private float hold = 1.50f;
     [SerializeField] private float fadeOut = 0.25f;
+    #endregion
 
+    #region core
     public Coroutine Play(string title, float? holdOverride = null)
     {
         if (titleText) titleText.text = title;
@@ -49,4 +52,5 @@ public sealed class BiomeTransitionOverlay : MonoBehaviour
 
         Destroy(gameObject);
     }
+    #endregion
 }
