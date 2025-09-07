@@ -5,7 +5,8 @@ Explore three biomes of a dungeon you have found yourself trapped in. In each bi
 
 ## Controls
 - Move: WASD / Arrow Keys
-- Interact / Pick Up / Place Down / Use: E
+- Interact / Pick Up / Use: E
+- Place Down: Q
 - Heal: H
 - Refresh: R
 
@@ -27,10 +28,10 @@ You will see the ghost of the slain beast appear in different forms at doors or 
 
 ## Death and Refresh
 Death (HP = 0): The game restarts from the beginning (Biome 0).
-Refresh: Restarts only the current biome. Your inventory is restored to the baseline you had when you entered this biome.
+Refresh: Restarts only the current biome. Your inventory is restored to the one you had when you entered this biome.
 
 ## Tips
-If E does not do anything, step a little closer to the object and try again.
+If E/Q does not do anything, step a little closer to the object and try again.
 If you drop an item and it seems lost, check around the dungeon again. Items important to solve the puzzle respawn when dropped at a wrong place.
 Do not try to tank traps, they are not your friends.
 

@@ -34,6 +34,20 @@ public sealed class PickupItem : MonoBehaviour
     private SpriteRenderer sr;
     private PlayerInventory playerInRange;
 
+    private void Start()
+    {
+        ApplySprite();
+    }
+
+    public void Configure(Item.ItemType type, int quantity, bool isSpecial, bool autoPickup = false)
+    {
+        Type = type;
+        Quantity = quantity;
+        this.isSpecial = isSpecial;
+        this.autoPickup = autoPickup;
+        ApplySprite();
+    }
+
     private void Reset()
     {
         var c = GetComponent<Collider2D>();
@@ -50,6 +64,7 @@ public sealed class PickupItem : MonoBehaviour
             sr = gameObject.AddComponent<SpriteRenderer>();
 
         sr.enabled = true;
+        sr.sortingOrder = 4;
         ApplySprite();
     }
 
@@ -64,10 +79,17 @@ public sealed class PickupItem : MonoBehaviour
     {
         Sprite sprite = overrideSprite;
 
-        if (!sprite && visuals)
-            sprite = visuals.GetSprite(Type);
-        if (!sprite && visuals) 
-            sprite = visuals.fallback;
+        ItemVisualDB db = visuals;
+        if (!db)
+        {
+            var defaults = FindFirstObjectByType<PickupItemDefaults>();
+            if (defaults) db = defaults.visuals;
+        }
+        if (!sprite && db)
+            sprite = db.GetSprite(Type) ?? db.fallback;
+
+        if (!sprite && sr)
+            sprite = sr.sprite;
 
         sr.sprite = sprite;
 

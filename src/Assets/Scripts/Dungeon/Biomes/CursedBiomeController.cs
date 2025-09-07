@@ -65,8 +65,32 @@ public sealed class CursedBiomeController : MonoBehaviour
         //Debug.Log($"[CursedBiomeController] Applying {ticks} curse damage", this);
         hp.Damage(ticks);
     }
+
+    public void RebindAndResetTimer()
+    {
+        // Unhook
+        if (solver != null)
+            solver.OnSolved -= HandleSolved;
+
+        // Reset grace timer and state
+        solved = false;
+        t = 0f;
+        damageAccumulator = 0f;
+
+        // Find the new solver
+        solver = FindCurrentSolver();
+        if (solver != null)
+        {
+            solver.OnSolved += HandleSolved;
+            Debug.Log("[CursedBiomeController] Grace timer reset and rebound to solver.", this);
+        }
+        else
+        {
+            Debug.LogWarning("[CursedBiomeController] Reset requested, but no solver found after rebuild.", this);
+        }
+    }
     #endregion
-    
+
     #region helpers
     private static ISpecialSolver FindCurrentSolver()
     {

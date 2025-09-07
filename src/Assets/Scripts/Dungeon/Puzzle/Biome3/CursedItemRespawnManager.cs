@@ -12,8 +12,8 @@ public sealed class CursedItemRespawnManager : MonoBehaviour
 {
     #region Config
     [Header("Respawn rules")]
-    [SerializeField, Min(0.25f)] private float respawnDelaySeconds = 5f;
-    [SerializeField, Min(0f)] private float minDistanceFromPlayer = 4f;
+    [SerializeField, Min(0.25f)] private float respawnDelaySeconds = 0f;
+    [SerializeField, Min(0f)] private float minDistanceFromPlayer = 8f;
     [SerializeField, Min(1)] private int maxRelocateTries = 60;
     #endregion
 

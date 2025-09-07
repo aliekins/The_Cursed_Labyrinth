@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 /**
  * @file DropAssigner.cs
@@ -43,6 +45,7 @@ public static class DropAssigner
 
     }
     #endregion
+
     #region dataHolders
     private readonly struct Ctx
     {
@@ -98,6 +101,7 @@ public static class DropAssigner
         }
     }
     #endregion
+
     #region helpers
     private static void EnsureGuaranteedHolders(PropPopulator.DropPolicy policy, List<GameObject> spawned, List<BreakableProp> breakables, ref Pools pools)
     {
@@ -187,6 +191,7 @@ public static class DropAssigner
 
     #endregion
     #endregion
+
     #region utils
     private static bool TryAssign(List<BreakableProp> list, Item.ItemType t, HashSet<BreakableProp> used)
     {
@@ -274,26 +279,32 @@ public static class DropAssigner
                 if (k == "wall") continue;
 
                 var pos = ctx.Viz.CellCenterLocal(x, y);
-                var go = new GameObject($"pickup_{m}");
+                var defaults = Object.FindAnyObjectByType<PickupItemDefaults>();
 
-                go.transform.SetParent(parent, false);
-                go.transform.localPosition = pos;
+                GameObject go;
+                if (defaults && defaults.pickupPrefab)
+                {
+                    go = Object.Instantiate(defaults.pickupPrefab, parent, false);
+                    go.transform.localPosition = pos;
+                }
+                else
+                {
+                    go = new GameObject($"pickup_{m}");
+                    go.transform.SetParent(parent, false);
+                    go.transform.localPosition = pos;
 
-                var sr = go.AddComponent<SpriteRenderer>();
-                sr.sortingOrder = 2;
+                    var sr = go.AddComponent<SpriteRenderer>();
+                    sr.sortingOrder = 2;
 
-                var col = go.AddComponent<CircleCollider2D>();
-                col.isTrigger = true;
-                col.radius = ctx.Viz.CellSize * 0.3f;
+                    var col = go.AddComponent<CircleCollider2D>();
+                    col.isTrigger = true;
+                    col.radius = ctx.Viz.CellSize * 0.3f;
+                }
 
-                var pu = go.AddComponent<PickupItem>();
-                pu.Type = m;
-                pu.Quantity = 1;
-                pu.autoPickup = false;
-                pu.isSpecial = true;
+                var pu = go.GetComponent<PickupItem>() ?? go.AddComponent<PickupItem>();
+                pu.Configure(m /* type */, 1 /* qty */, isSpecial: true, autoPickup: false);
 
                 CursedItemRespawnManager.RegisterPickup(pu);
-
                 break;
             }
         }

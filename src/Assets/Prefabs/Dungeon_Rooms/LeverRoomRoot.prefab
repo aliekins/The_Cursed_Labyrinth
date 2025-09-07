@@ -2614,6 +2614,7 @@ MonoBehaviour:
   timeLimitSeconds: 20
   autoResetOnFail: 1
   countdownText: {fileID: 5266982979334980532}
+  damageOnFail: 20
 --- !u!1 &4869377805933931194
 GameObject:
   m_ObjectHideFlags: 0
@@ -4090,8 +4091,8 @@ MonoBehaviour:
   m_ShadowMesh:
     m_Mesh: {fileID: 0}
     m_LocalBounds:
-      m_Center: {x: 9.5625, y: 2.59375, z: 0}
-      m_Extent: {x: 1.362503, y: 1.518753, z: 0}
+      m_Center: {x: 0, y: 0.09375, z: 0}
+      m_Extent: {x: 10.925003, y: 6.018753, z: 0}
     m_EdgeProcessing: 1
     m_TrimEdge: 0.2
     m_FlipX: 0
@@ -4537,7 +4538,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
-    - {fileID: 3341810048846835264, guid: 19ddd09fe6cfd5b4bac3765edab940e9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -30,6 +30,10 @@ public class BiomeSequenceController : MonoBehaviour
     [Header("Sequence")]
     public List<BiomeEntry> biomes = new List<BiomeEntry>();
 
+    [Header("UI")]
+    [SerializeField] private BiomeTransitionOverlay transitionOverlayPrefab;
+    [SerializeField] private float overlayHoldSeconds = 1.6f;
+
     [Header("References")]
     public DungeonController dungeonController;     
     public SpecialRoomSeeder specialRoomSeeder;     // seeds prefab and exposes its Tilemaps and occupied cells
@@ -109,17 +113,28 @@ public class BiomeSequenceController : MonoBehaviour
      */
     private IEnumerator NextBiome_Co()
     {
-        tilemapClearer?.ClearAll();
-        yield return null;
-
         int nextIndex = currentBiomeIndex + 1;
 
-        currentBiomeIndex = nextIndex;
-        if (currentBiomeIndex >= biomes.Count)
+        if (nextIndex >= biomes.Count)
         {
             Debug.Log("[BiomeSequence] All biomes complete.");
             yield break;
         }
+
+        if (transitionOverlayPrefab)
+        {
+            string title = $"Biome {nextIndex + 1}";
+            var entryPreview = (nextIndex >= 0 && nextIndex < biomes.Count) ? biomes[nextIndex] : null;
+            var profileName = entryPreview?.biomeProfile ? entryPreview.biomeProfile.name : null;
+
+            var overlay = Instantiate(transitionOverlayPrefab);
+            overlay.Play(title, overlayHoldSeconds);   
+        }
+
+        tilemapClearer?.ClearAll();
+        yield return null;
+
+        currentBiomeIndex = nextIndex;
 
         var entry = biomes[currentBiomeIndex];
         if (entry == null || !entry.biomeProfile || !entry.specialRoomPrefab)
@@ -183,8 +198,16 @@ public class BiomeSequenceController : MonoBehaviour
                 Debug.Log("[BiomeSequence] Restoring inventory snapshot for biome " + currentBiomeIndex);
 
                 inv.ApplySnapshot(snap);
-                StartCoroutine(ApplySnapshotEndOfFrame(inv, snap)); // defeats late auto-pickups
+                StartCoroutine(ApplySnapshotEndOfFrame(inv, snap));
             }
+
+            var curse = inv.GetComponent<CursedBiomeController>();
+            if (curse != null)
+            {
+                curse.RebindAndResetTimer();
+                Debug.Log("[BiomeSequence] Reset cursed-biome grace timer after restart.");
+            }
+
             restartRequested = false;
             return;
         }

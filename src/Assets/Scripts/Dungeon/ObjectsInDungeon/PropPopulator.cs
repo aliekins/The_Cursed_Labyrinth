@@ -42,6 +42,9 @@ public sealed class PropPopulator : MonoBehaviour
 
     [Header("Drop Policy (assigned by controller per biome)")]
     [SerializeField] private DropPolicy dropPolicy;
+
+    [Header("FX Defaults")]
+    [SerializeField] private GameObject defaultBreakVfxPrefab;
     public void SetDropPolicy(DropPolicy policy) => dropPolicy = policy;
 
     // runtime caches
@@ -66,6 +69,7 @@ public sealed class PropPopulator : MonoBehaviour
     public void Populate(DungeonGrid grid, List<Room> rooms, DungeonMapIndex index, bool[,] _unusedCarpetMask, int globalSeed, IReadOnlyCollection<Vector2Int> traps = null)
     {
         Clear();
+        BreakableProp.GlobalBreakVfxPrefab = defaultBreakVfxPrefab;
 
         if (!visualizer)
             visualizer = FindFirstObjectByType<TilemapVisualizer>();

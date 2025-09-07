@@ -54,11 +54,16 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (solver == null)  TryBind();
+        if (solver == null) TryBind();
+
+        UpdateIsFinalBiome();
+        if (!portalActive && isFinalBiome && (solved || IsSolverSolved()))
+        {
+            ActivatePortal();
+        }
 
         if (!inside) return;
 
-        // When portal is active, E should take you to the ending scene
         if (portalActive)
         {
             if (!loading && Input.GetKeyDown(advanceKey))
@@ -69,7 +74,6 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
             return;
         }
 
-        // Normal “next biome” gate
         if (Input.GetKeyDown(advanceKey))
         {
             bool solvedNow = solved || IsSolverSolved();
@@ -153,7 +157,11 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
         }
         else
         {
+            bool wasSolved = solved;
             solved = solved || IsSolverSolved();
+
+            if (!portalActive && isFinalBiome && solved && !wasSolved)
+                ActivatePortal();
         }
     }
 

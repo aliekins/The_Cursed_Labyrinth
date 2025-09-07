@@ -10,7 +10,7 @@ using UnityEngine;
 public sealed class PlayerInventoryInput : MonoBehaviour
 {
     [SerializeField] private GameObject specialPickupPrefab;
-    private KeyCode dropSpecialKey = KeyCode.E;
+    private KeyCode dropSpecialKey = KeyCode.Q;
     private KeyCode usePotionKey = KeyCode.H;
 
     private PlayerInventory inv;

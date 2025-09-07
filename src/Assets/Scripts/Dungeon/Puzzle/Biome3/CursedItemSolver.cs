@@ -106,8 +106,10 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
         // Spawn a pickup for that item now
         var go = new GameObject($"pickup_{carried}_wrong");
         go.transform.position = transform.position;
+
         var trig = go.AddComponent<CircleCollider2D>(); trig.isTrigger = true;
         var pu = go.AddComponent<PickupItem>();
+
         pu.Type = carried;
         pu.Quantity = 1;
         pu.isSpecial = true;

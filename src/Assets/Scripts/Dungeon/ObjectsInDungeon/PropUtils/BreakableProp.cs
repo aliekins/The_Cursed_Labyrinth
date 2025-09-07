@@ -17,11 +17,15 @@ public sealed class BreakableProp : MonoBehaviour
     [SerializeField, Min(0f)] private float interactRadius = 1f;
     [SerializeField, Min(0f)] private float autoPickupRadius = 1f;
 
-    [Header("Break FX")]
-    [SerializeField] private AudioClip breakSfx;
-    [SerializeField, Range(0f, 1f)] private float breakSfxVolume = 1f;
-    [SerializeField] private GameObject breakVfxPrefab;
-    [SerializeField, Min(0f)] private float destroyDelay = 0f;
+    //[Header("Break FX")]
+    //[SerializeField]
+    private AudioClip breakSfx;
+    //[SerializeField, Range(0f, 1f)]
+    private float breakSfxVolume = 1f;
+    //[SerializeField] 
+    private GameObject breakVfxPrefab;
+    //[SerializeField, Min(0f)]
+    private float destroyDelay = 0f;
 
     [Header("Drop (auto-filled by spawner)")]
     [SerializeField] private bool dropOnBreak = false;
@@ -32,6 +36,7 @@ public sealed class BreakableProp : MonoBehaviour
     [SerializeField] private GameObject pickupFlashPrefab;
     [SerializeField] private GameObject pickupPrefab; // optional prefab with PickupItem
 
+    public static GameObject GlobalBreakVfxPrefab;
     private Collider2D selfCollider;
     private KeyCode interactKey = KeyCode.E;
     #endregion
@@ -66,7 +71,9 @@ public sealed class BreakableProp : MonoBehaviour
         if (selfCollider) selfCollider.enabled = false;
 
         if (breakSfx) AudioSource.PlayClipAtPoint(breakSfx, transform.position, breakSfxVolume);
-        if (breakVfxPrefab) Destroy(Instantiate(breakVfxPrefab, transform.position, Quaternion.identity), 1.25f);
+        GameObject vfxPrefab = breakVfxPrefab ? breakVfxPrefab : GlobalBreakVfxPrefab;
+        if (vfxPrefab)
+            Destroy(Instantiate(vfxPrefab, transform.position, Quaternion.identity), 1.25f);
 
         if (dropOnBreak)
         {
@@ -112,23 +119,27 @@ public sealed class BreakableProp : MonoBehaviour
     private void SpawnFallbackPickup(Item.ItemType type, int qty, bool forceSpecial)
     {
         var parent = transform.parent;
-        var go = pickupPrefab ? Instantiate(pickupPrefab, parent) : new GameObject($"pickup_{type}");
+
+        var defaults = FindFirstObjectByType<PickupItemDefaults>();
+        var prefab = pickupPrefab ? pickupPrefab : (defaults ? defaults.pickupPrefab : null);
+
+        var go = prefab ? Instantiate(prefab, parent) : new GameObject($"pickup_{type}");
         go.transform.position = transform.position;
 
         var c = go.GetComponent<Collider2D>();
-        if (!c) c = go.AddComponent<CircleCollider2D>();
+        if (!c)
+            c = go.AddComponent<CircleCollider2D>();
         c.isTrigger = true;
 
         var pi = go.GetComponent<PickupItem>() ?? go.AddComponent<PickupItem>();
         pi.Type = type;
         pi.Quantity = Mathf.Max(1, qty);
-
-        // mark cursed ones so PlayerInventory uses the carry slot on pickup
         pi.isSpecial = forceSpecial;
 
-        //Debug.Log($"[BreakableProp] Fallback pickup spawned: {type} special={pi.isSpecial} at {transform.position}");
-        if (forceSpecial) CursedItemRespawnManager.RegisterPickup(pi);
+        if (forceSpecial)
+            CursedItemRespawnManager.RegisterPickup(pi);
     }
+
     #endregion
 
     #region configuration of the drop
