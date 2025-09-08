@@ -3533,11 +3533,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f2439e61252ee46a9414cbd0170454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insertSfx: {fileID: 0}
+  insertSfx: {fileID: 8300000, guid: 928257d4586bea941bc67b6d3310eb81, type: 3}
   insertVolume: 1
-  failSfx: {fileID: 0}
-  failVolume: 1
-  animator: {fileID: 0}
 --- !u!114 &4932563663606019262
 MonoBehaviour:
   m_ObjectHideFlags: 0

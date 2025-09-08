@@ -1,5 +1,6 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
+using System.Collections;
 
 public sealed class GhostHintAgent : MonoBehaviour
 {
@@ -8,7 +9,12 @@ public sealed class GhostHintAgent : MonoBehaviour
     [SerializeField] private AudioSource voice;
     [SerializeField] private TMP_Text bubble;
 
-    static readonly int AppearHash = Animator.StringToHash("appear");
+    [Header("Lifetime")]
+    [SerializeField] private float minLifetime = 4.0f;
+    [SerializeField] private float extraHoldAfterVoice = 0.25f;
+    [SerializeField] private bool autoDestroy = true;
+
+    private static readonly int AppearHash = Animator.StringToHash("appear");
 
     void Awake()
     {
@@ -25,18 +31,22 @@ public sealed class GhostHintAgent : MonoBehaviour
                 canvas.worldCamera = Camera.main;
                 canvas.overrideSorting = true;
             }
+
+            var cg = bubble.GetComponentInParent<CanvasGroup>(true);
+            if (cg) { cg.alpha = 1f; cg.interactable = false; cg.blocksRaycasts = false; }
         }
     }
 
     public void AppearAt(Transform parent, Vector3 worldPos)
     {
-        if (parent) transform.SetParent(parent, true);
+        if (parent)
+            transform.SetParent(parent, true);
 
         transform.position = new Vector3(worldPos.x, worldPos.y, 0f);
-
-        gameObject.SetActive(true);
         if (transform.localScale == Vector3.zero)
             transform.localScale = Vector3.one;
+
+        gameObject.SetActive(true);
 
         Debug.Log("[GhostHintAgent] AppearAt " + transform.position);
 
@@ -50,6 +60,7 @@ public sealed class GhostHintAgent : MonoBehaviour
         {
             bubble.gameObject.SetActive(true);
             bubble.text = text ?? string.Empty;
+
             var c = bubble.color; c.a = 1f; bubble.color = c;
         }
         else
@@ -59,25 +70,63 @@ public sealed class GhostHintAgent : MonoBehaviour
 
         if (clip)
         {
-            if (!voice) 
-                voice = gameObject.AddComponent<AudioSource>();
-
-            voice.spatialBlend = 0f; 
+            if (!voice) voice = gameObject.AddComponent<AudioSource>();
+            voice.spatialBlend = 0f;
             voice.playOnAwake = false;
-            voice.clip = clip; voice.Play();
+            voice.clip = clip;
+            voice.Play();
         }
 
         Debug.Log("[GhostHintAgent] Speak: " + (text ?? "(empty)"));
+
+        if (autoDestroy)
+            StartCoroutine(WaitUntilTypewriterAndVoiceThenDestroy());
     }
 
-    static bool HasParam(Animator a, int nameHash)
+    private IEnumerator WaitUntilTypewriterAndVoiceThenDestroy()
+    {
+        float hardMin = Time.time + minLifetime + 12;
+        var tw = bubble ? bubble.GetComponent<TypeWriterEffect>() : null;
+
+        if (tw && bubble)
+        {
+            while (true)
+            {
+                bubble.ForceMeshUpdate();
+                var total = bubble.textInfo.characterCount;
+
+                if (total <= 0)
+                    yield return null;
+                else
+                {
+                    if (bubble.maxVisibleCharacters >= total - 1) break;
+                    yield return null;
+                }
+            }
+        }
+
+        if (voice && voice.clip)
+        {
+            while (voice.isPlaying) 
+                yield return null;
+            if (extraHoldAfterVoice > 0f) 
+                yield return new WaitForSeconds(extraHoldAfterVoice);
+        }
+
+        while (Time.time < hardMin)
+            yield return null;
+
+        Destroy(gameObject);
+    }
+
+    private static bool HasParam(Animator a, int nameHash)
     {
         if (!a) return false;
-
         var ps = a.parameters;
 
         for (int i = 0; i < ps.Length; i++)
-            if (ps[i].nameHash == nameHash) return true;
+            if (ps[i].nameHash == nameHash)
+                return true;
 
         return false;
     }

@@ -12,14 +12,11 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public sealed class SwordDoor : MonoBehaviour
 {
-    private KeyCode useKey = KeyCode.E;
+    private KeyCode useKey = KeyCode.Q;
 
     [Header("Visuals / SFX (optional)")]
     [SerializeField] private AudioClip insertSfx;
     [SerializeField, Range(0, 1)] private float insertVolume = 1f;
-    [SerializeField] private AudioClip failSfx;
-    [SerializeField, Range(0, 1)] private float failVolume = 1f;
-    [SerializeField] private Animator animator; // optional
 
     private SwordRoomSolver solver;
     private bool open;
@@ -33,7 +30,6 @@ public sealed class SwordDoor : MonoBehaviour
         var col = GetComponent<Collider2D>();
         col.isTrigger = true;
 
-        // Find the solver under the same special-room clone
         solver = FindSolverOnClone();
         if (!solver)
             Debug.LogError("[SwordDoor] SwordRoomSolver not found under this special room prefab!");
@@ -53,17 +49,15 @@ public sealed class SwordDoor : MonoBehaviour
         if (!Input.GetKeyDown(useKey)) return;
         if (!currentInv) return;
 
-        // Already solved? Just open
         if (solver && solver.IsSolved)
         {
             HandleSolved();
             return;
         }
 
-        // Consume 1 sword and advance the solver
         if (currentInv.RemoveSword(1))
         {
-            solver?.UseSword(); // progresses puzzle by one
+            solver?.UseSword();
 
             if (insertSfx)
                 AudioSource.PlayClipAtPoint(insertSfx, transform.position, insertVolume);
@@ -73,9 +67,6 @@ public sealed class SwordDoor : MonoBehaviour
         }
         else
         {
-            if (failSfx)
-                AudioSource.PlayClipAtPoint(failSfx, transform.position, failVolume);
-
             Debug.Log("[SwordDoor] You need more swords.");
         }
     }

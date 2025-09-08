@@ -576,7 +576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hintDB: {fileID: 11400000, guid: b853fc33a41e5ed47b1e4183c6e5d66a, type: 2}
   prefabSet: {fileID: 11400000, guid: 5c82c5c5cb44f0f49bf46b279aa4142a, type: 2}
-  defaultScreenOffset: {x: 0, y: 0.6}
+  defaultScreenOffset: {x: 1, y: 2}
 --- !u!1 &166863784
 GameObject:
   m_ObjectHideFlags: 0
