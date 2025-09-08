@@ -44,6 +44,17 @@ public sealed class PickupTextUI : MonoBehaviour
         string label = $"+{qty} {DisplayName(type)}";
         Instance.Spawn(label);
     }
+
+    public static void ShowHP(int delta)
+    {
+        if (!Instance) return;
+
+        int amount = Mathf.Abs(delta);
+        string sign = delta >= 0 ? "+" : "-";
+        string msg = $"{sign}{amount} HP";
+
+        Instance.Spawn(msg);
+    }
     #endregion
 
     #region helpers

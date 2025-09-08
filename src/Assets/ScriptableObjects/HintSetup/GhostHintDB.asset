@@ -15,46 +15,49 @@ MonoBehaviour:
   biomes:
   - name: Biome0
     lines:
-    - tag: SpawnDoors
+    - tag: spawn
       text: Aha, I see that I cannot rest even in death. It is hightime you left
         you know.. I am not the only one guarding this beautiful home. I would not
         forget to take the sword with me, if I were you... You never know when it
         might come in handy
       voice: {fileID: 0}
-    - tag: RandomDoors
-      text: I would check the chests and barrels around here, that is where leftovers
+    - tag: first_sword
+      text: I would check all the chests and barrels around here, that is where leftovers
         usually end up.
       voice: {fileID: 0}
-    - tag: SpecialDoors
+    - tag: inside
       text: Check how many swords you have on you before trying to leave this room.
       voice: {fileID: 0}
     shuffleOnReset: 0
   - name: Biome1
     lines:
-    - tag: SpawnDoors
+    - tag: spawn
       text: Oh wow, you made it. You aren't as clueless as I thought. I would look
         where I step if I were you. This can be a nasty place sometimes.
       voice: {fileID: 0}
-    - tag: RandomDoors
-      text: Just so you know, you have to be fast, if you don't want to get hurt.
-        Carpets seem safe enough don't you think?
+    - tag: spawn
+      text: Just so you know, you have to move carefully around here, if you don't
+        want to get hurt. Carpets seem safe enough don't you think?
       voice: {fileID: 0}
-    - tag: InsideSpecial
-      text: You really need to work on your timing, it's not that difficult
+    - tag: first_book
+      text: They say never judge a book by its cover, but these might come in handy.
+      voice: {fileID: 0}
+    - tag: inside
+      text: Make sure to be fast, the answer stares at you in the face.
       voice: {fileID: 0}
     shuffleOnReset: 0
   - name: Biome2
     lines:
-    - tag: SpawnDoors
+    - tag: spawn
       text: You've grown on me you know, but I would still like to see you gone from
         this place... Let me give you a small advice - these rooms are CURSED. I
         would not stay here too long, if I were you..
       voice: {fileID: 0}
-    - tag: InsideSpecial
-      text: You seem to be struggling... All you need is right in front of you, you
-        know. But only, if you know where to look...
+    - tag: inside
+      text: All you need is right in front of you, you know. But only, if you know
+        where to look...
       voice: {fileID: 0}
-    - tag: SpecialDoors
+    - tag: first_cursed
       text: Whatever you pick up around here, be sure to hold onto it tight enough.
         Things seem to just disappear around here...
       voice: {fileID: 0}

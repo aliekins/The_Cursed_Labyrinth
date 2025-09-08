@@ -1,82 +1,84 @@
-using UnityEngine;
 using TMPro;
-using System.Collections;
+using UnityEngine;
 
-/**
- * @file GhostHintAgent.cs
- * @brief In-world ghost that appears at a cell, plays an animation, speaks a line, then despawns.
- * @ingroup Ghost
- */
-[DisallowMultipleComponent]
 public sealed class GhostHintAgent : MonoBehaviour
 {
-    #region config
-    [Header("Optional refs")]
+    [Header("Wiring")]
     [SerializeField] private Animator animator;
-    [SerializeField] private TMP_Text bubble;
     [SerializeField] private AudioSource voice;
+    [SerializeField] private TMP_Text bubble;
 
-    [Header("Timing")]
-    [SerializeField, Min(0.05f)] private float secondsPerChar = 0.05f;
-    [SerializeField, Min(1f)] private float minHoldSeconds = 2.5f;
-    [SerializeField, Min(1f)] private float maxHoldSeconds = 6f;
-    [SerializeField, Min(0f)] private float extraHoldSeconds = 0.0f;
+    static readonly int AppearHash = Animator.StringToHash("appear");
 
-    private Coroutine lifeCo;
-    #endregion
-
-    #region cycle
     void Awake()
     {
         if (!animator) animator = GetComponentInChildren<Animator>(true);
         if (!voice) voice = GetComponent<AudioSource>();
+        if (!bubble) bubble = GetComponentInChildren<TMP_Text>(true);
+
+        if (bubble)
+        {
+            var canvas = bubble.GetComponentInParent<Canvas>(true);
+            if (canvas)
+            {
+                canvas.renderMode = RenderMode.WorldSpace;
+                canvas.worldCamera = Camera.main;
+                canvas.overrideSorting = true;
+            }
+        }
     }
 
     public void AppearAt(Transform parent, Vector3 worldPos)
     {
-        if (parent) 
-            transform.SetParent(parent, worldPositionStays: true);
+        if (parent) transform.SetParent(parent, true);
 
-        transform.position = worldPos;
+        transform.position = new Vector3(worldPos.x, worldPos.y, 0f);
+
+        gameObject.SetActive(true);
+        if (transform.localScale == Vector3.zero)
+            transform.localScale = Vector3.one;
+
+        Debug.Log("[GhostHintAgent] AppearAt " + transform.position);
+
+        if (animator && HasParam(animator, AppearHash))
+            animator.SetTrigger(AppearHash);
     }
 
-    public void Speak(string line, AudioClip clip = null)
+    public void Speak(string text, AudioClip clip)
     {
         if (bubble)
-            bubble.text = line ?? "";
+        {
+            bubble.gameObject.SetActive(true);
+            bubble.text = text ?? string.Empty;
+            var c = bubble.color; c.a = 1f; bubble.color = c;
+        }
+        else
+        {
+            Debug.LogWarning("[GhostHintAgent] No TMP_Text bubble found on ghost prefab.");
+        }
 
         if (clip)
         {
-            if (!voice)
+            if (!voice) 
                 voice = gameObject.AddComponent<AudioSource>();
-            voice.clip = clip;
-            voice.Play();
+
+            voice.spatialBlend = 0f; 
+            voice.playOnAwake = false;
+            voice.clip = clip; voice.Play();
         }
 
-        float hold = Mathf.Clamp((line?.Length ?? 0) * secondsPerChar + extraHoldSeconds, minHoldSeconds, maxHoldSeconds);
-
-        if (lifeCo != null) 
-            StopCoroutine(lifeCo);
-
-        lifeCo = StartCoroutine(Life_Co(hold));
+        Debug.Log("[GhostHintAgent] Speak: " + (text ?? "(empty)"));
     }
-    public void Despawn(float delay = 0.75f)
+
+    static bool HasParam(Animator a, int nameHash)
     {
-        if (lifeCo != null)
-        {
-            StopCoroutine(lifeCo);
-            lifeCo = null; 
-        }
+        if (!a) return false;
 
-        Destroy(gameObject, delay);
-    }
-    #endregion
+        var ps = a.parameters;
 
-    #region helpers
-    private IEnumerator Life_Co(float hold)
-    {
-        yield return new WaitForSeconds(hold);
-        Despawn();
+        for (int i = 0; i < ps.Length; i++)
+            if (ps[i].nameHash == nameHash) return true;
+
+        return false;
     }
-    #endregion
 }

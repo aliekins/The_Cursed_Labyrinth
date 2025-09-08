@@ -14,6 +14,11 @@ public sealed class PlayerInventory : MonoBehaviour
     [SerializeField, Min(1)] private int potionHealAmount = 20;
 
     [SerializeField] private Item.ItemType? carriedSpecial = null;
+
+    [Header("SFX")]
+    [SerializeField] private AudioClip cursedDropSfx;
+    [SerializeField, Range(0f, 1f)] private float cursedDropVolume = 1f;
+
     public Item.ItemType? CarriedSpecial => carriedSpecial;
 
     public int Swords { get; private set; }
@@ -137,6 +142,20 @@ public sealed class PlayerInventory : MonoBehaviour
         pi.autoPickup = false;
 
         CursedItemRespawnManager.RegisterPickup(pi);
+
+        if (cursedDropSfx && !BiomeTransitionOverlay.IsActive)
+        {
+            var goSfx = new GameObject("CursedDrop_SFX_2D");
+            var src = goSfx.AddComponent<AudioSource>();
+
+            src.spatialBlend = 0f;
+            src.playOnAwake = false;
+            src.volume = cursedDropVolume;
+            src.clip = cursedDropSfx;
+
+            src.Play();
+            Destroy(goSfx, cursedDropSfx.length);
+        }
 
         carriedSpecial = null;
         CarriedSpecialChanged?.Invoke(null);

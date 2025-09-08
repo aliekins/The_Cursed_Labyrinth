@@ -20,6 +20,14 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
     [SerializeField] private GameObject portalPrefab;
     [SerializeField] private string endingSceneName = "Cutscene_Ending";
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip puzzleSolvedSfx;
+    [SerializeField, Range(0f, 1f)] private float puzzleSolvedVolume = 1f;
+
+    [SerializeField] private AudioSource portalSfxSource;
+    [SerializeField] private AudioClip portalSfx;
+    [SerializeField, Range(0f, 1f)] private float portalSfxVolume = 1f;
+
     private BiomeSequenceController sequence;
     private ISpecialSolver solver;
     private bool inside;
@@ -54,7 +62,7 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (solver == null) TryBind();
+        TryBind();
 
         UpdateIsFinalBiome();
         if (!portalActive && isFinalBiome && (solved || IsSolverSolved()))
@@ -107,6 +115,9 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
     {
         solved = true;
         UpdateIsFinalBiome();
+
+        if (puzzleSolvedSfx)
+            SfxController.Play(puzzleSolvedSfx, puzzleSolvedVolume);
 
         if (isFinalBiome)
             ActivatePortal();
@@ -217,6 +228,21 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
             if (exit) 
                 exit.SetScene(endingSceneName);
 
+            if (portalSfx && portalSfxSource == null)
+            {
+                var sfxGo = new GameObject("Portal_SFX_2D");
+                sfxGo.transform.SetParent(portal.transform, false);
+                portalSfxSource = sfxGo.AddComponent<AudioSource>();
+                portalSfxSource.spatialBlend = 0f;
+                portalSfxSource.playOnAwake = false;
+                portalSfxSource.loop = true;
+                portalSfxSource.volume = portalSfxVolume;
+                portalSfxSource.clip = portalSfx;
+                portalSfxSource.Play();
+
+            }
+
+
             Debug.Log("[BiomeTransition] Spawned portal prefab at trigger.");
         }
         else
@@ -232,7 +258,19 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
             Debug.LogError("[BiomeTransition] endingSceneName is empty.");
             return;
         }
+
+        StopPortalSfx();
         SceneManager.LoadScene(endingSceneName, LoadSceneMode.Single);
+    }
+
+    private void StopPortalSfx()
+    {
+        if (portalSfxSource)
+        {
+            portalSfxSource.Stop();
+            Destroy(portalSfxSource.gameObject);
+            portalSfxSource = null;
+        }
     }
     #endregion
 }

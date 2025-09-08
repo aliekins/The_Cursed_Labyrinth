@@ -225,3 +225,7 @@ MonoBehaviour:
   requireSolved: 1
   portalPrefab: {fileID: 8205045819688545836, guid: fb61bdb4869edbe43a6379963474ee9e, type: 3}
   endingSceneName: Cutscene_Ending
+  puzzleSolvedSfx: {fileID: 8300000, guid: 35aec59572cf10e4ab74960f453c6ee2, type: 3}
+  puzzleSolvedVolume: 1
+  portalSfx: {fileID: 8300000, guid: 58e7c73909eee544fac3ddd0ab0d690e, type: 3}
+  portalSfxVolume: 1

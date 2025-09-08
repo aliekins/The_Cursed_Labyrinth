@@ -3,12 +3,15 @@
 /// \ingroup PlayerHP
 using UnityEngine;
 using System;
+using UnityEngine.Rendering;
 
 [DisallowMultipleComponent]
 public sealed class PlayerHealth : MonoBehaviour
 {
     [SerializeField, Min(1)] private int maxHP = 100;
     [SerializeField] private int startHP = 100;
+
+    [SerializeField] AudioClip deathSFX;
 
     public int Max => maxHP;
     public int Current { get; private set; }
@@ -26,10 +29,18 @@ public sealed class PlayerHealth : MonoBehaviour
     {
         if (amount <= 0 || Current <= 0) return;
         Current = Mathf.Max(0, Current - amount);
+
         Debug.Log($"[HP] Damage({amount}) -> {Current}/{maxHP}", this);
+
         Changed?.Invoke(Current, maxHP);
 
-        if (Current == 0) Died?.Invoke();
+        if (Current == 0) 
+        {
+            if (deathSFX)
+                SfxController.Play(deathSFX, 1f, ignoreListenerPause: true);
+
+            Died?.Invoke();
+        }
     }
 
     public void Heal(int amount)

@@ -70,7 +70,8 @@ public sealed class BreakableProp : MonoBehaviour
         enabled = false;
         if (selfCollider) selfCollider.enabled = false;
 
-        if (breakSfx) AudioSource.PlayClipAtPoint(breakSfx, transform.position, breakSfxVolume);
+        if (breakSfx) SfxController.Play(breakSfx, breakSfxVolume);
+
         GameObject vfxPrefab = breakVfxPrefab ? breakVfxPrefab : GlobalBreakVfxPrefab;
         if (vfxPrefab)
             Destroy(Instantiate(vfxPrefab, transform.position, Quaternion.identity), 1.25f);
@@ -95,15 +96,15 @@ public sealed class BreakableProp : MonoBehaviour
                     else
                     {
                         PickupTextUI.Show(dropItem, 1);
-                        if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position, 1f);
+                        if (pickupSfx) SfxController.Play(pickupSfx, 1f);
                         if (pickupFlashPrefab) Destroy(Instantiate(pickupFlashPrefab, transform.position, Quaternion.identity), 1.0f);
                     }
                 }
                 else
                 {
-                    invInRange.Add(dropItem, dropQty); // normal inventory items
+                    invInRange.Add(dropItem, dropQty);
                     PickupTextUI.Show(dropItem, dropQty);
-                    if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position, 1f);
+                    if (pickupSfx) SfxController.Play(pickupSfx, 1f);
                     if (pickupFlashPrefab) Destroy(Instantiate(pickupFlashPrefab, transform.position, Quaternion.identity), 1.0f);
                 }
             }

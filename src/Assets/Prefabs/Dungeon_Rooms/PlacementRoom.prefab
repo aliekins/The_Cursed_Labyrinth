@@ -1,5 +1,99 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6099271452115296549
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2076352158335909152}
+  - component: {fileID: 3017604472424451636}
+  - component: {fileID: 935746781618606603}
+  m_Layer: 0
+  m_Name: HintTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2076352158335909152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6099271452115296549}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.46, y: -22.62, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1547794252509133733}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &3017604472424451636
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6099271452115296549}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &935746781618606603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6099271452115296549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a0aa4c5e123e440890a1d8270a98fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hintTag: inside
+  localOffset: {x: 0, y: 0.6}
+  oneShot: 1
 --- !u!1 &8117671984353988623
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,6 +131,7 @@ Transform:
   - {fileID: 8049324762679967306}
   - {fileID: 8734931167289710923}
   - {fileID: 3020359864722685005}
+  - {fileID: 2076352158335909152}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1972123885962033519
@@ -279,19 +374,19 @@ PrefabInstance:
       objectReference: {fileID: 659054168700029871}
     - target: {fileID: 1238916947591117296, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.x
-      value: -0.4375
+      value: -3.4375
       objectReference: {fileID: 0}
     - target: {fileID: 1238916947591117296, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Center.y
-      value: 8.09375
+      value: 1.09375
       objectReference: {fileID: 0}
     - target: {fileID: 1238916947591117296, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.x
-      value: 19.362503
+      value: 16.362503
       objectReference: {fileID: 0}
     - target: {fileID: 1238916947591117296, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
       propertyPath: m_ShadowMesh.m_LocalBounds.m_Extent.y
-      value: 8.018753
+      value: 6.018753
       objectReference: {fileID: 0}
     - target: {fileID: 1238916947591117296, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
       propertyPath: 'managedReferences[5044786422518382660]'
@@ -3757,6 +3852,22 @@ PrefabInstance:
       propertyPath: m_PointLightInnerRadius
       value: 0.4226787
       objectReference: {fileID: 0}
+    - target: {fileID: 7370984763698606771, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
+      propertyPath: wrongSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 511de55c3be2ac0448351564d40abd55, type: 3}
+    - target: {fileID: 7370984763698606771, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
+      propertyPath: correctSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: f343d733bcb77c243946e344d6291731, type: 3}
+    - target: {fileID: 7985799468195565370, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
+      propertyPath: wrongSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 511de55c3be2ac0448351564d40abd55, type: 3}
+    - target: {fileID: 7985799468195565370, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
+      propertyPath: correctSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: f343d733bcb77c243946e344d6291731, type: 3}
     - target: {fileID: 8041855122966503413, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
       propertyPath: m_ChunkCullingBounds.y
       value: 0.3125
@@ -6797,6 +6908,14 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[174].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 8604184139238864227, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
+      propertyPath: wrongSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 511de55c3be2ac0448351564d40abd55, type: 3}
+    - target: {fileID: 8604184139238864227, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
+      propertyPath: correctSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: f343d733bcb77c243946e344d6291731, type: 3}
     - target: {fileID: 8984272596318895304, guid: 12872e37032c6314eaa3e2843ea58551, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.88463

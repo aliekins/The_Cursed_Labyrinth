@@ -35,7 +35,7 @@ public partial class DungeonController : MonoBehaviour
 
     [Header("Gameplay Systems")]
     [SerializeField] private TrapManager trapManager;
-    [SerializeField] private HeartsBar healthUI;
+    [SerializeField] private HealthUI healthUI;
     [SerializeField] private TilemapClearer clearer;           
 
     [Header("Visuals")]

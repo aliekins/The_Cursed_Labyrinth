@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   byBiome:
   - label: Biome0
-    prefab: {fileID: 747853975742133622, guid: a834c485a1f7d3c43b5b450fe5209c35, type: 3}
+    prefab: {fileID: 4856972246915403605, guid: aa882d8dde9207a4ab9b69b0b2b8fa5a, type: 3}
   - label: Biome1
     prefab: {fileID: 219761503139285497, guid: d0515625e199db547bc1992923523aa7, type: 3}
   - label: Biome2

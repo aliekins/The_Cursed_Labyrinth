@@ -97,7 +97,6 @@ public partial class DungeonController
         var lightAim = light.GetComponent<LightAim>() ?? light.gameObject.AddComponent<LightAim>();
         lightAim.SetPlayer(playerInstance.GetComponent<TopDownController>());
     }
-
     public void SetupPlayerHP()
     {
         if (!playerInstance) return;
@@ -107,14 +106,13 @@ public partial class DungeonController
 
         if (healthUI)
         {
-            healthUI.SetHealth(hp.Current, hp.Max);
-            hp.Changed -= healthUI.SetHealth;
-            hp.Changed += healthUI.SetHealth;
+            healthUI.Bind(hp);
         }
 
         hp.Died -= OnPlayerDied;
         hp.Died += OnPlayerDied;
     }
+
 
     /// <summary>Restart the run/ reloads the Game scene when the player dies.</summary>
     private void OnPlayerDied()
@@ -148,8 +146,6 @@ public partial class DungeonController
 
         SetPolicy();
         propPopulator?.Populate(grid, rooms, mapIndex, tmVisualizer.CarpetMask, randomSeed, trapCells);
-
-        FindFirstObjectByType<GhostHintPlacer>()?.PlaceForCurrentBiome();
     }
 
     private void SetPolicy()

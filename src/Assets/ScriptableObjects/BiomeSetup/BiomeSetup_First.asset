@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215c994d93be7064aacbec30e0676c18, type: 3}
   m_Name: BiomeSetup_First
   m_EditorClassIdentifier: 
-  overrideSize: 0
-  width: 128
-  height: 128
+  overrideSize: 1
+  width: 256
+  height: 256
   floorKind: floor_entry
   corridorKind: floor_corridor
   minPathCells: 100
-  specialRoomPrefab: {fileID: 7207853505134779344, guid: 555a3eb130401c74e9fe225d4ed96422, type: 3}
-  specialEntrance: 1

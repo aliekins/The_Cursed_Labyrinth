@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 3053863053599685949}
   - component: {fileID: 9004973091166789001}
   - component: {fileID: 2129449453208433458}
+  - component: {fileID: 8637734447423504392}
   m_Layer: 0
   m_Name: Moving_Knight
   m_TagString: Player
@@ -241,6 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   startHP: 100
+  deathSFX: {fileID: 8300000, guid: 601170301b492474e940153b27840554, type: 3}
 --- !u!114 &3053863053599685949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +256,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potionHealAmount: 20
+  cursedDropSfx: {fileID: 8300000, guid: 511de55c3be2ac0448351564d40abd55, type: 3}
+  cursedDropVolume: 1
 --- !u!114 &9004973091166789001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +287,21 @@ MonoBehaviour:
   skullSprite: {fileID: 1514023737305006473, guid: 47ab724add8bf794bae8b04f9a604667, type: 3}
   heartSprite: {fileID: -8715180716917860955, guid: 9cb5f7ff89f01d044aecca6781a566f2, type: 3}
   crownSprite: {fileID: 4083977669005830345, guid: 1cd8753f50002bc4ba3c2df4accb2427, type: 3}
+--- !u!114 &8637734447423504392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5724184534580437276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f959c01aa7cbc241ba65eb012e04bec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSwordTag: first_sword
+  firstBookTag: first_book
+  firstCursedTag: first_cursed
 --- !u!1001 &5500837984209441144
 PrefabInstance:
   m_ObjectHideFlags: 0

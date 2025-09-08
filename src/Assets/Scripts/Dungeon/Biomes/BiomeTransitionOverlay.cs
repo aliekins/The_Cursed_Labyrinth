@@ -17,6 +17,17 @@ public sealed class BiomeTransitionOverlay : MonoBehaviour
     #endregion
 
     #region core
+    public static bool IsActive { get; private set; }
+    public static event System.Action<bool> ActiveChanged;
+
+    private static void SetActive(bool v)
+    {
+        if (IsActive == v) return;
+
+        IsActive = v;
+        ActiveChanged?.Invoke(v);
+    }
+
     public Coroutine Play(string title, float? holdOverride = null)
     {
         if (titleText) titleText.text = title;
@@ -27,14 +38,23 @@ public sealed class BiomeTransitionOverlay : MonoBehaviour
     private IEnumerator PlayCo()
     {
         if (!group) group = GetComponent<CanvasGroup>();
-        if (group) { group.alpha = 0f; group.blocksRaycasts = true; }
+        if (group)
+        {
+            group.alpha = 0f; 
+            group.blocksRaycasts = true;
+        }
+
+        SetActive(true);
 
         // Fade in
         float t = 0f;
         while (t < fadeIn)
         {
             t += Time.unscaledDeltaTime;
-            if (group) group.alpha = Mathf.Clamp01(t / fadeIn);
+
+            if (group) 
+                group.alpha = Mathf.Clamp01(t / fadeIn);
+
             yield return null;
         }
 
@@ -46,10 +66,14 @@ public sealed class BiomeTransitionOverlay : MonoBehaviour
         while (t < fadeOut)
         {
             t += Time.unscaledDeltaTime;
-            if (group) group.alpha = 1f - Mathf.Clamp01(t / fadeOut);
+
+            if (group) 
+                group.alpha = 1f - Mathf.Clamp01(t / fadeOut);
+
             yield return null;
         }
 
+        SetActive(false);
         Destroy(gameObject);
     }
     #endregion

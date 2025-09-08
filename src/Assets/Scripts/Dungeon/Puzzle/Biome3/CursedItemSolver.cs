@@ -23,6 +23,12 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
     [SerializeField] private static bool skullDelivered = false;
     [SerializeField] private static bool heartDelivered = false;
     [SerializeField] private static bool crownDelivered = false;
+
+    [Header("SFX")]
+    [SerializeField] private AudioClip correctSfx;
+    [SerializeField] private AudioClip wrongSfx;
+    [SerializeField, Range(0f, 1f)] private float sfxVolume = 1f;
+
     private bool playerInside;
     private PlayerInventory inv;
     #endregion
@@ -84,6 +90,8 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
                     break;
             }
 
+            PlaySound(correctSfx);
+
             if (IsSolved)
             {
                 Debug.Log("[CursedItemsSolver] SOLVED");
@@ -128,6 +136,7 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
             Debug.Log($"[CursedItemsSolver] Wrong pedestal - {carried} respawned elsewhere.");
         }
 
+        PlaySound(wrongSfx);
         return true;
     }
     #endregion
@@ -145,6 +154,15 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
         {
             playerInside = false; inv = null;
         }
+    }
+    #endregion
+
+    #region helpers
+    private void PlaySound(AudioClip clip)
+    {
+        if (!clip) return;
+
+        SfxController.Play(clip, sfxVolume);
     }
     #endregion
 }

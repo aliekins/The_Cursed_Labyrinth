@@ -140,3 +140,5 @@ MonoBehaviour:
   spriteA: {fileID: 99464782, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
   spriteB: {fileID: -1199559167, guid: b631ed305dfd43c488e0f8edf5c829bc, type: 3}
   playerTag: Player
+  toggledOnSfx: {fileID: 8300000, guid: a5a5aa6fc5193b740836bf030cefac34, type: 3}
+  sfxVolume: 1

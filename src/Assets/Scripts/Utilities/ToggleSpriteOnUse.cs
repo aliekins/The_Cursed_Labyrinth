@@ -19,6 +19,10 @@ public class ToggleSpriteOnUse : MonoBehaviour
     [Tooltip("Only objects with this tag can toggle.")]
     public string playerTag = "Player";
 
+    [Header("SFX")]
+    [SerializeField] private AudioClip toggledOnSfx;
+    [SerializeField, Range(0f, 1f)] private float sfxVolume = 1f;
+
     private SpriteRenderer sr;
     private bool playerInside;
     private KeyCode useKey = KeyCode.E;
@@ -37,7 +41,13 @@ public class ToggleSpriteOnUse : MonoBehaviour
     {
         if (playerInside && Input.GetKeyDown(useKey))
         {
-            sr.sprite = (sr.sprite == spriteA) ? spriteB : spriteA;
+            bool goingOn = (sr.sprite == spriteA);
+            sr.sprite = goingOn ? spriteB : spriteA;
+
+            if (goingOn && toggledOnSfx)
+            {
+                SfxController.Play(toggledOnSfx, sfxVolume);
+            }
         }
     }
 

@@ -11,11 +11,15 @@ public sealed class SpikeTrap : MonoBehaviour
     [Header("Damage")]
     [SerializeField, Min(1)] private int damage = 15;               
     [SerializeField, Min(0f)] private float damageTickInterval = 0.4f; 
-    [SerializeField, Min(0f)] private float warmupDelay = 0.2f;
+    [SerializeField, Min(0f)] private float warmupDelay = 0.4f;
 
     [Header("Animator")]
     [SerializeField] private string isPlayerNearParam = "isPlayerNear";
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip damageSFX;
+    [SerializeField, Range(0f, 1f)] private float sfxVolume = 1f;
+    [SerializeField] private bool sfxOnEnter = false;
     #endregion
 
     #region params
@@ -23,7 +27,6 @@ public sealed class SpikeTrap : MonoBehaviour
     private int paramHash;
 
     private float nextTickTime;
-    private float enteredTime;
     private bool playerInside;
     #endregion
 
@@ -42,9 +45,11 @@ public sealed class SpikeTrap : MonoBehaviour
         if (!other.TryGetComponent<PlayerHealth>(out _)) return;
 
         playerInside = true;
-        enteredTime = Time.time;
-        nextTickTime = Time.time + warmupDelay; 
+        nextTickTime = Time.time + warmupDelay;
         animator.SetBool(paramHash, true);
+
+        if (sfxOnEnter && damageSFX && !BiomeTransitionOverlay.IsActive)
+            SfxController.Play(damageSFX, sfxVolume);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -54,10 +59,18 @@ public sealed class SpikeTrap : MonoBehaviour
 
         animator.SetBool(paramHash, true);
 
-        // after warmup, apply periodic damage
+        if (BiomeTransitionOverlay.IsActive)
+        {
+            nextTickTime = Time.time + 0.15f;
+            return;
+        }
+
         if (Time.time >= nextTickTime)
         {
             hp.Damage(damage);
+            if (damageSFX)
+                SfxController.Play(damageSFX, sfxVolume);
+
             nextTickTime += damageTickInterval;
         }
     }

@@ -174,3 +174,4 @@ MonoBehaviour:
   damageTickInterval: 0.4
   warmupDelay: 0.2
   isPlayerNearParam: isPlayerNear
+  damageSFX: {fileID: 8300000, guid: 979ca4a9544632b48bee5d18f985bef6, type: 3}
