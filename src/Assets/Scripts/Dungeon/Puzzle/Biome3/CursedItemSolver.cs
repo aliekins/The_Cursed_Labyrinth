@@ -27,7 +27,6 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
     [Header("SFX")]
     [SerializeField] private AudioClip correctSfx;
     [SerializeField] private AudioClip wrongSfx;
-    [SerializeField, Range(0f, 1f)] private float sfxVolume = 1f;
 
     private bool playerInside;
     private PlayerInventory inv;
@@ -162,7 +161,7 @@ public sealed class CursedItemsSolver : MonoBehaviour, ISpecialSolver
     {
         if (!clip) return;
 
-        SfxController.Play(clip, sfxVolume);
+        SfxController.Play(clip);
     }
     #endregion
 }

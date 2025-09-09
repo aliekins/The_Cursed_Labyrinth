@@ -157,7 +157,7 @@ public sealed class PropPopulator : MonoBehaviour
                 {
                     var bp = go.GetComponent<BreakableProp>() ?? go.AddComponent<BreakableProp>();
 
-                    bp.Configure(rule.breakSfx, rule.breakSfxVolume, rule.breakVfxPrefab);
+                    bp.Configure(rule.breakSfx, rule.breakVfxPrefab);
                     breakables.Add(bp);
 
                     var tags = go.GetComponent<PropDropTags>();

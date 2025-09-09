@@ -1,0 +1,9 @@
+Bugs:
+- Prevent 2 hints at the same time DONE
+- Last Cutscene just stares at the "At Last" make game quit after while DONE
+- Quit button functionality DONE
+- Chest unbreakable from top CANT DO ANYTHING ABOUT IT
+
+Improvements:
+- Item holding looks like status effects DONE
+- Sound cue when placing item correctly / incorrectly DONE

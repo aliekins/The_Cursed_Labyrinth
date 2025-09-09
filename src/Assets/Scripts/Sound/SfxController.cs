@@ -1,12 +1,16 @@
 using UnityEngine;
 
+/**
+ * @file SfxController.cs
+ * @brief Simple static SFX player with volume control.
+ * @ingroup Sound
+ */
 public sealed class SfxController : MonoBehaviour
 {
     private static SfxController _instance;
     private AudioSource _src;
-
-    // Call from anywhere: Sfx2DController.Play(clip, 0.8f);
-    public static void Play(AudioClip clip, float volume = 1f, bool ignoreListenerPause = false)
+    private static float volume = 0.5f;
+    public static void Play(AudioClip clip, bool ignoreListenerPause = false)
     {
         if (!clip) return;
 

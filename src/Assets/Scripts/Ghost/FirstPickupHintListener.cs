@@ -1,6 +1,12 @@
 using UnityEngine;
 using System;
 
+/***
+ * @file FirstPickupHintListener.cs
+ * @brief Listens for the first time the player picks up certain items and shows hints.
+ * @ingroup Ghost
+ */
+
 [DisallowMultipleComponent]
 public sealed class FirstPickupHintListener : MonoBehaviour
 {

@@ -21,7 +21,6 @@ public class ToggleSpriteOnUse : MonoBehaviour
 
     [Header("SFX")]
     [SerializeField] private AudioClip toggledOnSfx;
-    [SerializeField, Range(0f, 1f)] private float sfxVolume = 1f;
 
     private SpriteRenderer sr;
     private bool playerInside;
@@ -46,7 +45,7 @@ public class ToggleSpriteOnUse : MonoBehaviour
 
             if (goingOn && toggledOnSfx)
             {
-                SfxController.Play(toggledOnSfx, sfxVolume);
+                SfxController.Play(toggledOnSfx);
             }
         }
     }

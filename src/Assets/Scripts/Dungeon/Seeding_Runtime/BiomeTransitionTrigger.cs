@@ -22,11 +22,9 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private AudioClip puzzleSolvedSfx;
-    [SerializeField, Range(0f, 1f)] private float puzzleSolvedVolume = 1f;
 
     [SerializeField] private AudioSource portalSfxSource;
     [SerializeField] private AudioClip portalSfx;
-    [SerializeField, Range(0f, 1f)] private float portalSfxVolume = 1f;
 
     private BiomeSequenceController sequence;
     private ISpecialSolver solver;
@@ -117,7 +115,7 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
         UpdateIsFinalBiome();
 
         if (puzzleSolvedSfx)
-            SfxController.Play(puzzleSolvedSfx, puzzleSolvedVolume);
+            SfxController.Play(puzzleSolvedSfx);
 
         if (isFinalBiome)
             ActivatePortal();
@@ -236,7 +234,6 @@ public sealed class BiomeTransitionTrigger : MonoBehaviour
                 portalSfxSource.spatialBlend = 0f;
                 portalSfxSource.playOnAwake = false;
                 portalSfxSource.loop = true;
-                portalSfxSource.volume = portalSfxVolume;
                 portalSfxSource.clip = portalSfx;
                 portalSfxSource.Play();
 

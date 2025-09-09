@@ -18,7 +18,6 @@ public sealed class SpikeTrap : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private AudioClip damageSFX;
-    [SerializeField, Range(0f, 1f)] private float sfxVolume = 1f;
     [SerializeField] private bool sfxOnEnter = false;
     #endregion
 
@@ -49,7 +48,7 @@ public sealed class SpikeTrap : MonoBehaviour
         animator.SetBool(paramHash, true);
 
         if (sfxOnEnter && damageSFX && !BiomeTransitionOverlay.IsActive)
-            SfxController.Play(damageSFX, sfxVolume);
+            SfxController.Play(damageSFX);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -69,7 +68,7 @@ public sealed class SpikeTrap : MonoBehaviour
         {
             hp.Damage(damage);
             if (damageSFX)
-                SfxController.Play(damageSFX, sfxVolume);
+                SfxController.Play(damageSFX);
 
             nextTickTime += damageTickInterval;
         }

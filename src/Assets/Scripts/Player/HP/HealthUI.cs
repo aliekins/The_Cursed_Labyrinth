@@ -18,7 +18,6 @@ public sealed class HealthUI : MonoBehaviour
     [Header("SFX")]
     [SerializeField] private AudioClip damageSFX;
     [SerializeField] private AudioClip healSFX;
-    [SerializeField, Range(0f, 1f)] private float volume = 1f;
 
     private int lastCurrent;
     private bool hasLast;
@@ -74,13 +73,13 @@ public sealed class HealthUI : MonoBehaviour
             {
                 if (BiomeTransitionOverlay.IsActive) return;
                 if (!damageSFX) return;
-                SfxController.Play(damageSFX, volume);
+                SfxController.Play(damageSFX);
             }
             else if (delta > 0)
             {
                 if (BiomeTransitionOverlay.IsActive) return;
                 if (!healSFX) return;
-                SfxController.Play(healSFX, volume);
+                SfxController.Play(healSFX);
             }
         }
 

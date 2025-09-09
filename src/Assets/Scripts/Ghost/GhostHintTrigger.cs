@@ -1,4 +1,9 @@
 using UnityEngine;
+/**
+ * @file GhostHintTrigger.cs
+ * @brief Trigger that shows a ghost hint when the player enters it.
+ * @ingroup Ghost
+ */
 
 [RequireComponent(typeof(Collider2D))]
 public sealed class GhostHintTrigger : MonoBehaviour

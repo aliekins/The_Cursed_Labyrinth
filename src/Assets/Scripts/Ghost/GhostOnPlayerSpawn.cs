@@ -1,14 +1,20 @@
 using System.Collections;
 using UnityEngine;
 
+/**
+ * @file GhostOnPlayerSpawn.cs
+ * @brief Shows a ghost hint when the player spawns once per biome.
+ * @ingroup Ghost
+ */
+
 public sealed class GhostOnPlayerSpawn : MonoBehaviour
 {
     [SerializeField] private string hintTag = "spawn";
     [SerializeField] private bool perBiome = true;
 
     [Header("Transition Overlay")]
-    [SerializeField] private bool muteDuringOverlay = true;   // <-- NEW: respect the overlay
-    [SerializeField] private float postOverlayDelay = 0.15f;  // small delay after overlay clears
+    [SerializeField] private bool muteDuringOverlay = true;
+    [SerializeField] private float postOverlayDelay = 0.15f;
 
     [Header("Polling")]
     [SerializeField] private float pollInterval = 0.2f;
@@ -16,7 +22,6 @@ public sealed class GhostOnPlayerSpawn : MonoBehaviour
     private int lastBiomeIndex = -1;
     private bool shownThisBiome;
 
-    // overlay edge detection
     private bool wasOverlayActive;
     private float overlayClearedAt;
 

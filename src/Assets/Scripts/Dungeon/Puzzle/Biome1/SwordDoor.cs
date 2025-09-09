@@ -21,7 +21,6 @@ public sealed class SwordDoor : MonoBehaviour
     private SwordRoomSolver solver;
     private bool open;
 
-    // trigger state
     private bool inside;
     private PlayerInventory currentInv;
 

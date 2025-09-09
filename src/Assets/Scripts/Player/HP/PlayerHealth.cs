@@ -37,7 +37,7 @@ public sealed class PlayerHealth : MonoBehaviour
         if (Current == 0) 
         {
             if (deathSFX)
-                SfxController.Play(deathSFX, 1f, ignoreListenerPause: true);
+                SfxController.Play(deathSFX, ignoreListenerPause: true);
 
             Died?.Invoke();
         }

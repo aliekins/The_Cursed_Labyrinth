@@ -231,7 +231,7 @@ public static class DropAssigner
             var go = candidates[i];
             var bp = go.GetComponent<BreakableProp>() ?? go.AddComponent<BreakableProp>();
 
-            bp.Configure(null, 1f, null, 0f);
+            bp.Configure(null, null, 0f);
 
             breakables.Add(bp);
             holdersOut.Add(bp);

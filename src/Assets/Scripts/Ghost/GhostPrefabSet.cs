@@ -5,6 +5,7 @@ using System.Collections.Generic;
 /// @file GhostPrefabSet.cs
 /// @brief ScriptableObject mapping biome index to a ghost prefab.
 /// @ingroup Ghost
+/// 
 [CreateAssetMenu(menuName = "Dungeon/Hints/Ghost Prefab Set")]
 public sealed class GhostPrefabSet : ScriptableObject
 {

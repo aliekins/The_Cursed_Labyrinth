@@ -31,7 +31,6 @@ public sealed class PickupTextUI : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         if (!container) 
             container = GetComponent<RectTransform>();

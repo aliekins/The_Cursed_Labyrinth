@@ -5,7 +5,8 @@ using UnityEngine;
 /**
  * @file DungeonController.Core.cs
  * @brief Core orchestrator for dungeon generation, rendering and high-level events.
- *
+ * @ingroup Controller
+ * 
  * Owns the grid, rooms list, indices, visualizer, and player instance. Focuses on startup, rebuild entry points, and public accessors.
  */
 
@@ -118,12 +119,22 @@ public partial class DungeonController : MonoBehaviour
         {
             width = profile.width;
             height = profile.height;
+
             if (!string.IsNullOrEmpty(profile.corridorKind))
                 corridorKind = profile.corridorKind;
         }
 
+        // music
+        if (profile != null)
+        {
+            // Prefer exact kind y
+            var musicId = !string.IsNullOrEmpty(profile.floorKind) ? profile.floorKind : profile.name;
+            MusicPlayer.SetBiome(musicId);
+        }
+
         if (randomizeSeedOnStart)
             randomSeed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+
         rng = new System.Random(randomSeed);
 
         // Generate grid and rooms from the prefab seed
@@ -138,6 +149,7 @@ public partial class DungeonController : MonoBehaviour
         WireSystems();
         SpawnPlayerAndCamera();
     }
+
     #region helpers
     private void CreateGrid() => grid = new DungeonGrid(width, height);
 

@@ -15,10 +15,14 @@ public sealed class PickupItemDefaults : MonoBehaviour
         if (Instance && Instance != this)
         {
             Destroy(gameObject);
-            return; 
+            return;
         }
 
         Instance = this;
+
+        if (transform.parent != null)
+            transform.SetParent(null, true);
+
         DontDestroyOnLoad(gameObject);
     }
 }

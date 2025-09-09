@@ -1,9 +1,15 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+/**
+ * @file GhostHintAgent.cs
+ * @brief Controlls the spawn and destruction of a single ghost hint instance.
+ * @ingroup Ghost
+ */
 
 public sealed class GhostHintAgent : MonoBehaviour
 {
+    #region config
     [Header("Wiring")]
     [SerializeField] private Animator animator;
     [SerializeField] private AudioSource voice;
@@ -15,7 +21,10 @@ public sealed class GhostHintAgent : MonoBehaviour
     [SerializeField] private bool autoDestroy = true;
 
     private static readonly int AppearHash = Animator.StringToHash("appear");
+    public event System.Action Completed;
+    #endregion
 
+    #region cycle
     void Awake()
     {
         if (!animator) animator = GetComponentInChildren<Animator>(true);
@@ -36,7 +45,9 @@ public sealed class GhostHintAgent : MonoBehaviour
             if (cg) { cg.alpha = 1f; cg.interactable = false; cg.blocksRaycasts = false; }
         }
     }
+    #endregion
 
+    #region api
     public void AppearAt(Transform parent, Vector3 worldPos)
     {
         if (parent)
@@ -82,10 +93,13 @@ public sealed class GhostHintAgent : MonoBehaviour
         if (autoDestroy)
             StartCoroutine(WaitUntilTypewriterAndVoiceThenDestroy());
     }
+    #endregion
 
+    #region helpers
     private IEnumerator WaitUntilTypewriterAndVoiceThenDestroy()
     {
-        float hardMin = Time.time + minLifetime + 12;
+        float hardMin = Time.time + minLifetime;
+
         var tw = bubble ? bubble.GetComponent<TypeWriterEffect>() : null;
 
         if (tw && bubble)
@@ -93,28 +107,29 @@ public sealed class GhostHintAgent : MonoBehaviour
             while (true)
             {
                 bubble.ForceMeshUpdate();
-                var total = bubble.textInfo.characterCount;
+                int total = bubble.textInfo.characterCount;
+                if (total <= 0) { yield return null; continue; }
 
-                if (total <= 0)
-                    yield return null;
-                else
-                {
-                    if (bubble.maxVisibleCharacters >= total - 1) break;
-                    yield return null;
-                }
+                if (bubble.maxVisibleCharacters >= total - 1)
+                    break;
+
+                yield return null;
             }
         }
 
         if (voice && voice.clip)
         {
-            while (voice.isPlaying) 
+            while (voice.isPlaying)
                 yield return null;
-            if (extraHoldAfterVoice > 0f) 
+
+            if (extraHoldAfterVoice > 0f)
                 yield return new WaitForSeconds(extraHoldAfterVoice);
         }
 
         while (Time.time < hardMin)
             yield return null;
+
+        Completed?.Invoke();
 
         Destroy(gameObject);
     }
@@ -130,4 +145,5 @@ public sealed class GhostHintAgent : MonoBehaviour
 
         return false;
     }
+    #endregion
 }

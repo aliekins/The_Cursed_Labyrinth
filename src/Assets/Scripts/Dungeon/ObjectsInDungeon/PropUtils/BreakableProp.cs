@@ -17,14 +17,8 @@ public sealed class BreakableProp : MonoBehaviour
     [SerializeField, Min(0f)] private float interactRadius = 1f;
     [SerializeField, Min(0f)] private float autoPickupRadius = 1f;
 
-    //[Header("Break FX")]
-    //[SerializeField]
     private AudioClip breakSfx;
-    //[SerializeField, Range(0f, 1f)]
-    private float breakSfxVolume = 1f;
-    //[SerializeField] 
     private GameObject breakVfxPrefab;
-    //[SerializeField, Min(0f)]
     private float destroyDelay = 0f;
 
     [Header("Drop (auto-filled by spawner)")]
@@ -70,7 +64,7 @@ public sealed class BreakableProp : MonoBehaviour
         enabled = false;
         if (selfCollider) selfCollider.enabled = false;
 
-        if (breakSfx) SfxController.Play(breakSfx, breakSfxVolume);
+        if (breakSfx) SfxController.Play(breakSfx);
 
         GameObject vfxPrefab = breakVfxPrefab ? breakVfxPrefab : GlobalBreakVfxPrefab;
         if (vfxPrefab)
@@ -96,7 +90,7 @@ public sealed class BreakableProp : MonoBehaviour
                     else
                     {
                         PickupTextUI.Show(dropItem, 1);
-                        if (pickupSfx) SfxController.Play(pickupSfx, 1f);
+                        if (pickupSfx) SfxController.Play(pickupSfx);
                         if (pickupFlashPrefab) Destroy(Instantiate(pickupFlashPrefab, transform.position, Quaternion.identity), 1.0f);
                     }
                 }
@@ -104,7 +98,7 @@ public sealed class BreakableProp : MonoBehaviour
                 {
                     invInRange.Add(dropItem, dropQty);
                     PickupTextUI.Show(dropItem, dropQty);
-                    if (pickupSfx) SfxController.Play(pickupSfx, 1f);
+                    if (pickupSfx) SfxController.Play(pickupSfx);
                     if (pickupFlashPrefab) Destroy(Instantiate(pickupFlashPrefab, transform.position, Quaternion.identity), 1.0f);
                 }
             }
@@ -158,11 +152,10 @@ public sealed class BreakableProp : MonoBehaviour
         pickupPrefab = pickupObjPrefab;
     }
 
-    public void Configure(AudioClip sfx, float volume, GameObject vfx, float delay = 0f)
+    public void Configure(AudioClip sfx, GameObject vfx, float delay = 0f)
     {
         interactKey = KeyCode.E;
         breakSfx = sfx;
-        breakSfxVolume = Mathf.Clamp01(volume);
         breakVfxPrefab = vfx;
         destroyDelay = Mathf.Max(0f, delay);
     }
