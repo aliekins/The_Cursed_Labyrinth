@@ -1,4 +1,4 @@
-This guide tries not to spoil the main steps to end the game. However, if you do not have time to explore on your own, check this document [here]() for spoilers.
+This guide tries not to spoil the main steps to end the game. However, if you do not have time to explore on your own, check this document [here](./Spoilers.md) for spoilers.
 
 ## Goal
 Explore three biomes of a dungeon you have found yourself trapped in. In each biome, find and solve the special puzzle, then advance further.
