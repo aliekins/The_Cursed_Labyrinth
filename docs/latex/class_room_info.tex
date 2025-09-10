@@ -1,0 +1,167 @@
+\doxysection{Room\+Info Class Reference}
+\hypertarget{class_room_info}{}\label{class_room_info}\index{RoomInfo@{RoomInfo}}
+
+
+Derived room features (interior, edges, corner anchors, entrances, reservations).  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_room_info_a92ea511f161501c752ced0b7e3428ffa}{Build\+From\+Grid}} (int id, Rect\+Int bounds, \mbox{\hyperlink{class_dungeon_grid}{Dungeon\+Grid}} grid, int edge\+Band=2, string corridor\+Kind\+Prefix="{}floor\+\_\+corridor"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ Vector2\+Int $>$ \mbox{\hyperlink{class_room_info_ab86b24d65d6d0b9ed3e427386c847e94}{Interior}} = new()
+\begin{DoxyCompactList}\small\item\em (excludes boundary ring) \end{DoxyCompactList}\item 
+List$<$ Vector2\+Int $>$ \mbox{\hyperlink{class_room_info_a22577b7bc7e88aeb0ddf0f16e14f7101}{Edge\+Band}} = new()
+\begin{DoxyCompactList}\small\item\em Cells within Edge\+Band\+Distance of any wall. \end{DoxyCompactList}\item 
+List$<$ Vector2\+Int $>$ \mbox{\hyperlink{class_room_info_ae4ddf2077c93429c398083164fda6088}{Corner\+Anchors}} = new()
+\begin{DoxyCompactList}\small\item\em Cells adjacent to two perpendicular walls. \end{DoxyCompactList}\item 
+Hash\+Set$<$ Vector2\+Int $>$ \mbox{\hyperlink{class_room_info_a4e8e1bdfd7a43b3d8daddf3dce46a7ea}{Entrances}} = new()
+\begin{DoxyCompactList}\small\item\em Interior cells adjacent to corridor tiles. \end{DoxyCompactList}\item 
+Hash\+Set$<$ Vector2\+Int $>$ \mbox{\hyperlink{class_room_info_ae265939e6f0725642eb4275b719badfe}{Occupied}} = new()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_room_info_a678071ad61ed15cc4bba5380d855339f}{Id}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+Rect\+Int \mbox{\hyperlink{class_room_info_adb183ba39d35d61853dad5b527fa10c6}{Bounds}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+Vector2\+Int \mbox{\hyperlink{class_room_info_a54a2e779edc18b4fcfee194654d7a0a7}{Center}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+int \mbox{\hyperlink{class_room_info_af1a993ef4a8f2dbc2306241fc7ce25cf}{Edge\+Band\+Distance}} = 2\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+string \mbox{\hyperlink{class_room_info_aa60b800de6eb0930a3d3ce6e344fabc9}{Corridor\+Kind\+Prefix}} = "{}floor\+\_\+corridor"{}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+int \mbox{\hyperlink{class_room_info_a5500b1fbfa163bbc3ff43228fefe56cd}{Width}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+int \mbox{\hyperlink{class_room_info_ab11940fc63a3be843b23b6949bf691f8}{Height}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+int \mbox{\hyperlink{class_room_info_adb25015742e123c05f5390254a67509d}{Area}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Derived room features (interior, edges, corner anchors, entrances, reservations). 
+
+\label{doc-func-members}
+\Hypertarget{class_room_info_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_room_info_a92ea511f161501c752ced0b7e3428ffa}\index{RoomInfo@{RoomInfo}!BuildFromGrid@{BuildFromGrid}}
+\index{BuildFromGrid@{BuildFromGrid}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{BuildFromGrid()}{BuildFromGrid()}}
+{\footnotesize\ttfamily \label{class_room_info_a92ea511f161501c752ced0b7e3428ffa} 
+void Room\+Info.\+Build\+From\+Grid (\begin{DoxyParamCaption}\item[{int}]{id}{, }\item[{Rect\+Int}]{bounds}{, }\item[{\mbox{\hyperlink{class_dungeon_grid}{Dungeon\+Grid}}}]{grid}{, }\item[{int}]{edge\+Band}{ = {\ttfamily 2}, }\item[{string}]{corridor\+Kind\+Prefix}{ = {\ttfamily "{}floor\+\_\+corridor"{}}}\end{DoxyParamCaption})}
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_room_info_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_room_info_ae4ddf2077c93429c398083164fda6088}\index{RoomInfo@{RoomInfo}!CornerAnchors@{CornerAnchors}}
+\index{CornerAnchors@{CornerAnchors}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{CornerAnchors}{CornerAnchors}}
+{\footnotesize\ttfamily \label{class_room_info_ae4ddf2077c93429c398083164fda6088} 
+List$<$Vector2\+Int$>$ Room\+Info.\+Corner\+Anchors = new()}
+
+
+
+Cells adjacent to two perpendicular walls. 
+
+\Hypertarget{class_room_info_a22577b7bc7e88aeb0ddf0f16e14f7101}\index{RoomInfo@{RoomInfo}!EdgeBand@{EdgeBand}}
+\index{EdgeBand@{EdgeBand}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{EdgeBand}{EdgeBand}}
+{\footnotesize\ttfamily \label{class_room_info_a22577b7bc7e88aeb0ddf0f16e14f7101} 
+List$<$Vector2\+Int$>$ Room\+Info.\+Edge\+Band = new()}
+
+
+
+Cells within Edge\+Band\+Distance of any wall. 
+
+\Hypertarget{class_room_info_a4e8e1bdfd7a43b3d8daddf3dce46a7ea}\index{RoomInfo@{RoomInfo}!Entrances@{Entrances}}
+\index{Entrances@{Entrances}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{Entrances}{Entrances}}
+{\footnotesize\ttfamily \label{class_room_info_a4e8e1bdfd7a43b3d8daddf3dce46a7ea} 
+Hash\+Set$<$Vector2\+Int$>$ Room\+Info.\+Entrances = new()}
+
+
+
+Interior cells adjacent to corridor tiles. 
+
+\Hypertarget{class_room_info_ab86b24d65d6d0b9ed3e427386c847e94}\index{RoomInfo@{RoomInfo}!Interior@{Interior}}
+\index{Interior@{Interior}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{Interior}{Interior}}
+{\footnotesize\ttfamily \label{class_room_info_ab86b24d65d6d0b9ed3e427386c847e94} 
+List$<$Vector2\+Int$>$ Room\+Info.\+Interior = new()}
+
+
+
+(excludes boundary ring) 
+
+\Hypertarget{class_room_info_ae265939e6f0725642eb4275b719badfe}\index{RoomInfo@{RoomInfo}!Occupied@{Occupied}}
+\index{Occupied@{Occupied}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{Occupied}{Occupied}}
+{\footnotesize\ttfamily \label{class_room_info_ae265939e6f0725642eb4275b719badfe} 
+Hash\+Set$<$Vector2\+Int$>$ Room\+Info.\+Occupied = new()}
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_room_info_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_room_info_adb25015742e123c05f5390254a67509d}\index{RoomInfo@{RoomInfo}!Area@{Area}}
+\index{Area@{Area}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{Area}{Area}}
+{\footnotesize\ttfamily \label{class_room_info_adb25015742e123c05f5390254a67509d} 
+int Room\+Info.\+Area\hspace{0.3cm}{\ttfamily [get]}}
+
+\Hypertarget{class_room_info_adb183ba39d35d61853dad5b527fa10c6}\index{RoomInfo@{RoomInfo}!Bounds@{Bounds}}
+\index{Bounds@{Bounds}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{Bounds}{Bounds}}
+{\footnotesize\ttfamily \label{class_room_info_adb183ba39d35d61853dad5b527fa10c6} 
+Rect\+Int Room\+Info.\+Bounds\hspace{0.3cm}{\ttfamily [get]}}
+
+\Hypertarget{class_room_info_a54a2e779edc18b4fcfee194654d7a0a7}\index{RoomInfo@{RoomInfo}!Center@{Center}}
+\index{Center@{Center}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{Center}{Center}}
+{\footnotesize\ttfamily \label{class_room_info_a54a2e779edc18b4fcfee194654d7a0a7} 
+Vector2\+Int Room\+Info.\+Center\hspace{0.3cm}{\ttfamily [get]}}
+
+\Hypertarget{class_room_info_aa60b800de6eb0930a3d3ce6e344fabc9}\index{RoomInfo@{RoomInfo}!CorridorKindPrefix@{CorridorKindPrefix}}
+\index{CorridorKindPrefix@{CorridorKindPrefix}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{CorridorKindPrefix}{CorridorKindPrefix}}
+{\footnotesize\ttfamily \label{class_room_info_aa60b800de6eb0930a3d3ce6e344fabc9} 
+string Room\+Info.\+Corridor\+Kind\+Prefix = "{}floor\+\_\+corridor"{}\hspace{0.3cm}{\ttfamily [get]}}
+
+\Hypertarget{class_room_info_af1a993ef4a8f2dbc2306241fc7ce25cf}\index{RoomInfo@{RoomInfo}!EdgeBandDistance@{EdgeBandDistance}}
+\index{EdgeBandDistance@{EdgeBandDistance}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{EdgeBandDistance}{EdgeBandDistance}}
+{\footnotesize\ttfamily \label{class_room_info_af1a993ef4a8f2dbc2306241fc7ce25cf} 
+int Room\+Info.\+Edge\+Band\+Distance = 2\hspace{0.3cm}{\ttfamily [get]}}
+
+\Hypertarget{class_room_info_ab11940fc63a3be843b23b6949bf691f8}\index{RoomInfo@{RoomInfo}!Height@{Height}}
+\index{Height@{Height}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{Height}{Height}}
+{\footnotesize\ttfamily \label{class_room_info_ab11940fc63a3be843b23b6949bf691f8} 
+int Room\+Info.\+Height\hspace{0.3cm}{\ttfamily [get]}}
+
+\Hypertarget{class_room_info_a678071ad61ed15cc4bba5380d855339f}\index{RoomInfo@{RoomInfo}!Id@{Id}}
+\index{Id@{Id}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{Id}{Id}}
+{\footnotesize\ttfamily \label{class_room_info_a678071ad61ed15cc4bba5380d855339f} 
+int Room\+Info.\+Id\hspace{0.3cm}{\ttfamily [get]}}
+
+\Hypertarget{class_room_info_a5500b1fbfa163bbc3ff43228fefe56cd}\index{RoomInfo@{RoomInfo}!Width@{Width}}
+\index{Width@{Width}!RoomInfo@{RoomInfo}}
+\doxysubsubsection{\texorpdfstring{Width}{Width}}
+{\footnotesize\ttfamily \label{class_room_info_a5500b1fbfa163bbc3ff43228fefe56cd} 
+int Room\+Info.\+Width\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+Dungeon/\+Grid\+And\+Indexing/\mbox{\hyperlink{_room_8cs}{Room.\+cs}}\end{DoxyCompactItemize}

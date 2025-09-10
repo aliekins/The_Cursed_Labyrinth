@@ -1,0 +1,62 @@
+\doxysection{Trap\+Manager Class Reference}
+\hypertarget{class_trap_manager}{}\label{class_trap_manager}\index{TrapManager@{TrapManager}}
+
+
+Spawns and positions traps per room using filters and counts.  
+
+
+
+
+Inheritance diagram for Trap\+Manager\+:
+% FIG 0
+
+
+Collaboration diagram for Trap\+Manager\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_trap_manager_a0fc1faa0f47e6ab000517ad8778cacec}{Set\+Grid\+Context}} (Transform gr, \mbox{\hyperlink{class_tilemap_visualizer}{Tilemap\+Visualizer}} visualizer)
+\item 
+void \mbox{\hyperlink{class_trap_manager_a2ecd3fd21e62d9613c8933d01fb43682}{Build}} (\mbox{\hyperlink{class_dungeon_grid}{Dungeon\+Grid}} grid, List$<$ \mbox{\hyperlink{class_room}{Room}} $>$ rooms, Func$<$ string, int $>$ resolve\+Tier, bool\mbox{[},\mbox{]} carpet\+Mask=null)
+\begin{DoxyCompactList}\small\item\em Build traps for the current dungeon build. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Spawns and positions traps per room using filters and counts. 
+
+\label{doc-func-members}
+\Hypertarget{class_trap_manager_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_trap_manager_a2ecd3fd21e62d9613c8933d01fb43682}\index{TrapManager@{TrapManager}!Build@{Build}}
+\index{Build@{Build}!TrapManager@{TrapManager}}
+\doxysubsubsection{\texorpdfstring{Build()}{Build()}}
+{\footnotesize\ttfamily \label{class_trap_manager_a2ecd3fd21e62d9613c8933d01fb43682} 
+void Trap\+Manager.\+Build (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_dungeon_grid}{Dungeon\+Grid}}}]{grid}{, }\item[{List$<$ \mbox{\hyperlink{class_room}{Room}} $>$}]{rooms}{, }\item[{Func$<$ string, int $>$}]{resolve\+Tier}{, }\item[{bool}]{carpet\+Mask}{\mbox{[},\mbox{]} = {\ttfamily null}}\end{DoxyParamCaption})}
+
+
+
+Build traps for the current dungeon build. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grid} & Source grid \\
+\hline
+{\em rooms} & Rooms to consider for placement \\
+\hline
+{\em resolve\+Tier} & Maps a floor kind string to a biome tier index \\
+\hline
+{\em carpet\+Mask} & Optional mask that excludes cells from placement\\
+\hline
+\end{DoxyParams}
+Only rooms in the desired tier are considered. Within a room, candidates are chosen from edge/interior cells that pass Can\+Place\+On. \Hypertarget{class_trap_manager_a0fc1faa0f47e6ab000517ad8778cacec}\index{TrapManager@{TrapManager}!SetGridContext@{SetGridContext}}
+\index{SetGridContext@{SetGridContext}!TrapManager@{TrapManager}}
+\doxysubsubsection{\texorpdfstring{SetGridContext()}{SetGridContext()}}
+{\footnotesize\ttfamily \label{class_trap_manager_a0fc1faa0f47e6ab000517ad8778cacec} 
+void Trap\+Manager.\+Set\+Grid\+Context (\begin{DoxyParamCaption}\item[{Transform}]{gr}{, }\item[{\mbox{\hyperlink{class_tilemap_visualizer}{Tilemap\+Visualizer}}}]{visualizer}{}\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+Dungeon/\+Objects\+In\+Dungeon/\mbox{\hyperlink{_trap_manager_8cs}{Trap\+Manager.\+cs}}\end{DoxyCompactItemize}

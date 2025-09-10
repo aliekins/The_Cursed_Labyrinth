@@ -1,0 +1,200 @@
+\doxysection{Player\+Inventory Class Reference}
+\hypertarget{class_player_inventory}{}\label{class_player_inventory}\index{PlayerInventory@{PlayerInventory}}
+
+
+Inheritance diagram for Player\+Inventory\+:
+% FIG 0
+
+
+Collaboration diagram for Player\+Inventory\+:
+% FIG 1
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_player_inventory_1_1_snapshot}{Snapshot}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_player_inventory_1_1_snapshot}{Snapshot}} \mbox{\hyperlink{class_player_inventory_a3ed99f0c9ca680ac397756dce00e08c8}{Get\+Snapshot}} ()
+\item 
+void \mbox{\hyperlink{class_player_inventory_a44173903f1dfcb095a24ac406d79aa7e}{Apply\+Snapshot}} (\mbox{\hyperlink{struct_player_inventory_1_1_snapshot}{Snapshot}} s)
+\item 
+void \mbox{\hyperlink{class_player_inventory_a3d0bc181a3cfc3d426fb990d837d0fed}{Add}} (\mbox{\hyperlink{class_item_ab5eeb575e9d66ebcfef9b58b667fad05}{Item.\+Item\+Type}} type, int amount=1)
+\item 
+bool \mbox{\hyperlink{class_player_inventory_a2aa68f31e68a5a517f1b5064ce898cc2}{Try\+Carry\+Special}} (\mbox{\hyperlink{class_item_ab5eeb575e9d66ebcfef9b58b667fad05}{Item.\+Item\+Type}} t)
+\begin{DoxyCompactList}\small\item\em Try to place a special item into the carry slot. Returns false if already carrying something else. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_inventory_a354ea51d362d8391c10e62db91e72228}{Drop\+Carried\+Special}} (Game\+Object drop\+Prefab, Vector3 pos)
+\begin{DoxyCompactList}\small\item\em Drop the carried special (spawns a special pickup and registers it for respawn). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_inventory_a7baf3eee0dc7cae9ed05eaae4831d796}{Consume\+Carried\+Special}} ()
+\begin{DoxyCompactList}\small\item\em Consume the carried special (used on correct pedestal). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_player_inventory_a00a4456e7a447d60fa1e33570e622db2}{Is\+Carrying}} (\mbox{\hyperlink{class_item_ab5eeb575e9d66ebcfef9b58b667fad05}{Item.\+Item\+Type}} t)
+\item 
+bool \mbox{\hyperlink{class_player_inventory_aa9f75fd98243dade6e74e5a98ae90b4b}{Remove\+Sword}} (int amount=1)
+\item 
+bool \mbox{\hyperlink{class_player_inventory_a9ded71fdd7603431454d29b9b5c8b420}{Use\+Potion}} ()
+\item 
+bool \mbox{\hyperlink{class_player_inventory_ace641c801a7cd09f06fc094169300b65}{Has\+Book}} (\mbox{\hyperlink{class_item_ab5eeb575e9d66ebcfef9b58b667fad05}{Item.\+Item\+Type}} t)
+\item 
+bool \mbox{\hyperlink{class_player_inventory_a42431989315729b9a845f9500b1b8bfd}{All\+Books\+Filled}} ()
+\item 
+bool \mbox{\hyperlink{class_player_inventory_a3036c647fdd2f6b63f8882578d11e9c3}{Try\+Pickup\+Special}} (\mbox{\hyperlink{class_item_ab5eeb575e9d66ebcfef9b58b667fad05}{Item.\+Item\+Type}} t)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Item.? Item\+Type \mbox{\hyperlink{class_player_inventory_ae1ae216662798cafcbb08565bbd5c2f0}{Carried\+Special}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+int \mbox{\hyperlink{class_player_inventory_ac551c3bf60e3324ef972587cc65a26fd}{Swords}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+int \mbox{\hyperlink{class_player_inventory_a40cb49ed20cabd74f543b903cbe9eb20}{Potions}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_player_inventory_a5d926bdb78fe913e1afed5a947db36a6}{Is\+Carrying\+Any}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Events}
+\begin{DoxyCompactItemize}
+\item 
+Action$<$ \mbox{\hyperlink{struct_player_inventory_1_1_snapshot}{Snapshot}} $>$ \mbox{\hyperlink{class_player_inventory_ab911bb8d7830fe9675b8c8acfa960ef6}{Changed}}
+\item 
+Action$<$ \mbox{\hyperlink{class_item_ab5eeb575e9d66ebcfef9b58b667fad05}{Item.\+Item\+Type}}?$>$ \mbox{\hyperlink{class_player_inventory_a90cf2a03da23201cec81c8e86565eaab}{Carried\+Special\+Changed}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_player_inventory_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_player_inventory_a3d0bc181a3cfc3d426fb990d837d0fed}\index{PlayerInventory@{PlayerInventory}!Add@{Add}}
+\index{Add@{Add}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily \label{class_player_inventory_a3d0bc181a3cfc3d426fb990d837d0fed} 
+void Player\+Inventory.\+Add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_item_ab5eeb575e9d66ebcfef9b58b667fad05}{Item.\+Item\+Type}}}]{type}{, }\item[{int}]{amount}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+\Hypertarget{class_player_inventory_a42431989315729b9a845f9500b1b8bfd}\index{PlayerInventory@{PlayerInventory}!AllBooksFilled@{AllBooksFilled}}
+\index{AllBooksFilled@{AllBooksFilled}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{AllBooksFilled()}{AllBooksFilled()}}
+{\footnotesize\ttfamily \label{class_player_inventory_a42431989315729b9a845f9500b1b8bfd} 
+bool Player\+Inventory.\+All\+Books\+Filled (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_player_inventory_a44173903f1dfcb095a24ac406d79aa7e}\index{PlayerInventory@{PlayerInventory}!ApplySnapshot@{ApplySnapshot}}
+\index{ApplySnapshot@{ApplySnapshot}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{ApplySnapshot()}{ApplySnapshot()}}
+{\footnotesize\ttfamily \label{class_player_inventory_a44173903f1dfcb095a24ac406d79aa7e} 
+void Player\+Inventory.\+Apply\+Snapshot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_player_inventory_1_1_snapshot}{Snapshot}}}]{s}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_player_inventory_a7baf3eee0dc7cae9ed05eaae4831d796}\index{PlayerInventory@{PlayerInventory}!ConsumeCarriedSpecial@{ConsumeCarriedSpecial}}
+\index{ConsumeCarriedSpecial@{ConsumeCarriedSpecial}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{ConsumeCarriedSpecial()}{ConsumeCarriedSpecial()}}
+{\footnotesize\ttfamily \label{class_player_inventory_a7baf3eee0dc7cae9ed05eaae4831d796} 
+void Player\+Inventory.\+Consume\+Carried\+Special (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Consume the carried special (used on correct pedestal). 
+
+\Hypertarget{class_player_inventory_a354ea51d362d8391c10e62db91e72228}\index{PlayerInventory@{PlayerInventory}!DropCarriedSpecial@{DropCarriedSpecial}}
+\index{DropCarriedSpecial@{DropCarriedSpecial}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{DropCarriedSpecial()}{DropCarriedSpecial()}}
+{\footnotesize\ttfamily \label{class_player_inventory_a354ea51d362d8391c10e62db91e72228} 
+void Player\+Inventory.\+Drop\+Carried\+Special (\begin{DoxyParamCaption}\item[{Game\+Object}]{drop\+Prefab}{, }\item[{Vector3}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+Drop the carried special (spawns a special pickup and registers it for respawn). 
+
+\Hypertarget{class_player_inventory_a3ed99f0c9ca680ac397756dce00e08c8}\index{PlayerInventory@{PlayerInventory}!GetSnapshot@{GetSnapshot}}
+\index{GetSnapshot@{GetSnapshot}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{GetSnapshot()}{GetSnapshot()}}
+{\footnotesize\ttfamily \label{class_player_inventory_a3ed99f0c9ca680ac397756dce00e08c8} 
+\mbox{\hyperlink{struct_player_inventory_1_1_snapshot}{Snapshot}} Player\+Inventory.\+Get\+Snapshot (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_player_inventory_ace641c801a7cd09f06fc094169300b65}\index{PlayerInventory@{PlayerInventory}!HasBook@{HasBook}}
+\index{HasBook@{HasBook}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{HasBook()}{HasBook()}}
+{\footnotesize\ttfamily \label{class_player_inventory_ace641c801a7cd09f06fc094169300b65} 
+bool Player\+Inventory.\+Has\+Book (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_item_ab5eeb575e9d66ebcfef9b58b667fad05}{Item.\+Item\+Type}}}]{t}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_player_inventory_a00a4456e7a447d60fa1e33570e622db2}\index{PlayerInventory@{PlayerInventory}!IsCarrying@{IsCarrying}}
+\index{IsCarrying@{IsCarrying}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{IsCarrying()}{IsCarrying()}}
+{\footnotesize\ttfamily \label{class_player_inventory_a00a4456e7a447d60fa1e33570e622db2} 
+bool Player\+Inventory.\+Is\+Carrying (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_item_ab5eeb575e9d66ebcfef9b58b667fad05}{Item.\+Item\+Type}}}]{t}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_player_inventory_aa9f75fd98243dade6e74e5a98ae90b4b}\index{PlayerInventory@{PlayerInventory}!RemoveSword@{RemoveSword}}
+\index{RemoveSword@{RemoveSword}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{RemoveSword()}{RemoveSword()}}
+{\footnotesize\ttfamily \label{class_player_inventory_aa9f75fd98243dade6e74e5a98ae90b4b} 
+bool Player\+Inventory.\+Remove\+Sword (\begin{DoxyParamCaption}\item[{int}]{amount}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+\Hypertarget{class_player_inventory_a2aa68f31e68a5a517f1b5064ce898cc2}\index{PlayerInventory@{PlayerInventory}!TryCarrySpecial@{TryCarrySpecial}}
+\index{TryCarrySpecial@{TryCarrySpecial}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{TryCarrySpecial()}{TryCarrySpecial()}}
+{\footnotesize\ttfamily \label{class_player_inventory_a2aa68f31e68a5a517f1b5064ce898cc2} 
+bool Player\+Inventory.\+Try\+Carry\+Special (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_item_ab5eeb575e9d66ebcfef9b58b667fad05}{Item.\+Item\+Type}}}]{t}{}\end{DoxyParamCaption})}
+
+
+
+Try to place a special item into the carry slot. Returns false if already carrying something else. 
+
+\Hypertarget{class_player_inventory_a3036c647fdd2f6b63f8882578d11e9c3}\index{PlayerInventory@{PlayerInventory}!TryPickupSpecial@{TryPickupSpecial}}
+\index{TryPickupSpecial@{TryPickupSpecial}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{TryPickupSpecial()}{TryPickupSpecial()}}
+{\footnotesize\ttfamily \label{class_player_inventory_a3036c647fdd2f6b63f8882578d11e9c3} 
+bool Player\+Inventory.\+Try\+Pickup\+Special (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_item_ab5eeb575e9d66ebcfef9b58b667fad05}{Item.\+Item\+Type}}}]{t}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_player_inventory_a9ded71fdd7603431454d29b9b5c8b420}\index{PlayerInventory@{PlayerInventory}!UsePotion@{UsePotion}}
+\index{UsePotion@{UsePotion}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{UsePotion()}{UsePotion()}}
+{\footnotesize\ttfamily \label{class_player_inventory_a9ded71fdd7603431454d29b9b5c8b420} 
+bool Player\+Inventory.\+Use\+Potion (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_player_inventory_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_player_inventory_ae1ae216662798cafcbb08565bbd5c2f0}\index{PlayerInventory@{PlayerInventory}!CarriedSpecial@{CarriedSpecial}}
+\index{CarriedSpecial@{CarriedSpecial}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{CarriedSpecial}{CarriedSpecial}}
+{\footnotesize\ttfamily \label{class_player_inventory_ae1ae216662798cafcbb08565bbd5c2f0} 
+Item.? Item\+Type Player\+Inventory.\+Carried\+Special\hspace{0.3cm}{\ttfamily [get]}}
+
+\Hypertarget{class_player_inventory_a5d926bdb78fe913e1afed5a947db36a6}\index{PlayerInventory@{PlayerInventory}!IsCarryingAny@{IsCarryingAny}}
+\index{IsCarryingAny@{IsCarryingAny}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{IsCarryingAny}{IsCarryingAny}}
+{\footnotesize\ttfamily \label{class_player_inventory_a5d926bdb78fe913e1afed5a947db36a6} 
+bool Player\+Inventory.\+Is\+Carrying\+Any\hspace{0.3cm}{\ttfamily [get]}}
+
+\Hypertarget{class_player_inventory_a40cb49ed20cabd74f543b903cbe9eb20}\index{PlayerInventory@{PlayerInventory}!Potions@{Potions}}
+\index{Potions@{Potions}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{Potions}{Potions}}
+{\footnotesize\ttfamily \label{class_player_inventory_a40cb49ed20cabd74f543b903cbe9eb20} 
+int Player\+Inventory.\+Potions\hspace{0.3cm}{\ttfamily [get]}}
+
+\Hypertarget{class_player_inventory_ac551c3bf60e3324ef972587cc65a26fd}\index{PlayerInventory@{PlayerInventory}!Swords@{Swords}}
+\index{Swords@{Swords}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{Swords}{Swords}}
+{\footnotesize\ttfamily \label{class_player_inventory_ac551c3bf60e3324ef972587cc65a26fd} 
+int Player\+Inventory.\+Swords\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+\label{doc-event-members}
+\Hypertarget{class_player_inventory_doc-event-members}
+\doxysubsection{Event Documentation}
+\Hypertarget{class_player_inventory_a90cf2a03da23201cec81c8e86565eaab}\index{PlayerInventory@{PlayerInventory}!CarriedSpecialChanged@{CarriedSpecialChanged}}
+\index{CarriedSpecialChanged@{CarriedSpecialChanged}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{CarriedSpecialChanged}{CarriedSpecialChanged}}
+{\footnotesize\ttfamily \label{class_player_inventory_a90cf2a03da23201cec81c8e86565eaab} 
+Action$<$\mbox{\hyperlink{class_item_ab5eeb575e9d66ebcfef9b58b667fad05}{Item.\+Item\+Type}}?$>$ Player\+Inventory.\+Carried\+Special\+Changed}
+
+\Hypertarget{class_player_inventory_ab911bb8d7830fe9675b8c8acfa960ef6}\index{PlayerInventory@{PlayerInventory}!Changed@{Changed}}
+\index{Changed@{Changed}!PlayerInventory@{PlayerInventory}}
+\doxysubsubsection{\texorpdfstring{Changed}{Changed}}
+{\footnotesize\ttfamily \label{class_player_inventory_ab911bb8d7830fe9675b8c8acfa960ef6} 
+Action$<$\mbox{\hyperlink{struct_player_inventory_1_1_snapshot}{Snapshot}}$>$ Player\+Inventory.\+Changed}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+Player/\+Inventory/\mbox{\hyperlink{_player_inventory_8cs}{Player\+Inventory.\+cs}}\end{DoxyCompactItemize}

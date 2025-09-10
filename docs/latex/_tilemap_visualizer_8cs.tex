@@ -1,0 +1,18 @@
+\doxysection{Assets/\+Scripts/\+Dungeon/\+Rendering/\+Tilemap\+Visualizer.cs File Reference}
+\hypertarget{_tilemap_visualizer_8cs}{}\label{_tilemap_visualizer_8cs}\index{Assets/Scripts/Dungeon/Rendering/TilemapVisualizer.cs@{Assets/Scripts/Dungeon/Rendering/TilemapVisualizer.cs}}
+
+
+Renders \doxylink{class_dungeon_grid}{Dungeon\+Grid} kinds onto Tilemaps.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_tilemap_visualizer}{Tilemap\+Visualizer}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Renders \doxylink{class_dungeon_grid}{Dungeon\+Grid} kinds onto Tilemaps. 
+
+Responsibilities\+: Convert grid kinds into ground/wall tiles via \doxylink{class_kind_tile___d_b}{Kind\+Tile\+\_\+\+DB}. Procedurally paint carpets using a mask. Provide helpers for converting between grid/tile/world coordinates. Respect prefab skip masks and bounds (so seeded rooms render correctly). 

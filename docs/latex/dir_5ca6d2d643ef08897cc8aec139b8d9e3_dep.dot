@@ -1,0 +1,12 @@
+digraph "Assets/Scripts/Sound"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  compound=true
+  subgraph clusterdir_f13b41af88cf68434578284aaf699e39 {
+    graph [ bgcolor="#edf0f7", pencolor="grey50", label="Scripts", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_f13b41af88cf68434578284aaf699e39.html",tooltip=""]
+  dir_5ca6d2d643ef08897cc8aec139b8d9e3 [label="Sound", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_5ca6d2d643ef08897cc8aec139b8d9e3.html",tooltip=""];
+  }
+}

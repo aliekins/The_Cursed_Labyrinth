@@ -1,0 +1,124 @@
+\doxysection{Dungeon\+Map\+Index Class Reference}
+\hypertarget{class_dungeon_map_index}{}\label{class_dungeon_map_index}\index{DungeonMapIndex@{DungeonMapIndex}}
+
+
+Shared container with per room indices and quick cell lookups.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_dungeon_map_index_1_1_room_index}{Room\+Index}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_dungeon_map_index_1_1_room_index}{Room\+Index}} \mbox{\hyperlink{class_dungeon_map_index_a77c4e8cf63488e3c3ddbf3a768f9673b}{Get\+Or\+Create\+Room\+Index}} (\mbox{\hyperlink{class_room}{Room}} r)
+\item 
+void \mbox{\hyperlink{class_dungeon_map_index_aa91a126296f7cac3747b6bd0d99325ca}{Set\+Cell\+Room}} (Vector2\+Int cell, int room\+Id)
+\item 
+void \mbox{\hyperlink{class_dungeon_map_index_aab116e62c06943961df41a29e59f146c}{Add\+Entrance}} (Vector2\+Int cell, int room\+Id)
+\item 
+void \mbox{\hyperlink{class_dungeon_map_index_a457bc27e92d25786c2aa9d5021dc0463}{Add\+Interior}} (Vector2\+Int cell, int room\+Id)
+\item 
+void \mbox{\hyperlink{class_dungeon_map_index_afecf6362327b4d7b24079e5b272ef324}{Add\+Corridor}} (Vector2\+Int cell)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Dictionary$<$ int, \mbox{\hyperlink{class_dungeon_map_index_1_1_room_index}{Room\+Index}} $>$ \mbox{\hyperlink{class_dungeon_map_index_a0030f0092fc144eff9132e92ae5ddfab}{Rooms}} = new Dictionary$<$int, \mbox{\hyperlink{class_dungeon_map_index_1_1_room_index}{Room\+Index}}$>$()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Map from room id to index info. \end{DoxyCompactList}\item 
+Dictionary$<$ Vector2\+Int, int $>$ \mbox{\hyperlink{class_dungeon_map_index_adadd93a0e51f50318b56baa67e594a7a}{Cell\+To\+Room}} = new Dictionary$<$Vector2\+Int, int$>$()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Quick lookup\+: which room id (or -\/1) a given cell belongs to. \end{DoxyCompactList}\item 
+Hash\+Set$<$ Vector2\+Int $>$ \mbox{\hyperlink{class_dungeon_map_index_ace699cf093fcb25073c3c343fbdf93f6}{Corridor\+Cells}} = new Hash\+Set$<$Vector2\+Int$>$()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Corridor cells across the map (optional but useful for placement) \end{DoxyCompactList}\item 
+Hash\+Set$<$ Vector2\+Int $>$ \mbox{\hyperlink{class_dungeon_map_index_a3b290a319adcf262a6ecb7cd431cb94a}{Entrance\+Cells}} = new Hash\+Set$<$Vector2\+Int$>$()\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Entrance cells (doors) across the map. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Shared container with per room indices and quick cell lookups. 
+
+\label{doc-func-members}
+\Hypertarget{class_dungeon_map_index_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_dungeon_map_index_afecf6362327b4d7b24079e5b272ef324}\index{DungeonMapIndex@{DungeonMapIndex}!AddCorridor@{AddCorridor}}
+\index{AddCorridor@{AddCorridor}!DungeonMapIndex@{DungeonMapIndex}}
+\doxysubsubsection{\texorpdfstring{AddCorridor()}{AddCorridor()}}
+{\footnotesize\ttfamily \label{class_dungeon_map_index_afecf6362327b4d7b24079e5b272ef324} 
+void Dungeon\+Map\+Index.\+Add\+Corridor (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{cell}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_dungeon_map_index_aab116e62c06943961df41a29e59f146c}\index{DungeonMapIndex@{DungeonMapIndex}!AddEntrance@{AddEntrance}}
+\index{AddEntrance@{AddEntrance}!DungeonMapIndex@{DungeonMapIndex}}
+\doxysubsubsection{\texorpdfstring{AddEntrance()}{AddEntrance()}}
+{\footnotesize\ttfamily \label{class_dungeon_map_index_aab116e62c06943961df41a29e59f146c} 
+void Dungeon\+Map\+Index.\+Add\+Entrance (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{cell}{, }\item[{int}]{room\+Id}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_dungeon_map_index_a457bc27e92d25786c2aa9d5021dc0463}\index{DungeonMapIndex@{DungeonMapIndex}!AddInterior@{AddInterior}}
+\index{AddInterior@{AddInterior}!DungeonMapIndex@{DungeonMapIndex}}
+\doxysubsubsection{\texorpdfstring{AddInterior()}{AddInterior()}}
+{\footnotesize\ttfamily \label{class_dungeon_map_index_a457bc27e92d25786c2aa9d5021dc0463} 
+void Dungeon\+Map\+Index.\+Add\+Interior (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{cell}{, }\item[{int}]{room\+Id}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_dungeon_map_index_a77c4e8cf63488e3c3ddbf3a768f9673b}\index{DungeonMapIndex@{DungeonMapIndex}!GetOrCreateRoomIndex@{GetOrCreateRoomIndex}}
+\index{GetOrCreateRoomIndex@{GetOrCreateRoomIndex}!DungeonMapIndex@{DungeonMapIndex}}
+\doxysubsubsection{\texorpdfstring{GetOrCreateRoomIndex()}{GetOrCreateRoomIndex()}}
+{\footnotesize\ttfamily \label{class_dungeon_map_index_a77c4e8cf63488e3c3ddbf3a768f9673b} 
+\mbox{\hyperlink{class_dungeon_map_index_1_1_room_index}{Room\+Index}} Dungeon\+Map\+Index.\+Get\+Or\+Create\+Room\+Index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_room}{Room}}}]{r}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_dungeon_map_index_aa91a126296f7cac3747b6bd0d99325ca}\index{DungeonMapIndex@{DungeonMapIndex}!SetCellRoom@{SetCellRoom}}
+\index{SetCellRoom@{SetCellRoom}!DungeonMapIndex@{DungeonMapIndex}}
+\doxysubsubsection{\texorpdfstring{SetCellRoom()}{SetCellRoom()}}
+{\footnotesize\ttfamily \label{class_dungeon_map_index_aa91a126296f7cac3747b6bd0d99325ca} 
+void Dungeon\+Map\+Index.\+Set\+Cell\+Room (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{cell}{, }\item[{int}]{room\+Id}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_dungeon_map_index_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_dungeon_map_index_adadd93a0e51f50318b56baa67e594a7a}\index{DungeonMapIndex@{DungeonMapIndex}!CellToRoom@{CellToRoom}}
+\index{CellToRoom@{CellToRoom}!DungeonMapIndex@{DungeonMapIndex}}
+\doxysubsubsection{\texorpdfstring{CellToRoom}{CellToRoom}}
+{\footnotesize\ttfamily \label{class_dungeon_map_index_adadd93a0e51f50318b56baa67e594a7a} 
+Dictionary$<$Vector2\+Int, int$>$ Dungeon\+Map\+Index.\+Cell\+To\+Room = new Dictionary$<$Vector2\+Int, int$>$()\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Quick lookup\+: which room id (or -\/1) a given cell belongs to. 
+
+\Hypertarget{class_dungeon_map_index_ace699cf093fcb25073c3c343fbdf93f6}\index{DungeonMapIndex@{DungeonMapIndex}!CorridorCells@{CorridorCells}}
+\index{CorridorCells@{CorridorCells}!DungeonMapIndex@{DungeonMapIndex}}
+\doxysubsubsection{\texorpdfstring{CorridorCells}{CorridorCells}}
+{\footnotesize\ttfamily \label{class_dungeon_map_index_ace699cf093fcb25073c3c343fbdf93f6} 
+Hash\+Set$<$Vector2\+Int$>$ Dungeon\+Map\+Index.\+Corridor\+Cells = new Hash\+Set$<$Vector2\+Int$>$()\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Corridor cells across the map (optional but useful for placement) 
+
+\Hypertarget{class_dungeon_map_index_a3b290a319adcf262a6ecb7cd431cb94a}\index{DungeonMapIndex@{DungeonMapIndex}!EntranceCells@{EntranceCells}}
+\index{EntranceCells@{EntranceCells}!DungeonMapIndex@{DungeonMapIndex}}
+\doxysubsubsection{\texorpdfstring{EntranceCells}{EntranceCells}}
+{\footnotesize\ttfamily \label{class_dungeon_map_index_a3b290a319adcf262a6ecb7cd431cb94a} 
+Hash\+Set$<$Vector2\+Int$>$ Dungeon\+Map\+Index.\+Entrance\+Cells = new Hash\+Set$<$Vector2\+Int$>$()\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Entrance cells (doors) across the map. 
+
+\Hypertarget{class_dungeon_map_index_a0030f0092fc144eff9132e92ae5ddfab}\index{DungeonMapIndex@{DungeonMapIndex}!Rooms@{Rooms}}
+\index{Rooms@{Rooms}!DungeonMapIndex@{DungeonMapIndex}}
+\doxysubsubsection{\texorpdfstring{Rooms}{Rooms}}
+{\footnotesize\ttfamily \label{class_dungeon_map_index_a0030f0092fc144eff9132e92ae5ddfab} 
+Dictionary$<$int, \mbox{\hyperlink{class_dungeon_map_index_1_1_room_index}{Room\+Index}}$>$ Dungeon\+Map\+Index.\+Rooms = new Dictionary$<$int, \mbox{\hyperlink{class_dungeon_map_index_1_1_room_index}{Room\+Index}}$>$()\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Map from room id to index info. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+Dungeon/\+Grid\+And\+Indexing/\mbox{\hyperlink{_dungeon_map_index_8cs}{Dungeon\+Map\+Index.\+cs}}\end{DoxyCompactItemize}

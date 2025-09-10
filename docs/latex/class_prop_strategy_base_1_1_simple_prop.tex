@@ -1,0 +1,254 @@
+\doxysection{Prop\+Strategy\+Base.\+Simple\+Prop Class Reference}
+\hypertarget{class_prop_strategy_base_1_1_simple_prop}{}\label{class_prop_strategy_base_1_1_simple_prop}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+
+
+Minimal prop definition for a single placement rule.  
+
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902}{Collider\+Mode}} \{ \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a6adf97f83acf6453d4a6a4b1070f3754}{None}}
+, \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a3cfce651e667ab85486dd42a8185f98a}{Box}}
+, \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a30954d90085f6eaaf5817917fc5fecb3}{Circle}}
+, \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a4880c0f12c06dd6d142e7a40b041bf1a}{Capsule}}
+ \}
+\item 
+enum \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1}{Wall\+Filter}} \{ \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1aed36a1ef76a59ee3f15180e0441188ad}{Any}}
+, \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1a511382daba1a0395e295cb3b8b7b4806}{Top\+Only}}
+, \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1a4a0d10ecfce32bc48d1f9e821e42f404}{Not\+Top}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Sprite \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a39a8975b0a6702e941b9f51b26c3240a}{sprite}}
+\item 
+Game\+Object \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_abce790026114ad897fd883dc6175f8a6}{prefab}}
+\item 
+float \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a4012d27e9df1234207cd99b9d899abe6}{chance}} = 0.\+85f
+\item 
+int \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a215aa46910b03720a04ad9c32ec44e7a}{min}} = 1
+\item 
+int \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_af5f727c8cf89d5baf56651fdc8d2735e}{max}} = 2
+\item 
+int \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a86efa6d27b977871fc3b465ce0284d2c}{separation}} = 1
+\item 
+\mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902}{Collider\+Mode}} \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_af5080f55c80158c4c065184df46c9b95}{collider\+Mode}} = \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a6adf97f83acf6453d4a6a4b1070f3754}{Collider\+Mode.\+None}}
+\item 
+bool \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a4ac0b4e5042a865ca3ae1a0f8d1438ba}{collider\+Is\+Trigger}} = false
+\item 
+Vector2 \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a213ef977c2abb367d4cf6a772d5a3936}{collider\+Size\+Scale}} = new Vector2(0.\+9f, 0.\+9f)
+\item 
+Vector2 \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_ab6587076b9bad0cb4c02921d7e8aaa4a}{collider\+Offset}} = Vector2.\+zero
+\item 
+\mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1}{Wall\+Filter}} \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_accebb5e70bf2ba8df486b0d4c5859eb9}{wall\+Filter}} = \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1aed36a1ef76a59ee3f15180e0441188ad}{Wall\+Filter.\+Any}}
+\item 
+bool \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_aebb0d125c119d76adb218d5fff348049}{breakable}} = false
+\item 
+Audio\+Clip \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a92feaf88cf07d1eb3d931d52c55b1b75}{break\+Sfx}}
+\item 
+float \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_aaf4e0ac862e13b965f7245a8bb9f87ee}{break\+Sfx\+Volume}} = 1f
+\item 
+Game\+Object \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a95692b699ec8dfad9a412fda9fcf23e1}{break\+Vfx\+Prefab}}
+\item 
+bool \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a8365d417e44b19f65833a1427d959005}{holds\+Potions}} = false
+\item 
+bool \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a5f6ddff436585fcba20307ae16128c62}{holds\+Swords}} = false
+\item 
+bool \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_ababeeffd739d5b9f2893d2670643173e}{holds\+Books}} = false
+\item 
+bool \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a34cb4b959175fa48b9aaf24e964842ea}{holds\+Skull}} = false
+\item 
+bool \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a8cdafba1a604b12a0c8052aff1f905d7}{holds\+Heart}} = false
+\item 
+bool \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_ad992d467a0b72bf6161674c65b631eb5}{holds\+Crown}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Minimal prop definition for a single placement rule. 
+
+\label{doc-enum-members}
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!ColliderMode@{ColliderMode}}
+\index{ColliderMode@{ColliderMode}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{ColliderMode}{ColliderMode}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902} 
+enum \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902}{Prop\+Strategy\+Base.\+Simple\+Prop.\+Collider\+Mode}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{None@{None}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!None@{None}}}\Hypertarget{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a6adf97f83acf6453d4a6a4b1070f3754}\label{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a6adf97f83acf6453d4a6a4b1070f3754} 
+None&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Box@{Box}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!Box@{Box}}}\Hypertarget{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a3cfce651e667ab85486dd42a8185f98a}\label{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a3cfce651e667ab85486dd42a8185f98a} 
+Box&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Circle@{Circle}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!Circle@{Circle}}}\Hypertarget{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a30954d90085f6eaaf5817917fc5fecb3}\label{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a30954d90085f6eaaf5817917fc5fecb3} 
+Circle&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Capsule@{Capsule}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!Capsule@{Capsule}}}\Hypertarget{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a4880c0f12c06dd6d142e7a40b041bf1a}\label{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a4880c0f12c06dd6d142e7a40b041bf1a} 
+Capsule&\\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!WallFilter@{WallFilter}}
+\index{WallFilter@{WallFilter}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{WallFilter}{WallFilter}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1} 
+enum \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1}{Prop\+Strategy\+Base.\+Simple\+Prop.\+Wall\+Filter}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Any@{Any}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!Any@{Any}}}\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1aed36a1ef76a59ee3f15180e0441188ad}\label{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1aed36a1ef76a59ee3f15180e0441188ad} 
+Any&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TopOnly@{TopOnly}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!TopOnly@{TopOnly}}}\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1a511382daba1a0395e295cb3b8b7b4806}\label{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1a511382daba1a0395e295cb3b8b7b4806} 
+Top\+Only&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NotTop@{NotTop}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!NotTop@{NotTop}}}\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1a4a0d10ecfce32bc48d1f9e821e42f404}\label{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1a4a0d10ecfce32bc48d1f9e821e42f404} 
+Not\+Top&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-variable-members}
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_aebb0d125c119d76adb218d5fff348049}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!breakable@{breakable}}
+\index{breakable@{breakable}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{breakable}{breakable}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_aebb0d125c119d76adb218d5fff348049} 
+bool Prop\+Strategy\+Base.\+Simple\+Prop.\+breakable = false}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a92feaf88cf07d1eb3d931d52c55b1b75}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!breakSfx@{breakSfx}}
+\index{breakSfx@{breakSfx}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{breakSfx}{breakSfx}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a92feaf88cf07d1eb3d931d52c55b1b75} 
+Audio\+Clip Prop\+Strategy\+Base.\+Simple\+Prop.\+break\+Sfx}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_aaf4e0ac862e13b965f7245a8bb9f87ee}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!breakSfxVolume@{breakSfxVolume}}
+\index{breakSfxVolume@{breakSfxVolume}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{breakSfxVolume}{breakSfxVolume}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_aaf4e0ac862e13b965f7245a8bb9f87ee} 
+float Prop\+Strategy\+Base.\+Simple\+Prop.\+break\+Sfx\+Volume = 1f}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a95692b699ec8dfad9a412fda9fcf23e1}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!breakVfxPrefab@{breakVfxPrefab}}
+\index{breakVfxPrefab@{breakVfxPrefab}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{breakVfxPrefab}{breakVfxPrefab}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a95692b699ec8dfad9a412fda9fcf23e1} 
+Game\+Object Prop\+Strategy\+Base.\+Simple\+Prop.\+break\+Vfx\+Prefab}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a4012d27e9df1234207cd99b9d899abe6}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!chance@{chance}}
+\index{chance@{chance}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{chance}{chance}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a4012d27e9df1234207cd99b9d899abe6} 
+float Prop\+Strategy\+Base.\+Simple\+Prop.\+chance = 0.\+85f}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a4ac0b4e5042a865ca3ae1a0f8d1438ba}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!colliderIsTrigger@{colliderIsTrigger}}
+\index{colliderIsTrigger@{colliderIsTrigger}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{colliderIsTrigger}{colliderIsTrigger}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a4ac0b4e5042a865ca3ae1a0f8d1438ba} 
+bool Prop\+Strategy\+Base.\+Simple\+Prop.\+collider\+Is\+Trigger = false}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_af5080f55c80158c4c065184df46c9b95}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!colliderMode@{colliderMode}}
+\index{colliderMode@{colliderMode}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{colliderMode}{colliderMode}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_af5080f55c80158c4c065184df46c9b95} 
+\mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902}{Collider\+Mode}} Prop\+Strategy\+Base.\+Simple\+Prop.\+collider\+Mode = \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_afa360813950e9c4b9ed1a04f8285f902a6adf97f83acf6453d4a6a4b1070f3754}{Collider\+Mode.\+None}}}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_ab6587076b9bad0cb4c02921d7e8aaa4a}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!colliderOffset@{colliderOffset}}
+\index{colliderOffset@{colliderOffset}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{colliderOffset}{colliderOffset}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_ab6587076b9bad0cb4c02921d7e8aaa4a} 
+Vector2 Prop\+Strategy\+Base.\+Simple\+Prop.\+collider\+Offset = Vector2.\+zero}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a213ef977c2abb367d4cf6a772d5a3936}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!colliderSizeScale@{colliderSizeScale}}
+\index{colliderSizeScale@{colliderSizeScale}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{colliderSizeScale}{colliderSizeScale}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a213ef977c2abb367d4cf6a772d5a3936} 
+Vector2 Prop\+Strategy\+Base.\+Simple\+Prop.\+collider\+Size\+Scale = new Vector2(0.\+9f, 0.\+9f)}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_ababeeffd739d5b9f2893d2670643173e}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!holdsBooks@{holdsBooks}}
+\index{holdsBooks@{holdsBooks}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{holdsBooks}{holdsBooks}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_ababeeffd739d5b9f2893d2670643173e} 
+bool Prop\+Strategy\+Base.\+Simple\+Prop.\+holds\+Books = false}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_ad992d467a0b72bf6161674c65b631eb5}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!holdsCrown@{holdsCrown}}
+\index{holdsCrown@{holdsCrown}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{holdsCrown}{holdsCrown}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_ad992d467a0b72bf6161674c65b631eb5} 
+bool Prop\+Strategy\+Base.\+Simple\+Prop.\+holds\+Crown = false}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a8cdafba1a604b12a0c8052aff1f905d7}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!holdsHeart@{holdsHeart}}
+\index{holdsHeart@{holdsHeart}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{holdsHeart}{holdsHeart}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a8cdafba1a604b12a0c8052aff1f905d7} 
+bool Prop\+Strategy\+Base.\+Simple\+Prop.\+holds\+Heart = false}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a8365d417e44b19f65833a1427d959005}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!holdsPotions@{holdsPotions}}
+\index{holdsPotions@{holdsPotions}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{holdsPotions}{holdsPotions}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a8365d417e44b19f65833a1427d959005} 
+bool Prop\+Strategy\+Base.\+Simple\+Prop.\+holds\+Potions = false}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a34cb4b959175fa48b9aaf24e964842ea}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!holdsSkull@{holdsSkull}}
+\index{holdsSkull@{holdsSkull}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{holdsSkull}{holdsSkull}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a34cb4b959175fa48b9aaf24e964842ea} 
+bool Prop\+Strategy\+Base.\+Simple\+Prop.\+holds\+Skull = false}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a5f6ddff436585fcba20307ae16128c62}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!holdsSwords@{holdsSwords}}
+\index{holdsSwords@{holdsSwords}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{holdsSwords}{holdsSwords}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a5f6ddff436585fcba20307ae16128c62} 
+bool Prop\+Strategy\+Base.\+Simple\+Prop.\+holds\+Swords = false}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_af5f727c8cf89d5baf56651fdc8d2735e}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!max@{max}}
+\index{max@{max}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{max}{max}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_af5f727c8cf89d5baf56651fdc8d2735e} 
+int Prop\+Strategy\+Base.\+Simple\+Prop.\+max = 2}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a215aa46910b03720a04ad9c32ec44e7a}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!min@{min}}
+\index{min@{min}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{min}{min}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a215aa46910b03720a04ad9c32ec44e7a} 
+int Prop\+Strategy\+Base.\+Simple\+Prop.\+min = 1}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_abce790026114ad897fd883dc6175f8a6}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!prefab@{prefab}}
+\index{prefab@{prefab}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{prefab}{prefab}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_abce790026114ad897fd883dc6175f8a6} 
+Game\+Object Prop\+Strategy\+Base.\+Simple\+Prop.\+prefab}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a86efa6d27b977871fc3b465ce0284d2c}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!separation@{separation}}
+\index{separation@{separation}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{separation}{separation}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a86efa6d27b977871fc3b465ce0284d2c} 
+int Prop\+Strategy\+Base.\+Simple\+Prop.\+separation = 1}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_a39a8975b0a6702e941b9f51b26c3240a}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!sprite@{sprite}}
+\index{sprite@{sprite}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{sprite}{sprite}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_a39a8975b0a6702e941b9f51b26c3240a} 
+Sprite Prop\+Strategy\+Base.\+Simple\+Prop.\+sprite}
+
+\Hypertarget{class_prop_strategy_base_1_1_simple_prop_accebb5e70bf2ba8df486b0d4c5859eb9}\index{PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}!wallFilter@{wallFilter}}
+\index{wallFilter@{wallFilter}!PropStrategyBase.SimpleProp@{PropStrategyBase.SimpleProp}}
+\doxysubsubsection{\texorpdfstring{wallFilter}{wallFilter}}
+{\footnotesize\ttfamily \label{class_prop_strategy_base_1_1_simple_prop_accebb5e70bf2ba8df486b0d4c5859eb9} 
+\mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1}{Wall\+Filter}} Prop\+Strategy\+Base.\+Simple\+Prop.\+wall\+Filter = \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop_a27ebb0b66873bcf6c65184dcf9fde7e1aed36a1ef76a59ee3f15180e0441188ad}{Wall\+Filter.\+Any}}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+Dungeon/\+Objects\+In\+Dungeon/\+Prop\+Utils/\+Strategies/\mbox{\hyperlink{_prop_strategy_base_8cs}{Prop\+Strategy\+Base.\+cs}}\end{DoxyCompactItemize}

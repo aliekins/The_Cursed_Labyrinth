@@ -1,0 +1,151 @@
+\doxysection{Tilemap\+Visualizer Class Reference}
+\hypertarget{class_tilemap_visualizer}{}\label{class_tilemap_visualizer}\index{TilemapVisualizer@{TilemapVisualizer}}
+
+
+Inheritance diagram for Tilemap\+Visualizer\+:
+% FIG 0
+
+
+Collaboration diagram for Tilemap\+Visualizer\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_tilemap_visualizer_abbd963d0b6080348047f45ecaa59c965}{Set\+Prefab\+Skip\+Mask}} (bool\mbox{[},\mbox{]} mask)
+\item 
+bool \mbox{\hyperlink{class_tilemap_visualizer_a917141d226eb3bd1275ccbc0a4af7e6b}{Try\+Get\+Tile\+For\+Kind}} (string kind, out Tile\+Base tile)
+\item 
+void \mbox{\hyperlink{class_tilemap_visualizer_aaef6faa1ab1355217fe9f564e8b5fa72}{Set\+Prefab\+Bounds}} (Rect\+Int bounds\+Grid)
+\item 
+void \mbox{\hyperlink{class_tilemap_visualizer_a0bfb0d9f54056ddecf02216aaed3e9de}{Clear}} ()
+\item 
+void \mbox{\hyperlink{class_tilemap_visualizer_a2dfaa71e114e8fa0d9f149aba5887702}{Render}} (\mbox{\hyperlink{class_dungeon_grid}{Dungeon\+Grid}} grid)
+\item 
+Vector3 \mbox{\hyperlink{class_tilemap_visualizer_ae08b3fd5cf02fccbe23fb37a91c1f711}{Cell\+Center\+Local}} (int x, int y)
+\item 
+Vector3 \mbox{\hyperlink{class_tilemap_visualizer_a2a3c3acef1215f81a761e167a04f0de0}{Cell\+Center\+World}} (int x, int y)
+\item 
+void \mbox{\hyperlink{class_tilemap_visualizer_a7089b9da058b9d451355a1dcb77cdad6}{Set\+Cell\+Offset}} (Vector2\+Int off)
+\item 
+Vector2\+Int \mbox{\hyperlink{class_tilemap_visualizer_a16805c4048ce862098bf77018a0529b9}{Tile\+To\+Grid\+Cell}} (Vector3\+Int tile\+Cell)
+\item 
+void \mbox{\hyperlink{class_tilemap_visualizer_a31a6e5fc88ac4afed17e78c24f02301c}{Invalidate\+Carpet\+Mask}} ()
+\begin{DoxyCompactList}\small\item\em Force the next \doxylink{class_tilemap_visualizer_a2dfaa71e114e8fa0d9f149aba5887702}{Render()} to rebuild the carpet mask. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tilemap_visualizer_aea11c1894554e4f992a61b06df5bb9f2}{Set\+Carpet\+Mask}} (bool\mbox{[},\mbox{]} mask)
+\begin{DoxyCompactList}\small\item\em Supply an external carpet mask (must match grid size). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Transform \mbox{\hyperlink{class_tilemap_visualizer_a88a79c8d88ab486852bd88a221dc7ced}{Grid\+Transform}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+bool\mbox{[},\mbox{]} \mbox{\hyperlink{class_tilemap_visualizer_aeebab5260cdbe5250d4d23dff2aacf67}{Carpet\+Mask}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+float \mbox{\hyperlink{class_tilemap_visualizer_a0c9d86d359a7c552e8edc7bcf21604b5}{Cell\+Size}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_tilemap_visualizer_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_tilemap_visualizer_ae08b3fd5cf02fccbe23fb37a91c1f711}\index{TilemapVisualizer@{TilemapVisualizer}!CellCenterLocal@{CellCenterLocal}}
+\index{CellCenterLocal@{CellCenterLocal}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{CellCenterLocal()}{CellCenterLocal()}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_ae08b3fd5cf02fccbe23fb37a91c1f711} 
+Vector3 Tilemap\+Visualizer.\+Cell\+Center\+Local (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_tilemap_visualizer_a2a3c3acef1215f81a761e167a04f0de0}\index{TilemapVisualizer@{TilemapVisualizer}!CellCenterWorld@{CellCenterWorld}}
+\index{CellCenterWorld@{CellCenterWorld}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{CellCenterWorld()}{CellCenterWorld()}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_a2a3c3acef1215f81a761e167a04f0de0} 
+Vector3 Tilemap\+Visualizer.\+Cell\+Center\+World (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_tilemap_visualizer_a0bfb0d9f54056ddecf02216aaed3e9de}\index{TilemapVisualizer@{TilemapVisualizer}!Clear@{Clear}}
+\index{Clear@{Clear}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_a0bfb0d9f54056ddecf02216aaed3e9de} 
+void Tilemap\+Visualizer.\+Clear (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_tilemap_visualizer_a31a6e5fc88ac4afed17e78c24f02301c}\index{TilemapVisualizer@{TilemapVisualizer}!InvalidateCarpetMask@{InvalidateCarpetMask}}
+\index{InvalidateCarpetMask@{InvalidateCarpetMask}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{InvalidateCarpetMask()}{InvalidateCarpetMask()}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_a31a6e5fc88ac4afed17e78c24f02301c} 
+void Tilemap\+Visualizer.\+Invalidate\+Carpet\+Mask (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Force the next \doxylink{class_tilemap_visualizer_a2dfaa71e114e8fa0d9f149aba5887702}{Render()} to rebuild the carpet mask. 
+
+\Hypertarget{class_tilemap_visualizer_a2dfaa71e114e8fa0d9f149aba5887702}\index{TilemapVisualizer@{TilemapVisualizer}!Render@{Render}}
+\index{Render@{Render}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{Render()}{Render()}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_a2dfaa71e114e8fa0d9f149aba5887702} 
+void Tilemap\+Visualizer.\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_dungeon_grid}{Dungeon\+Grid}}}]{grid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_tilemap_visualizer_aea11c1894554e4f992a61b06df5bb9f2}\index{TilemapVisualizer@{TilemapVisualizer}!SetCarpetMask@{SetCarpetMask}}
+\index{SetCarpetMask@{SetCarpetMask}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{SetCarpetMask()}{SetCarpetMask()}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_aea11c1894554e4f992a61b06df5bb9f2} 
+void Tilemap\+Visualizer.\+Set\+Carpet\+Mask (\begin{DoxyParamCaption}\item[{bool}]{mask}{\mbox{[},\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Supply an external carpet mask (must match grid size). 
+
+\Hypertarget{class_tilemap_visualizer_a7089b9da058b9d451355a1dcb77cdad6}\index{TilemapVisualizer@{TilemapVisualizer}!SetCellOffset@{SetCellOffset}}
+\index{SetCellOffset@{SetCellOffset}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{SetCellOffset()}{SetCellOffset()}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_a7089b9da058b9d451355a1dcb77cdad6} 
+void Tilemap\+Visualizer.\+Set\+Cell\+Offset (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{off}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_tilemap_visualizer_aaef6faa1ab1355217fe9f564e8b5fa72}\index{TilemapVisualizer@{TilemapVisualizer}!SetPrefabBounds@{SetPrefabBounds}}
+\index{SetPrefabBounds@{SetPrefabBounds}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{SetPrefabBounds()}{SetPrefabBounds()}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_aaef6faa1ab1355217fe9f564e8b5fa72} 
+void Tilemap\+Visualizer.\+Set\+Prefab\+Bounds (\begin{DoxyParamCaption}\item[{Rect\+Int}]{bounds\+Grid}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_tilemap_visualizer_abbd963d0b6080348047f45ecaa59c965}\index{TilemapVisualizer@{TilemapVisualizer}!SetPrefabSkipMask@{SetPrefabSkipMask}}
+\index{SetPrefabSkipMask@{SetPrefabSkipMask}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{SetPrefabSkipMask()}{SetPrefabSkipMask()}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_abbd963d0b6080348047f45ecaa59c965} 
+void Tilemap\+Visualizer.\+Set\+Prefab\+Skip\+Mask (\begin{DoxyParamCaption}\item[{bool}]{mask}{\mbox{[},\mbox{]}}\end{DoxyParamCaption})}
+
+\Hypertarget{class_tilemap_visualizer_a16805c4048ce862098bf77018a0529b9}\index{TilemapVisualizer@{TilemapVisualizer}!TileToGridCell@{TileToGridCell}}
+\index{TileToGridCell@{TileToGridCell}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{TileToGridCell()}{TileToGridCell()}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_a16805c4048ce862098bf77018a0529b9} 
+Vector2\+Int Tilemap\+Visualizer.\+Tile\+To\+Grid\+Cell (\begin{DoxyParamCaption}\item[{Vector3\+Int}]{tile\+Cell}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_tilemap_visualizer_a917141d226eb3bd1275ccbc0a4af7e6b}\index{TilemapVisualizer@{TilemapVisualizer}!TryGetTileForKind@{TryGetTileForKind}}
+\index{TryGetTileForKind@{TryGetTileForKind}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{TryGetTileForKind()}{TryGetTileForKind()}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_a917141d226eb3bd1275ccbc0a4af7e6b} 
+bool Tilemap\+Visualizer.\+Try\+Get\+Tile\+For\+Kind (\begin{DoxyParamCaption}\item[{string}]{kind}{, }\item[{out Tile\+Base}]{tile}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_tilemap_visualizer_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_tilemap_visualizer_aeebab5260cdbe5250d4d23dff2aacf67}\index{TilemapVisualizer@{TilemapVisualizer}!CarpetMask@{CarpetMask}}
+\index{CarpetMask@{CarpetMask}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{CarpetMask}{CarpetMask}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_aeebab5260cdbe5250d4d23dff2aacf67} 
+bool \mbox{[},\mbox{]} Tilemap\+Visualizer.\+Carpet\+Mask\hspace{0.3cm}{\ttfamily [get]}}
+
+\Hypertarget{class_tilemap_visualizer_a0c9d86d359a7c552e8edc7bcf21604b5}\index{TilemapVisualizer@{TilemapVisualizer}!CellSize@{CellSize}}
+\index{CellSize@{CellSize}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{CellSize}{CellSize}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_a0c9d86d359a7c552e8edc7bcf21604b5} 
+float Tilemap\+Visualizer.\+Cell\+Size\hspace{0.3cm}{\ttfamily [get]}}
+
+\Hypertarget{class_tilemap_visualizer_a88a79c8d88ab486852bd88a221dc7ced}\index{TilemapVisualizer@{TilemapVisualizer}!GridTransform@{GridTransform}}
+\index{GridTransform@{GridTransform}!TilemapVisualizer@{TilemapVisualizer}}
+\doxysubsubsection{\texorpdfstring{GridTransform}{GridTransform}}
+{\footnotesize\ttfamily \label{class_tilemap_visualizer_a88a79c8d88ab486852bd88a221dc7ced} 
+Transform Tilemap\+Visualizer.\+Grid\+Transform\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+Dungeon/\+Rendering/\mbox{\hyperlink{_tilemap_visualizer_8cs}{Tilemap\+Visualizer.\+cs}}\end{DoxyCompactItemize}

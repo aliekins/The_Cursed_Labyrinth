@@ -1,0 +1,72 @@
+\doxysection{Wall\+Strategy Class Reference}
+\hypertarget{class_wall_strategy}{}\label{class_wall_strategy}\index{WallStrategy@{WallStrategy}}
+
+
+Inheritance diagram for Wall\+Strategy\+:
+% FIG 0
+
+
+Collaboration diagram for Wall\+Strategy\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override List$<$ Vector2\+Int $>$ \mbox{\hyperlink{class_wall_strategy_ab3a1bc88307529c61ddcc8a30d78009c}{Order\+Candidates}} (\mbox{\hyperlink{class_room}{Room}} room, List$<$ Vector2\+Int $>$ candidates, System.\+Random rng)
+\item 
+override List$<$ Vector2\+Int $>$ \mbox{\hyperlink{class_wall_strategy_a2cd9cd063d7b9a376dc9197819de1770}{Filter\+Candidates\+For\+Rule}} (\mbox{\hyperlink{class_room}{Room}} room, List$<$ Vector2\+Int $>$ candidates, \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop}{Simple\+Prop}} rule)
+\item 
+override \mbox{\hyperlink{struct_placement_mods}{Placement\+Mods}} \mbox{\hyperlink{class_wall_strategy_a81e42e69ff9e27476c5546df7e49409b}{Get\+Placement\+Mods}} (Vector2\+Int cell, \mbox{\hyperlink{class_room}{Room}} room)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{class_prop_strategy_base}{Prop\+Strategy\+Base}}}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop}{Simple\+Prop}} $>$ \mbox{\hyperlink{class_prop_strategy_base_ad0a36ca771faecd052d3a94908dc7346}{rules}} = new()
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties inherited from \mbox{\hyperlink{class_prop_strategy_base}{Prop\+Strategy\+Base}}}
+\begin{DoxyCompactItemize}
+\item 
+IRead\+Only\+List$<$ \mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop}{Simple\+Prop}} $>$ \mbox{\hyperlink{class_prop_strategy_base_aa12acf54709b35099ec334c910e98135}{Rules}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_prop_strategy_base_ae2db3139c713104f7ad980a6ee9ebd0b}{Has\+Rules}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{class_wall_strategy_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_wall_strategy_a2cd9cd063d7b9a376dc9197819de1770}\index{WallStrategy@{WallStrategy}!FilterCandidatesForRule@{FilterCandidatesForRule}}
+\index{FilterCandidatesForRule@{FilterCandidatesForRule}!WallStrategy@{WallStrategy}}
+\doxysubsubsection{\texorpdfstring{FilterCandidatesForRule()}{FilterCandidatesForRule()}}
+{\footnotesize\ttfamily \label{class_wall_strategy_a2cd9cd063d7b9a376dc9197819de1770} 
+override List$<$ Vector2\+Int $>$ Wall\+Strategy.\+Filter\+Candidates\+For\+Rule (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_room}{Room}}}]{room}{, }\item[{List$<$ Vector2\+Int $>$}]{candidates}{, }\item[{\mbox{\hyperlink{class_prop_strategy_base_1_1_simple_prop}{Simple\+Prop}}}]{rule}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_prop_strategy_base_af00c5915150415b8d0a1cc4cba6c1a12}{Prop\+Strategy\+Base}}.
+
+\Hypertarget{class_wall_strategy_a81e42e69ff9e27476c5546df7e49409b}\index{WallStrategy@{WallStrategy}!GetPlacementMods@{GetPlacementMods}}
+\index{GetPlacementMods@{GetPlacementMods}!WallStrategy@{WallStrategy}}
+\doxysubsubsection{\texorpdfstring{GetPlacementMods()}{GetPlacementMods()}}
+{\footnotesize\ttfamily \label{class_wall_strategy_a81e42e69ff9e27476c5546df7e49409b} 
+override \mbox{\hyperlink{struct_placement_mods}{Placement\+Mods}} Wall\+Strategy.\+Get\+Placement\+Mods (\begin{DoxyParamCaption}\item[{Vector2\+Int}]{cell}{, }\item[{\mbox{\hyperlink{class_room}{Room}}}]{room}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_prop_strategy_base_a9255b76afc4a91dc807965659123b172}{Prop\+Strategy\+Base}}.
+
+\Hypertarget{class_wall_strategy_ab3a1bc88307529c61ddcc8a30d78009c}\index{WallStrategy@{WallStrategy}!OrderCandidates@{OrderCandidates}}
+\index{OrderCandidates@{OrderCandidates}!WallStrategy@{WallStrategy}}
+\doxysubsubsection{\texorpdfstring{OrderCandidates()}{OrderCandidates()}}
+{\footnotesize\ttfamily \label{class_wall_strategy_ab3a1bc88307529c61ddcc8a30d78009c} 
+override List$<$ Vector2\+Int $>$ Wall\+Strategy.\+Order\+Candidates (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_room}{Room}}}]{room}{, }\item[{List$<$ Vector2\+Int $>$}]{candidates}{, }\item[{System.\+Random}]{rng}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_prop_strategy_base_ab230430ce580f02abfe42357247796fb}{Prop\+Strategy\+Base}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+Dungeon/\+Objects\+In\+Dungeon/\+Prop\+Utils/\+Strategies/\mbox{\hyperlink{_wall_strategy_8cs}{Wall\+Strategy.\+cs}}\end{DoxyCompactItemize}

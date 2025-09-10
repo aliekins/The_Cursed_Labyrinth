@@ -1,0 +1,144 @@
+\doxysection{Biome\+Sequence\+Controller Class Reference}
+\hypertarget{class_biome_sequence_controller}{}\label{class_biome_sequence_controller}\index{BiomeSequenceController@{BiomeSequenceController}}
+
+
+Listens for "{}special room solved"{} and builds the next biome; keeps simple run snapshots.  
+
+
+
+
+Inheritance diagram for Biome\+Sequence\+Controller\+:
+% FIG 0
+
+
+Collaboration diagram for Biome\+Sequence\+Controller\+:
+% FIG 1
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{class_biome_sequence_controller_1_1_biome_entry}{Biome\+Entry}}
+\begin{DoxyCompactList}\small\item\em A single step in the sequence\+: biome profile + its special-\/room prefab. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_biome_sequence_controller_a7f0b271f6578ab02584cc7407acaf698}{Start\+First\+Biome}} ()
+\begin{DoxyCompactList}\small\item\em Begin the sequence from biome 0. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_biome_sequence_controller_a7a81e37cec957ebb7ee6b6a9a6895b3b}{Try\+Restart\+Current\+Biome}} ()
+\item 
+void \mbox{\hyperlink{class_biome_sequence_controller_a3fa6b6ed0a6a31efb40dc6cdd009904e}{Next\+Biome}} ()
+\begin{DoxyCompactList}\small\item\em Kick off building the next biome. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{class_biome_sequence_controller_1_1_biome_entry}{Biome\+Entry}} $>$ \mbox{\hyperlink{class_biome_sequence_controller_a9a391675e7ba2ba2aeca881ab8d04734}{biomes}} = new List$<$\mbox{\hyperlink{class_biome_sequence_controller_1_1_biome_entry}{Biome\+Entry}}$>$()
+\item 
+\mbox{\hyperlink{class_dungeon_controller}{Dungeon\+Controller}} \mbox{\hyperlink{class_biome_sequence_controller_a3542dfff9dcbcdbb58a773637a992328}{dungeon\+Controller}}
+\item 
+\mbox{\hyperlink{class_special_room_seeder}{Special\+Room\+Seeder}} \mbox{\hyperlink{class_biome_sequence_controller_aab2265709eda9e331998130c31d0803e}{special\+Room\+Seeder}}
+\item 
+\mbox{\hyperlink{class_spawn_selector}{Spawn\+Selector}} \mbox{\hyperlink{class_biome_sequence_controller_a0f163376a41c12f9dbf47988040bc146}{spawn\+Selector}}
+\item 
+\mbox{\hyperlink{class_tilemap_clearer}{Tilemap\+Clearer}} \mbox{\hyperlink{class_biome_sequence_controller_a6701f1b9d9c1731208d0c9a25ba3342d}{tilemap\+Clearer}}
+\item 
+int \mbox{\hyperlink{class_biome_sequence_controller_a1daf6056a53fb4ef04b781a4efc3658d}{current\+Biome\+Index}} = -\/1
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{class_room}{Room}} $>$ \mbox{\hyperlink{class_biome_sequence_controller_acfe24ebacf92d2fb12cc5cbc9c15295d}{Current\+Rooms}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Rooms of the current build. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Listens for "{}special room solved"{} and builds the next biome; keeps simple run snapshots. 
+
+\label{doc-func-members}
+\Hypertarget{class_biome_sequence_controller_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_biome_sequence_controller_a3fa6b6ed0a6a31efb40dc6cdd009904e}\index{BiomeSequenceController@{BiomeSequenceController}!NextBiome@{NextBiome}}
+\index{NextBiome@{NextBiome}!BiomeSequenceController@{BiomeSequenceController}}
+\doxysubsubsection{\texorpdfstring{NextBiome()}{NextBiome()}}
+{\footnotesize\ttfamily \label{class_biome_sequence_controller_a3fa6b6ed0a6a31efb40dc6cdd009904e} 
+void Biome\+Sequence\+Controller.\+Next\+Biome (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Kick off building the next biome. 
+
+\Hypertarget{class_biome_sequence_controller_a7f0b271f6578ab02584cc7407acaf698}\index{BiomeSequenceController@{BiomeSequenceController}!StartFirstBiome@{StartFirstBiome}}
+\index{StartFirstBiome@{StartFirstBiome}!BiomeSequenceController@{BiomeSequenceController}}
+\doxysubsubsection{\texorpdfstring{StartFirstBiome()}{StartFirstBiome()}}
+{\footnotesize\ttfamily \label{class_biome_sequence_controller_a7f0b271f6578ab02584cc7407acaf698} 
+void Biome\+Sequence\+Controller.\+Start\+First\+Biome (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Begin the sequence from biome 0. 
+
+Resets \doxylink{class_biome_sequence_controller_a1daf6056a53fb4ef04b781a4efc3658d}{current\+Biome\+Index} then advances to the first biome. \Hypertarget{class_biome_sequence_controller_a7a81e37cec957ebb7ee6b6a9a6895b3b}\index{BiomeSequenceController@{BiomeSequenceController}!TryRestartCurrentBiome@{TryRestartCurrentBiome}}
+\index{TryRestartCurrentBiome@{TryRestartCurrentBiome}!BiomeSequenceController@{BiomeSequenceController}}
+\doxysubsubsection{\texorpdfstring{TryRestartCurrentBiome()}{TryRestartCurrentBiome()}}
+{\footnotesize\ttfamily \label{class_biome_sequence_controller_a7a81e37cec957ebb7ee6b6a9a6895b3b} 
+void Biome\+Sequence\+Controller.\+Try\+Restart\+Current\+Biome (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_biome_sequence_controller_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_biome_sequence_controller_a9a391675e7ba2ba2aeca881ab8d04734}\index{BiomeSequenceController@{BiomeSequenceController}!biomes@{biomes}}
+\index{biomes@{biomes}!BiomeSequenceController@{BiomeSequenceController}}
+\doxysubsubsection{\texorpdfstring{biomes}{biomes}}
+{\footnotesize\ttfamily \label{class_biome_sequence_controller_a9a391675e7ba2ba2aeca881ab8d04734} 
+List$<$\mbox{\hyperlink{class_biome_sequence_controller_1_1_biome_entry}{Biome\+Entry}}$>$ Biome\+Sequence\+Controller.\+biomes = new List$<$\mbox{\hyperlink{class_biome_sequence_controller_1_1_biome_entry}{Biome\+Entry}}$>$()}
+
+\Hypertarget{class_biome_sequence_controller_a1daf6056a53fb4ef04b781a4efc3658d}\index{BiomeSequenceController@{BiomeSequenceController}!currentBiomeIndex@{currentBiomeIndex}}
+\index{currentBiomeIndex@{currentBiomeIndex}!BiomeSequenceController@{BiomeSequenceController}}
+\doxysubsubsection{\texorpdfstring{currentBiomeIndex}{currentBiomeIndex}}
+{\footnotesize\ttfamily \label{class_biome_sequence_controller_a1daf6056a53fb4ef04b781a4efc3658d} 
+int Biome\+Sequence\+Controller.\+current\+Biome\+Index = -\/1}
+
+\Hypertarget{class_biome_sequence_controller_a3542dfff9dcbcdbb58a773637a992328}\index{BiomeSequenceController@{BiomeSequenceController}!dungeonController@{dungeonController}}
+\index{dungeonController@{dungeonController}!BiomeSequenceController@{BiomeSequenceController}}
+\doxysubsubsection{\texorpdfstring{dungeonController}{dungeonController}}
+{\footnotesize\ttfamily \label{class_biome_sequence_controller_a3542dfff9dcbcdbb58a773637a992328} 
+\mbox{\hyperlink{class_dungeon_controller}{Dungeon\+Controller}} Biome\+Sequence\+Controller.\+dungeon\+Controller}
+
+\Hypertarget{class_biome_sequence_controller_a0f163376a41c12f9dbf47988040bc146}\index{BiomeSequenceController@{BiomeSequenceController}!spawnSelector@{spawnSelector}}
+\index{spawnSelector@{spawnSelector}!BiomeSequenceController@{BiomeSequenceController}}
+\doxysubsubsection{\texorpdfstring{spawnSelector}{spawnSelector}}
+{\footnotesize\ttfamily \label{class_biome_sequence_controller_a0f163376a41c12f9dbf47988040bc146} 
+\mbox{\hyperlink{class_spawn_selector}{Spawn\+Selector}} Biome\+Sequence\+Controller.\+spawn\+Selector}
+
+\Hypertarget{class_biome_sequence_controller_aab2265709eda9e331998130c31d0803e}\index{BiomeSequenceController@{BiomeSequenceController}!specialRoomSeeder@{specialRoomSeeder}}
+\index{specialRoomSeeder@{specialRoomSeeder}!BiomeSequenceController@{BiomeSequenceController}}
+\doxysubsubsection{\texorpdfstring{specialRoomSeeder}{specialRoomSeeder}}
+{\footnotesize\ttfamily \label{class_biome_sequence_controller_aab2265709eda9e331998130c31d0803e} 
+\mbox{\hyperlink{class_special_room_seeder}{Special\+Room\+Seeder}} Biome\+Sequence\+Controller.\+special\+Room\+Seeder}
+
+\Hypertarget{class_biome_sequence_controller_a6701f1b9d9c1731208d0c9a25ba3342d}\index{BiomeSequenceController@{BiomeSequenceController}!tilemapClearer@{tilemapClearer}}
+\index{tilemapClearer@{tilemapClearer}!BiomeSequenceController@{BiomeSequenceController}}
+\doxysubsubsection{\texorpdfstring{tilemapClearer}{tilemapClearer}}
+{\footnotesize\ttfamily \label{class_biome_sequence_controller_a6701f1b9d9c1731208d0c9a25ba3342d} 
+\mbox{\hyperlink{class_tilemap_clearer}{Tilemap\+Clearer}} Biome\+Sequence\+Controller.\+tilemap\+Clearer}
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_biome_sequence_controller_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_biome_sequence_controller_acfe24ebacf92d2fb12cc5cbc9c15295d}\index{BiomeSequenceController@{BiomeSequenceController}!CurrentRooms@{CurrentRooms}}
+\index{CurrentRooms@{CurrentRooms}!BiomeSequenceController@{BiomeSequenceController}}
+\doxysubsubsection{\texorpdfstring{CurrentRooms}{CurrentRooms}}
+{\footnotesize\ttfamily \label{class_biome_sequence_controller_acfe24ebacf92d2fb12cc5cbc9c15295d} 
+List$<$\mbox{\hyperlink{class_room}{Room}}$>$ Biome\+Sequence\+Controller.\+Current\+Rooms\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Rooms of the current build. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+Dungeon/\+Biomes/\mbox{\hyperlink{_biome_sequence_controller_8cs}{Biome\+Sequence\+Controller.\+cs}}\end{DoxyCompactItemize}

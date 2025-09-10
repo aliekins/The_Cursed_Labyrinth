@@ -1,0 +1,142 @@
+\doxysection{Dungeon\+Grid Class Reference}
+\hypertarget{class_dungeon_grid}{}\label{class_dungeon_grid}\index{DungeonGrid@{DungeonGrid}}
+
+
+Backing 2D grid for dungeon generation and queries.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_dungeon_grid_accca908f72de4b2fda5971fd1bbb96d6}{Dungeon\+Grid}} (int w, int h)
+\begin{DoxyCompactList}\small\item\em Create a grid initialized to wall. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_dungeon_grid_ac46a1150a772beb784eee04cff326f2b}{Is\+Rect\+Clear\+With\+Margin}} (Rect\+Int r, int margin)
+\begin{DoxyCompactList}\small\item\em Is every cell in rect still solid "{}wall"{}? \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_dungeon_grid_afbbe032df7692c77d6ab99ac2eb9390b}{Carve\+Room}} (Rect\+Int r, string floor\+Kind)
+\begin{DoxyCompactList}\small\item\em Carve a rectangular area as a spec floor kind. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_dungeon_grid_a80cf0d53a3a5931e7553c930da7c67cd}{In\+Bounds}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Check bounds. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_dungeon_grid_a6370e1da64f01a058d07077f7b2439a7}{Ensure\+Room\+Id}} ()
+\begin{DoxyCompactList}\small\item\em Allocate/clear Room\+Id map. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+readonly int \mbox{\hyperlink{class_dungeon_grid_ae66e99c601a1fa7b81590f2575a193a6}{Width}}
+\item 
+readonly int \mbox{\hyperlink{class_dungeon_grid_a951529b1aa98ceb253e644c071ae2e7f}{Height}}
+\item 
+readonly string\mbox{[},\mbox{]} \mbox{\hyperlink{class_dungeon_grid_a40706398dd40d87656eebf50e30a9a16}{Kind}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+int\mbox{[},\mbox{]} \mbox{\hyperlink{class_dungeon_grid_a0bc0190547f32b27bacbbcf4b2039b2e}{Room\+Id}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Integer room index per cell. -\/1 = corridor/none. Sized \mbox{[}Width,Height\mbox{]}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Backing 2D grid for dungeon generation and queries. 
+
+Backing 2D grid for dungeon generation and queries. 
+
+\label{doc-constructors}
+\Hypertarget{class_dungeon_grid_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_dungeon_grid_accca908f72de4b2fda5971fd1bbb96d6}\index{DungeonGrid@{DungeonGrid}!DungeonGrid@{DungeonGrid}}
+\index{DungeonGrid@{DungeonGrid}!DungeonGrid@{DungeonGrid}}
+\doxysubsubsection{\texorpdfstring{DungeonGrid()}{DungeonGrid()}}
+{\footnotesize\ttfamily \label{class_dungeon_grid_accca908f72de4b2fda5971fd1bbb96d6} 
+Dungeon\+Grid.\+Dungeon\+Grid (\begin{DoxyParamCaption}\item[{int}]{w}{, }\item[{int}]{h}{}\end{DoxyParamCaption})}
+
+
+
+Create a grid initialized to wall. 
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_dungeon_grid_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_dungeon_grid_afbbe032df7692c77d6ab99ac2eb9390b}\index{DungeonGrid@{DungeonGrid}!CarveRoom@{CarveRoom}}
+\index{CarveRoom@{CarveRoom}!DungeonGrid@{DungeonGrid}}
+\doxysubsubsection{\texorpdfstring{CarveRoom()}{CarveRoom()}}
+{\footnotesize\ttfamily \label{class_dungeon_grid_afbbe032df7692c77d6ab99ac2eb9390b} 
+void Dungeon\+Grid.\+Carve\+Room (\begin{DoxyParamCaption}\item[{Rect\+Int}]{r}{, }\item[{string}]{floor\+Kind}{}\end{DoxyParamCaption})}
+
+
+
+Carve a rectangular area as a spec floor kind. 
+
+\Hypertarget{class_dungeon_grid_a6370e1da64f01a058d07077f7b2439a7}\index{DungeonGrid@{DungeonGrid}!EnsureRoomId@{EnsureRoomId}}
+\index{EnsureRoomId@{EnsureRoomId}!DungeonGrid@{DungeonGrid}}
+\doxysubsubsection{\texorpdfstring{EnsureRoomId()}{EnsureRoomId()}}
+{\footnotesize\ttfamily \label{class_dungeon_grid_a6370e1da64f01a058d07077f7b2439a7} 
+void Dungeon\+Grid.\+Ensure\+Room\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Allocate/clear Room\+Id map. 
+
+\Hypertarget{class_dungeon_grid_a80cf0d53a3a5931e7553c930da7c67cd}\index{DungeonGrid@{DungeonGrid}!InBounds@{InBounds}}
+\index{InBounds@{InBounds}!DungeonGrid@{DungeonGrid}}
+\doxysubsubsection{\texorpdfstring{InBounds()}{InBounds()}}
+{\footnotesize\ttfamily \label{class_dungeon_grid_a80cf0d53a3a5931e7553c930da7c67cd} 
+bool Dungeon\+Grid.\+In\+Bounds (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})}
+
+
+
+Check bounds. 
+
+\Hypertarget{class_dungeon_grid_ac46a1150a772beb784eee04cff326f2b}\index{DungeonGrid@{DungeonGrid}!IsRectClearWithMargin@{IsRectClearWithMargin}}
+\index{IsRectClearWithMargin@{IsRectClearWithMargin}!DungeonGrid@{DungeonGrid}}
+\doxysubsubsection{\texorpdfstring{IsRectClearWithMargin()}{IsRectClearWithMargin()}}
+{\footnotesize\ttfamily \label{class_dungeon_grid_ac46a1150a772beb784eee04cff326f2b} 
+bool Dungeon\+Grid.\+Is\+Rect\+Clear\+With\+Margin (\begin{DoxyParamCaption}\item[{Rect\+Int}]{r}{, }\item[{int}]{margin}{}\end{DoxyParamCaption})}
+
+
+
+Is every cell in rect still solid "{}wall"{}? 
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_dungeon_grid_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_dungeon_grid_a951529b1aa98ceb253e644c071ae2e7f}\index{DungeonGrid@{DungeonGrid}!Height@{Height}}
+\index{Height@{Height}!DungeonGrid@{DungeonGrid}}
+\doxysubsubsection{\texorpdfstring{Height}{Height}}
+{\footnotesize\ttfamily \label{class_dungeon_grid_a951529b1aa98ceb253e644c071ae2e7f} 
+readonly int Dungeon\+Grid.\+Height}
+
+\Hypertarget{class_dungeon_grid_a40706398dd40d87656eebf50e30a9a16}\index{DungeonGrid@{DungeonGrid}!Kind@{Kind}}
+\index{Kind@{Kind}!DungeonGrid@{DungeonGrid}}
+\doxysubsubsection{\texorpdfstring{Kind}{Kind}}
+{\footnotesize\ttfamily \label{class_dungeon_grid_a40706398dd40d87656eebf50e30a9a16} 
+readonly string \mbox{[},\mbox{]} Dungeon\+Grid.\+Kind}
+
+\Hypertarget{class_dungeon_grid_ae66e99c601a1fa7b81590f2575a193a6}\index{DungeonGrid@{DungeonGrid}!Width@{Width}}
+\index{Width@{Width}!DungeonGrid@{DungeonGrid}}
+\doxysubsubsection{\texorpdfstring{Width}{Width}}
+{\footnotesize\ttfamily \label{class_dungeon_grid_ae66e99c601a1fa7b81590f2575a193a6} 
+readonly int Dungeon\+Grid.\+Width}
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_dungeon_grid_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_dungeon_grid_a0bc0190547f32b27bacbbcf4b2039b2e}\index{DungeonGrid@{DungeonGrid}!RoomId@{RoomId}}
+\index{RoomId@{RoomId}!DungeonGrid@{DungeonGrid}}
+\doxysubsubsection{\texorpdfstring{RoomId}{RoomId}}
+{\footnotesize\ttfamily \label{class_dungeon_grid_a0bc0190547f32b27bacbbcf4b2039b2e} 
+int \mbox{[},\mbox{]} Dungeon\+Grid.\+Room\+Id\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Integer room index per cell. -\/1 = corridor/none. Sized \mbox{[}Width,Height\mbox{]}. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+Dungeon/\+Grid\+And\+Indexing/\mbox{\hyperlink{_dungeon_grid_8cs}{Dungeon\+Grid.\+cs}}\end{DoxyCompactItemize}

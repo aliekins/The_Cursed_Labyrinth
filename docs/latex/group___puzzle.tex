@@ -1,0 +1,25 @@
+\doxysubsection{Puzzle }
+\hypertarget{group___puzzle}{}\label{group___puzzle}\index{Puzzle@{Puzzle}}
+Collaboration diagram for Puzzle\+:
+% FIG 0
+\doxysubsubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \mbox{\hyperlink{_sword_door_8cs}{Sword\+Door.\+cs}}
+\begin{DoxyCompactList}\small\item\em Door in the sword room\+: consumes swords and opens when the puzzle is solved. \end{DoxyCompactList}\item 
+file \mbox{\hyperlink{_sword_room_solver_8cs}{Sword\+Room\+Solver.\+cs}}
+\begin{DoxyCompactList}\small\item\em Counter puzzle\+: feed N swords to open the door. \end{DoxyCompactList}\item 
+file \mbox{\hyperlink{_lever_listener_8cs}{Lever\+Listener.\+cs}}
+\begin{DoxyCompactList}\small\item\em Reads a \doxylink{class_toggle_sprite_on_use}{Toggle\+Sprite\+On\+Use} and emits an event when pulled down. \end{DoxyCompactList}\item 
+file \mbox{\hyperlink{_lever_room_solver_8cs}{Lever\+Room\+Solver.\+cs}}
+\begin{DoxyCompactList}\small\item\em Orders colored levers; pull them in sequence under a time limit. \end{DoxyCompactList}\item 
+file \mbox{\hyperlink{_cursed_item_respawn_manager_8cs}{Cursed\+Item\+Respawn\+Manager.\+cs}}
+\begin{DoxyCompactList}\small\item\em One-\/shot relocation per registration for cursed pickups. \end{DoxyCompactList}\item 
+file \mbox{\hyperlink{_cursed_item_solver_8cs}{Cursed\+Item\+Solver.\+cs}}
+\begin{DoxyCompactList}\small\item\em Pedestal logic for the cursed items puzzle (Skull, Heart, Crown). \end{DoxyCompactList}\item 
+file \mbox{\hyperlink{_i_special_solver_8cs}{ISpecial\+Solver.\+cs}}
+\begin{DoxyCompactList}\small\item\em contract for special room solvers to signal completion \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+Cursed items puzzle and related systems. 

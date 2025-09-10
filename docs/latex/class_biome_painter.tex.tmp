@@ -1,0 +1,41 @@
+\doxysection{Biome\+Painter Class Reference}
+\hypertarget{class_biome_painter}{}\label{class_biome_painter}\index{BiomePainter@{BiomePainter}}
+
+
+Points the \doxylink{class_tilemap_visualizer}{Tilemap\+Visualizer} to specific Ground/\+Carpet/\+Wall tilemaps using reflection.  
+
+
+
+
+Inheritance diagram for Biome\+Painter\+:
+% FIG 0
+
+
+Collaboration diagram for Biome\+Painter\+:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_biome_painter_ade38c2f60dc3ed6771f791bc2822df77}{Override\+Tilemaps}} (Tilemap ground, Tilemap carpet, Tilemap wall)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Points the \doxylink{class_tilemap_visualizer}{Tilemap\+Visualizer} to specific Ground/\+Carpet/\+Wall tilemaps using reflection. 
+
+Used when a special-\/room prefab brings its own tilemaps that should drive rendering. 
+
+\label{doc-func-members}
+\Hypertarget{class_biome_painter_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_biome_painter_ade38c2f60dc3ed6771f791bc2822df77}\index{BiomePainter@{BiomePainter}!OverrideTilemaps@{OverrideTilemaps}}
+\index{OverrideTilemaps@{OverrideTilemaps}!BiomePainter@{BiomePainter}}
+\doxysubsubsection{\texorpdfstring{OverrideTilemaps()}{OverrideTilemaps()}}
+{\footnotesize\ttfamily \label{class_biome_painter_ade38c2f60dc3ed6771f791bc2822df77} 
+void Biome\+Painter.\+Override\+Tilemaps (\begin{DoxyParamCaption}\item[{Tilemap}]{ground}{, }\item[{Tilemap}]{carpet}{, }\item[{Tilemap}]{wall}{}\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Assets/\+Scripts/\+Dungeon/\+Biomes/\mbox{\hyperlink{_biome_painter_8cs}{Biome\+Painter.\+cs}}\end{DoxyCompactItemize}
