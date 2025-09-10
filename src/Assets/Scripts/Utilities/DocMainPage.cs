@@ -29,8 +29,8 @@ You will see the ghost of the slain beast appear in different forms at doors or 
 He will not harm you, just give you a hint and disappear.
 
 @section death_refresh Death and Refresh
-- **Death (HP = 0):**The game restarts from the beginning (Biome 0).
-- **Refresh:**Restarts only the current biome. Your inventory is restored to the one you had when you entered this biome.
+- Death (HP = 0): The game restarts from the beginning (Biome 0).
+- Refresh: Restarts only the current biome. Your inventory is restored to the one you had when you entered this biome.
 
 @section tips Tips
 - If E/Q does not do anything, step a little closer to the object and try again.
