@@ -26,8 +26,9 @@ var searchData=
   ['isspecial_23',['isSpecial',['../class_pickup_item.html#abbf2c99083db07dc46382b462ab0f3b7',1,'PickupItem']]],
   ['item_24',['Item',['../class_item.html',1,'']]],
   ['item_2ecs_25',['Item.cs',['../_item_8cs.html',1,'']]],
-  ['itemtype_26',['ItemType',['../class_item.html#ab5eeb575e9d66ebcfef9b58b667fad05',1,'Item']]],
-  ['itemtype_27',['itemType',['../class_item.html#adbecc774c576b08f57f32655acf7363d',1,'Item']]],
-  ['itemvisualdb_28',['ItemVisualDB',['../class_item_visual_d_b.html',1,'']]],
-  ['itemvisualdb_2ecs_29',['ItemVisualDB.cs',['../_item_visual_d_b_8cs.html',1,'']]]
+  ['items_26',['Items',['../index.html#items',1,'']]],
+  ['itemtype_27',['ItemType',['../class_item.html#ab5eeb575e9d66ebcfef9b58b667fad05',1,'Item']]],
+  ['itemtype_28',['itemType',['../class_item.html#adbecc774c576b08f57f32655acf7363d',1,'Item']]],
+  ['itemvisualdb_29',['ItemVisualDB',['../class_item_visual_d_b.html',1,'']]],
+  ['itemvisualdb_2ecs_30',['ItemVisualDB.cs',['../_item_visual_d_b_8cs.html',1,'']]]
 ];

@@ -25,6 +25,7 @@
 var NAVTREE =
 [
   [ "The Cursed Labyrinth", "index.html", [
+    [ "The Cursed Labyrinth — Player Guide", "index.html", "index" ],
     [ "Topics", "topics.html", "topics" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -52,8 +53,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_biome_painter_8cs.html",
-"class_lever_listener.html#a0f6cd9a7391762a33c54fc07a6db58a0",
-"classes.html"
+"class_lever_listener.html",
+"class_wall_strategy.html#ab3a1bc88307529c61ddcc8a30d78009c"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

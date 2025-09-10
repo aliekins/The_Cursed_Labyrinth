@@ -12,11 +12,12 @@ var searchData=
   ['allowpotions_9',['allowPotions',['../struct_prop_populator_1_1_drop_policy.html#a26bbbba3b3e9beff3d4fc411241ad151',1,'PropPopulator::DropPolicy']]],
   ['allowswords_10',['allowSwords',['../struct_prop_populator_1_1_drop_policy.html#a0facf402ba4e8a7f101092f9fcc0fa56',1,'PropPopulator::DropPolicy']]],
   ['and_20indexing_11',['Grid and Indexing',['../group___grid.html',1,'']]],
-  ['any_12',['Any',['../class_prop_strategy_base_1_1_simple_prop.html#a27ebb0b66873bcf6c65184dcf9fde7e1aed36a1ef76a59ee3f15180e0441188ad',1,'PropStrategyBase::SimpleProp']]],
-  ['aport_13',['APort',['../class_special_room_planner_1_1_forced_link.html#a6904193414980eb54d7bdfdb587256e6',1,'SpecialRoomPlanner::ForcedLink']]],
-  ['appearat_14',['AppearAt',['../class_ghost_hint_agent.html#a1c78888d93b554c3ce8796eee8027de2',1,'GhostHintAgent']]],
-  ['applysnapshot_15',['ApplySnapshot',['../class_player_inventory.html#a44173903f1dfcb095a24ac406d79aa7e',1,'PlayerInventory']]],
-  ['area_16',['Area',['../class_room_info.html#adb25015742e123c05f5390254a67509d',1,'RoomInfo']]],
-  ['autopickup_17',['autoPickup',['../class_pickup_item.html#a75813d1861cfa66c20053ae5ff519332',1,'PickupItem']]],
-  ['autoresetonfail_18',['autoResetOnFail',['../class_lever_room_solver.html#abba0012d4b7ec02be3b2977d9304c0ca',1,'LeverRoomSolver']]]
+  ['and_20refresh_12',['Death and Refresh',['../index.html#death_refresh',1,'']]],
+  ['any_13',['Any',['../class_prop_strategy_base_1_1_simple_prop.html#a27ebb0b66873bcf6c65184dcf9fde7e1aed36a1ef76a59ee3f15180e0441188ad',1,'PropStrategyBase::SimpleProp']]],
+  ['aport_14',['APort',['../class_special_room_planner_1_1_forced_link.html#a6904193414980eb54d7bdfdb587256e6',1,'SpecialRoomPlanner::ForcedLink']]],
+  ['appearat_15',['AppearAt',['../class_ghost_hint_agent.html#a1c78888d93b554c3ce8796eee8027de2',1,'GhostHintAgent']]],
+  ['applysnapshot_16',['ApplySnapshot',['../class_player_inventory.html#a44173903f1dfcb095a24ac406d79aa7e',1,'PlayerInventory']]],
+  ['area_17',['Area',['../class_room_info.html#adb25015742e123c05f5390254a67509d',1,'RoomInfo']]],
+  ['autopickup_18',['autoPickup',['../class_pickup_item.html#a75813d1861cfa66c20053ae5ff519332',1,'PickupItem']]],
+  ['autoresetonfail_19',['autoResetOnFail',['../class_lever_room_solver.html#abba0012d4b7ec02be3b2977d9304c0ca',1,'LeverRoomSolver']]]
 ];
